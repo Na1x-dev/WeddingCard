@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Александр и Михаил | Свадебное приглашение</title>
+    <!-- Подключение красивых шрифтов Google Fonts -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <header class="hero">
+        <div class="hero-monogram">A&M</div>
+        <h1 class="hero-title">Александр & Михаил</h1>
+        <div class="hero-date">15.06.2026</div>
+    </header>
+
+    <nav class="menu">
+        <a href="#about">Приглашение</a>
+        <a href="#countdown-section">До свадьбы</a>
+        <a href="#details">Детали</a>
+        <a href="#dress">Дресс-код</a>
+        <a href="#rsvp">RSVP</a>
+    </nav>
+
+    <section id="about">
+        <h2>Дорогие гости!</h2>
+        <p class="text-p">Один день в нашей жизни обещает быть особенным. Мы хотим провести его в окружении самых близких людей. С большим удовольствием приглашаем вас на нашу свадьбу!</p>
+    </section>
+
+    <!-- Блок с таймером -->
+    <section id="countdown-section">
+        <h2>Счетчик времени</h2>
+        <div class="countdown-container">
+            <div class="countdown-item">
+                <span id="days">00</span>
+                <p>дней</p>
+            </div>
+            <div class="countdown-item">
+                <span id="hours">00</span>
+                <p>часов</p>
+            </div>
+            <div class="countdown-item">
+                <span id="minutes">00</span>
+                <p>минут</p>
+            </div>
+            <div class="countdown-item">
+                <span id="seconds">00</span>
+                <p>секунд</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="details">
+        <h2>Когда и где</h2>
+        <div class="event-grid">
+            <div class="event-card">
+                <h3>Программа</h3>
+                <p><strong>14:00</strong> — Приветственный фуршет</p>
+                <p><strong>14:30</strong> — Торжественная церемония</p>
+                <p><strong>16:00</strong> — Свадебный ужин</p>
+            </div>
+            <div class="event-card">
+                <h3>Локация</h3>
+                <p>Усадьба Архангельское, Москва</p>
+                <p style="font-size: 0.85rem; color: #a1958a; margin-top: 10px;">Пожалуйста, позаботьтесь о комфортной обуви.</p>
+                <iframe class="map-box" src="https://yandex.ru"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="dress">
+        <h2>Дресс-код</h2>
+        <p class="text-p">Мы будем рады видеть вас в элегантных нарядах. Поддержать атмосферу праздника можно, выбрав одежду в палитре торжества:</p>
+        <div class="palette">
+            <div class="color-circle" style="background: #eddcd2;" title="Песочный"></div>
+            <div class="color-circle" style="background: #fff1e6;" title="Шампань"></div>
+            <div class="color-circle" style="background: #e2ecc8;" title="Оливковый"></div>
+            <div class="color-circle" style="background: #cfe2f3;" title="Небесно-голубой"></div>
+        </div>
+    </section>
+
+    <section id="rsvp">
+        <h2>Подтверждение присутствия</h2>
+        <p class="text-p" style="margin-bottom: 30px;">Пожалуйста, ответьте на вопросы до 1 мая 2026 года.</p>
+        
+        <form class="form-rsvp" id="rsvpForm">
+            <div class="input-block">
+                <label for="guest_name">Ваше имя и фамилия</label>
+                <input type="text" id="guest_name" name="guest_name" class="field-text" placeholder="Имя Фамилия" required>
+            </div>
+
+            <div class="input-block">
+                <label>Присутствие</label>
+                <div class="choice-group">
+                    <label class="choice-label"><input type="radio" name="attend" value="Да, с радостью" checked> Я приду</label>
+                    <label class="choice-label"><input type="radio" name="attend" value="К сожалению, нет"> Не смогу</label>
+                </div>
+            </div>
+
+            <div class="input-block">
+                <label>Пожелания по напиткам</label>
+                <div class="alcohol-grid">
+                    <label class="choice-label"><input type="checkbox" name="alcohol" value="Игристое"> Игристое вино</label>
+                    <label class="choice-label"><input type="checkbox" name="alcohol" value="Белое вино"> Белое вино</label>
+                    <label class="choice-label"><input type="checkbox" name="alcohol" value="Kрасное вино"> Красное вино</label>
+                    <label class="choice-label"><input type="checkbox" name="alcohol" value="Крепкий алкоголь"> Виски / Коньяк</label>
+                    <label class="choice-label"><input type="checkbox" name="alcohol" value="Коктейли"> Коктейли</label>
+                    <label class="choice-label"><input type="checkbox" name="alcohol" value="Без алкоголя"> Не пью алкоголь</label>
+                </div>
+            </div>
+
+            <div class="input-block">
+                <label for="wishes">Особые пожелания (меню, аллергии)</label>
+                <input type="text" id="wishes" name="wishes" class="field-text" placeholder="Например: вегетарианец">
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">Отправить ответ</button>
+            <div id="form-status"></div>
+        </form>
+    </section>
+</div>
+
+<script>
+    // Скрипт отправки формы в Google Таблицу
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwC_m4Qg1UfOv-u60cyOeb3PJA1-fXMe8J5KqO3RMgspUE6nX9q5NV69coaFeakirZE/exec";
+
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        const statusDiv = document.getElementById('form-status');
+        
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Отправка...";
+        statusDiv.style.color = "var(--text-main)";
+        statusDiv.innerText = "Пожалуйста, подождите...";
+
+        const checkedAlcohol = [];
+        document.querySelectorAll('input[name="alcohol"]:checked').forEach(cb => {
+            checkedAlcohol.push(cb.value);
+        });
+
+        const formData = {
+            guest_name: document.getElementById('guest_name').value,
+            attend: document.querySelector('input[name="attend"]:checked').value,
+            alcohol: checkedAlcohol.join(', '),
+            wishes: document.getElementById('wishes').value
+        };
+
+        fetch(WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        })
+        .then(() => {
+            statusDiv.style.color = "green";
+            statusDiv.innerText = "Спасибо! Ваш ответ успешно сохранен.";
+            submitBtn.innerText = "Отправлено";
+            document.getElementById('rsvpForm').reset();
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            statusDiv.style.color = "red";
+            statusDiv.innerText = "Ошибка отправки. Попробуйте еще раз.";
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Отправить ответ";
+        });
+    });
+
+    // Скрипт обратного отсчета (Дата: 15 июня 2026 года)
+    const targetDate = new Date("July 15, 2026 14:00:00").getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference < 0) {
+            document.getElementById("countdown-section").style.display = "none";
+            return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+</body>
+</html>
