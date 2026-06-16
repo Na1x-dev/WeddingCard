@@ -17,6 +17,8 @@
 
 body {
     font-family: var(--font-sans);
+    background-image: url('sources/pattern.png'); 
+    background-repeat: repeat; 
     background-color: var(--bg-color);
     color: var(--text-main);
     line-height: 1.7;

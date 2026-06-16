@@ -19,6 +19,7 @@
 ```text
 ├── index.html   # Разметка страницы, логика таймера и отправки RSVP
 ├── style.css    # Стили оформления, шрифты и адаптивная сетка
+├── sources      # Ресурсы страницы
 └── README.md    # Описание проекта
 ```
 
@@ -27,7 +28,27 @@
 ### 1. Настройка базы данных (Google Таблицы)
 1. Создайте Google Таблицу и добавьте в первую строку заголовки: `guest_name`, `attend`, `alcohol`, `wishes`.
 2. Откройте **Расширения -> Apps Script**.
-3. Вставьте код обработчика `doPost(e)` (код скрипта находится в истории переписки).
+3. Вставьте код обработчика `doPost(e)`:
+```code
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    // Запись данных в колонки A, B, C, D соответственно
+    sheet.appendRow([
+      data.guest_name,
+      data.attend,
+      data.alcohol,
+      data.wishes
+    ]);
+    return ContentService.createTextOutput(JSON.stringify({"result":"success"}))
+                         .setMimeType(ContentService.MimeType.JSON);
+  } catch(error) {
+    return ContentService.createTextOutput(JSON.stringify({"result":"error", "error": error}))
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+```
 4. Нажмите **Деплой -> Новое развертывание**. Выберите тип **Веб-приложение**, в поле *Кто имеет доступ* обязательно выберите **Все (Anyone)**.
 5. Скопируйте полученную ссылку веб-приложения и вставьте её в `index.html` в переменную `WEB_APP_URL`.
 
