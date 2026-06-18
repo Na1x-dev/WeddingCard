@@ -1,0 +1,46 @@
+:root {
+    --bg-color: #f1f5f0;
+    --card-bg: #f9fbf8;
+    --accent: #4a634e;
+    --text-main: #181d19;
+    --text-muted: #5a625b;
+    --accent-light: #e2ebe0;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--bg-color); 
+    /* background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMzAwIDMwMCI+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzRhNjM0ZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjIyIj4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NSwgNzUpIHJvdGF0ZSgxNSkiPgogICAg<circle cx="-10" cy="0" r="14"/>\n    <circle cx="10" cy="0" r="14"/>\n  </g>\n  <g transform="translate(225, 75) rotate(35)">\n    <path d="M-15,15 Q0,5 15,20 M-5,10 Q-10,0 -2,0 M5,12 Q10,2 18,5"/>\n  </g>\n  <g transform="translate(75, 225) rotate(-15)">\n    <path d="M-12,15 L12,15 M0,15 L0,-2 L-15,-20 L15,-20 Z"/>\n  </g>\n  <g transform="translate(225, 225) rotate(-10)">\n    <path d="M0,-8 C-8,-18 -22,-18 -22,-5 C-22,7 0,22 0,22 C0,22 22,7 22,-5 C22,-18 8,-18 0,-8 Z"/>\n  </g>\n</g>\n</svg>"); */
+    background-repeat: repeat;
+    background-size: 270px auto;
+}
+
+.wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Оптимизированные универсальные анимации */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-16px) rotate(8deg); }
+}
+@keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}

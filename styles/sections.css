@@ -1,0 +1,35 @@
+section {
+    background: var(--card-bg);
+    padding: 50px 40px;
+    text-align: center;
+    border-radius: 32px;
+    box-shadow: 0 10px 30px rgba(74, 99, 78, 0.03);
+    scroll-margin-top: 20px;
+}
+
+h2 { font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 20px; letter-spacing: -0.5px; }
+.text-p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
+
+/* Общий групповой селектор для скруглений внутренних карточек (Оптимизация кода) */
+.countdown-item, .event-card, .map-box { border-radius: 20px; background: var(--accent-light); }
+
+/* Таймер */
+.countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
+.countdown-item { padding: 20px 10px; min-width: 90px; flex: 1; max-width: 110px; }
+.countdown-item span { font-size: 2.2rem; font-weight: 800; color: var(--accent); display: block; line-height: 1; margin-bottom: 6px; }
+.countdown-item p { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+
+/* Сетка программы дня */
+.event-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 30px; text-align: left; }
+.event-card { padding: 24px; }
+.event-card h3 { font-size: 1.25rem; margin-bottom: 8px; font-weight: 800; color: var(--accent); }
+.event-card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 4px; }
+.map-box { width: 100%; height: 220px; border: none; margin-top: 15px; }
+
+/* Дресс-код палитра */
+.palette { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.color-circle { width: 50px; height: 50px; border-radius: 18px; }
+
+@media (min-width: 550px) {
+    .event-grid { grid-template-columns: 1fr 1fr; }
+}
