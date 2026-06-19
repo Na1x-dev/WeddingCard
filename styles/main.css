@@ -6,7 +6,6 @@
     --text-muted: #5a625b;
     --accent-light: #e2ebe0;
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    /* scroll-behavior: smooth; */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
