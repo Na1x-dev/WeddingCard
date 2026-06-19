@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="styles/sections.css">
         <link rel="stylesheet" href="styles/rsvp.css">
         <link rel="stylesheet" href="styles/responsive.css">
+        <link rel="stylesheet" href="styles/countdown.css">
         <!-- Всегда подключается самым последним -->
 
     </head>
@@ -51,31 +52,58 @@
             </header>
 
             <section id="about">
-                <h2>Дорогие гости!</h2>
-                <p class="text-p">Один день в нашей жизни обещает быть
-                    особенным. Мы хотим провести его в окружении самых близких
-                    людей. С большим удовольствием приглашаем вас на нашу
-                    свадьбу!</p>
-            </section>
+    <!-- Заголовок выплывает первым -->
+    <h2 class="reveal-text">Дорогие гости!</h2>
+    
+    <!-- Текст выплывает следом с легкой задержкой -->
+    <p class="text-p reveal-text delay-1">
+        Один день в нашей жизни обещает быть особенным. 
+        Мы хотим провести его в окружении самых близких людей. 
+        С большим удовольствием приглашаем вас на нашу свадьбу!
+    </p>
+</section>
 
-            <!-- Блок с таймером -->
             <section id="countdown-section">
-                <h2>Счетчик времени</h2>
+                <h2 class="countdown-title">До нашей свадьбы осталось</h2>
                 <div class="countdown-container">
+                    <!-- Дни -->
                     <div class="countdown-item">
-                        <span id="days">00</span>
+                        <div class="flip-card" id="days-card">
+                            <div class="digit-wrapper">
+                                <span class="current">00</span>
+                                <span class="next">00</span>
+                            </div>
+                        </div>
                         <p>дней</p>
                     </div>
+                    <!-- Часы -->
                     <div class="countdown-item">
-                        <span id="hours">00</span>
+                        <div class="flip-card" id="hours-card">
+                            <div class="digit-wrapper">
+                                <span class="current">00</span>
+                                <span class="next">00</span>
+                            </div>
+                        </div>
                         <p>часов</p>
                     </div>
+                    <!-- Минуты -->
                     <div class="countdown-item">
-                        <span id="minutes">00</span>
+                        <div class="flip-card" id="minutes-card">
+                            <div class="digit-wrapper">
+                                <span class="current">00</span>
+                                <span class="next">00</span>
+                            </div>
+                        </div>
                         <p>минут</p>
                     </div>
+                    <!-- Секунды -->
                     <div class="countdown-item">
-                        <span id="seconds">00</span>
+                        <div class="flip-card" id="seconds-card">
+                            <div class="digit-wrapper">
+                                <span class="current">00</span>
+                                <span class="next">00</span>
+                            </div>
+                        </div>
                         <p>секунд</p>
                     </div>
                 </div>

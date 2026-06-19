@@ -11,13 +11,7 @@ h2 { font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 2
 .text-p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
 
 /* Общий групповой селектор для скруглений внутренних карточек (Оптимизация кода) */
-.countdown-item, .event-card, .map-box { border-radius: 20px; background: var(--accent-light); }
-
-/* Таймер */
-.countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
-.countdown-item { padding: 20px 10px; min-width: 90px; flex: 1; max-width: 110px; }
-.countdown-item span { font-size: 2.2rem; font-weight: 800; color: var(--accent); display: block; line-height: 1; margin-bottom: 6px; }
-.countdown-item p { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+.event-card, .map-box { border-radius: 20px; background: var(--accent-light); }
 
 /* Сетка программы дня */
 .event-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 30px; text-align: left; }
@@ -32,4 +26,38 @@ h2 { font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 2
 
 @media (min-width: 550px) {
     .event-grid { grid-template-columns: 1fr 1fr; }
+}
+
+
+
+/* ==========================================================================
+   ЭФФЕКТ ВЫПЛЫВАНИЯ (SCROLL REVEAL) ДЛЯ ОБЩЕЙ КОМПОЗИЦИИ
+   ========================================================================== */
+
+/* Начальное состояние: элементы слегка опущены и прозрачны */
+.reveal-text {
+  opacity: 0;
+  transform: translateY(24px);
+  /* Премиальная, летящая анимация за счет кубического безье */
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+/* Класс, который JS включит при прокрутке */
+.reveal-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Элегантный каскад: текст проявляется чуть позже заголовка */
+.reveal-text.delay-1 {
+  transition-delay: 0.2s;
+}
+
+/* Адаптивный отступ для секций на мобильных (добавить в ваш @media (max-width: 600px), если он есть) */
+@media (max-width: 600px) {
+  section {
+    padding: 40px 20px; /* Делаем падинги чуть компактнее на смартфонах */
+  }
 }
