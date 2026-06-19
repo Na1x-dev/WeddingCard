@@ -37,7 +37,82 @@
 .p-branch-top   { top: 13%; right: 10%; background-image: url('../sources/dove-with-olive-branch.svg'); animation: floatSlow 9s infinite ease-in-out; animation-delay: 0.5s; }
 .p-branch-bottom{ bottom: 13%; left: 10%;  background-image: url('../sources/dove-with-olive-branch.svg'); animation: floatSlow 8s infinite ease-in-out; animation-delay: 2s; }
 
-/* Меню навигации */
-.menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; padding: 10px; }
-.menu a { text-decoration: none; color: var(--text-muted); font-size: 0.85rem; padding: 10px 22px; font-weight: 700; background-color: rgba(255, 255, 255, 0.6); border-radius: 100px; transition: all 0.2s ease; }
-.menu a:hover { color: var(--accent); background-color: var(--accent-light); }
+/* Базовый вид меню, когда оно встроено в страницу */
+.menu {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  z-index: 1000;
+}
+
+/* Ссылки в меню */
+.menu a {
+  text-decoration: none;
+  color: var(--text-muted, #666);
+  font-size: 0.85rem;
+  padding: 10px 18px;
+  font-weight: 700;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 100px;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+/* Активное состояние кнопки (Следящий фокус) */
+.menu a.active {
+  color: var(--card-bg, #fff) !important;
+  background-color: var(--accent, #4a634e) !important;
+  box-shadow: 0 4px 12px rgba(74, 99, 78, 0.15);
+  cursor: default; /* Меняет указатель мыши обратно на стрелку */
+  pointer-events: none; /* Физически запрещает клики и ховеры на CSS-уровне */
+}
+
+
+/* ЖЕСТКАЯ ФИКСАЦИЯ: Включается при скролле */
+.menu.menu--fixed {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 12px 20px;
+  background-color: rgba(241, 245, 240, 0.85); 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  transform: translateY(0);
+}
+
+/* Добавьте это свойство внутрь селектора .menu.menu--fixed если его там нет */
+.menu.menu--fixed {
+  transform: translateY(0);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease !important;
+}
+
+
+/* Умное скрытие фиксированного меню */
+.menu.menu--fixed.menu--hidden {
+  transform: translateY(-100%) !important;
+}
+
+/* АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ СМАРТФОНЫ */
+@media (max-width: 600px) {
+  .menu {
+    gap: 6px;
+    padding: 8px 4px;
+  }
+  .menu a {
+    font-size: 0.75rem;
+    padding: 8px 10px;
+  }
+  .menu.menu--fixed {
+    padding: 10px 6px;
+  }
+}
