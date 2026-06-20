@@ -1,160 +1,135 @@
 /* ==========================================================================
    НЕУБИВАЕМЫЙ ТАЙМЕР-ПЕРЕЛИСТЫВАНИЕ (ROLLING CLOCK)
    ========================================================================== */
+/* ==========================================================================
+   ОБНОВЛЕННЫЙ ТАЙМЕР В ЕДИНОМ СТИЛЕ С СЕКЦИЕЙ ABOUT
+   ========================================================================== */
 
 #countdown-section {
+  /* Свойства наследуются от общего селектора section: */
+  /* фон var(--card-bg), border-radius: 32px, box-shadow и padding */
   text-align: center;
-  padding: 40px 15px;
 }
 
-.countdown-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px; /* Отступ от текста до линий */
-  
-  font-size: 1.15rem; /* Сделали чуть аккуратнее и меньше */
-  font-weight: 300; /* Максимально тонкое, благородное начертание */
-  color: var(--text-dark, #4a4a4a);
-  text-transform: uppercase; /* Все буквы заглавные для журнального стиля */
-  letter-spacing: 3px; /* Элегантная разрядка между буквами */
-  margin-bottom: 35px;
-  width: 100%;
-  max-width: 520px; /* Чтобы линии не растягивались на весь экран */
-  margin-left: auto;
-  margin-right: auto;
+/* Заголовок приведен к общему стандарту секций (как в about) */
+#countdown-section h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
 }
 
-/* Изящные нитевидные линии по бокам от заголовка */
-.countdown-title::before,
-.countdown-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  /* Плавное угасание линии к краям под цвет вашего акцента */
-  background: linear-gradient(to var(--direction, left), rgba(74, 99, 78, 0.3), transparent);
-}
-
-/* Разворачиваем градиент для правой линии */
-.countdown-title::after {
-  --direction: right;
-}
-
-/* ==========================================================================
-   КОРРЕКЦИЯ ДЛЯ МОБИЛЬНЫХ (Вставить внутрь @media (max-width: 600px))
-   ========================================================================== */
-@media (max-width: 600px) {
-  .countdown-title {
-    font-size: 0.9rem; /* Ещё аккуратнее на смартфонах */
-    letter-spacing: 2px;
-    gap: 12px;
-    margin-bottom: 25px;
-    padding: 0 10px; /* Чтобы линии не упирались в края экрана */
-  }
-}
-
-
+/* Контейнер: строго 4 колонки в ряд всегда */
 .countdown-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 12px;
   max-width: 440px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .countdown-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
+/* Подписи под карточками */
 .countdown-item p {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 12px;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
 }
 
-/* Сама карточка. Она жестко скрывает всё, что выходит за её пределы */
-/* Сама карточка. Она жестко скрывает всё, что выходит за её пределы */
+/* Внутреннее окошко для цифр */
 .flip-card {
   position: relative;
   width: 100%;
   max-width: 85px;
-  height: 75px; /* Фиксированная высота окошка */
-  box-shadow: 0 10px 25px rgba(74, 99, 78, 0.06);
+  height: 75px; /* Высота на ПК */
+  box-shadow: 0 6px 20px rgba(74, 99, 78, 0.04);
   border-radius: 14px;
   background: var(--accent-light);
-  overflow: hidden; /* Скрывает вторую цифру */
+  overflow: hidden; /* Прячет вторую выезжающую цифру */
 }
 
-/* Обертка для двух цифр */
+/* Обертка для анимации сдвига */
 .digit-wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 150px; 
-  /* Настройка плавного выезда вверх */
+  height: 150px; /* 75px * 2 */
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
 }
 
-/* Технический класс для моментального возврата каретки без прыжков назад */
+/* Технический класс для бесшовного возврата каретки */
 .digit-wrapper.no-transition {
   transition: none !important;
 }
 
-/* Стили для самих цифр */
+/* Сами цифры */
 .digit-wrapper span {
   display: block;
   width: 100%;
   height: 75px; 
-  line-height: 75px; /* Идеальное центрирование текста по вертикали */
-  font-size: 2.6rem;
+  line-height: 75px; /* Идеальный центр по вертикали */
+  font-size: 2.4rem;
   font-weight: 800;
   color: var(--accent);
   text-align: center;
 }
 
-/* Анимация: сдвигаем обертку строго вверх на высоту одной цифры */
+/* Анимация: едем строго вверх */
 .digit-wrapper.animate {
   transform: translateY(-75px);
 }
 
-
 /* ==========================================================================
-   АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ СМАРТФОННЫ
+   АДАПТИВНОСТЬ: ВСЕ ЦИФРЫ В ОДИН РЯД НА МОБИЛЬНЫХ
    ========================================================================== */
 @media (max-width: 600px) {
-  .countdown-title {
-    font-size: 1.25rem;
+  /* Заголовок уменьшается синхронно со стилями сайта */
+  #countdown-section h2 {
+    font-size: 1.5rem;
     margin-bottom: 20px;
   }
-  
+
+  /* Сохраняем 4 колонки, уменьшая максимальную ширину и зазоры */
   .countdown-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px 12px;
-    max-width: 220px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    max-width: 300px;
   }
 
-.flip-card {
-    height: 65px;
+  /* Пропорционально уменьшаем высоту карточки, чтобы текст помещался */
+  .flip-card {
+    height: 58px;
+    border-radius: 10px;
   }
+  
   .digit-wrapper {
-    height: 130px;
+    height: 116px; /* 58px * 2 */
   }
+  
   .digit-wrapper span {
-    height: 65px;
-    line-height: 65px;
-    font-size: 2.1rem;
+    height: 58px;
+    line-height: 58px;
+    font-size: 1.8rem; /* Оптимальный размер шрифта в один ряд */
   }
+  
+  /* Сдвиг на мобильных под новую высоту */
   .digit-wrapper.animate {
-    transform: translateY(-65px);
+    transform: translateY(-58px);
   }
 
   .countdown-item p {
-    font-size: 0.7rem;
-    margin-top: 8px;
+    font-size: 0.65rem;
+    margin-top: 6px;
   }
 }
