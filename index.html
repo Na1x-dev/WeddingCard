@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Александр и Михаил | Свадебное приглашение</title>
         <!-- Подключение красивых шрифтов Google Fonts -->
+        <link rel="icon" type="image/png" href="sources/hearts.svg">
         <link rel="preconnect" href="https://googleapis.com">
         <link rel="preconnect" href="https://gstatic.com" crossorigin>
         <link
@@ -16,6 +17,8 @@
         <link rel="stylesheet" href="styles/rsvp.css">
         <link rel="stylesheet" href="styles/responsive.css">
         <link rel="stylesheet" href="styles/countdown.css">
+        <link rel="stylesheet" href="styles/details.css">
+        
         <!-- Всегда подключается самым последним -->
 
     </head>
@@ -52,18 +55,18 @@
             </header>
 
             <section id="about">
-    <!-- Заголовок выплывает первым -->
-    <h2 class="reveal-text">Дорогие гости!</h2>
-    
-    <!-- Текст выплывает следом с легкой задержкой -->
-    <p class="text-p reveal-text delay-1">
-        Один день в нашей жизни обещает быть особенным. 
-        Мы хотим провести его в окружении самых близких людей. 
-        С большим удовольствием приглашаем вас на нашу свадьбу!
-    </p>
-</section>
+                <!-- Заголовок выплывает первым -->
+                <h2 class="reveal-text">Дорогие гости!</h2>
 
-            <section id="countdown-section">
+                <!-- Текст выплывает следом с легкой задержкой -->
+                <p class="text-p reveal-text delay-1">
+                    Один день в нашей жизни обещает быть особенным.
+                    Мы хотим провести его в окружении самых близких людей.
+                    С большим удовольствием приглашаем вас на нашу свадьбу!
+                </p>
+            </section>
+
+            <section id="countdown-section" class="reveal-text">
                 <h2 class="countdown-title">До нашей свадьбы осталось</h2>
                 <div class="countdown-container">
                     <!-- Дни -->
@@ -109,30 +112,80 @@
                 </div>
             </section>
 
-            <section id="details">
+            <section id="details" class="reveal-text">
                 <h2>Когда и где</h2>
+
                 <div class="event-grid">
+                    <!-- Левая карточка: Программа дня -->
                     <div class="event-card">
-                        <h3>Программа</h3>
-                        <p><strong>14:00</strong> — Приветственный фуршет</p>
-                        <p><strong>14:30</strong> — Торжественная церемония</p>
-                        <p><strong>16:00</strong> — Свадебный ужин</p>
+                        <h3 class="card-title">Программа дня</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">13:30</div>
+                                <div class="timeline-desc">Сбор гостей и
+                                    приветственный коктейль</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">14:00</div>
+                                <div class="timeline-desc">Торжественная
+                                    выездная регистрация</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">14:40</div>
+                                <div class="timeline-desc">Поздравления и
+                                    свадебная фотосессия</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">16:00</div>
+                                <div class="timeline-desc">Свадебный праздничный
+                                    ужин</div>
+                            </div>
+                            <!-- Важно: добавили класс .last -->
+                            <div class="timeline-item last">
+                                <div class="timeline-time">21:30</div>
+                                <div class="timeline-desc">Праздничный торт и
+                                    завершение вечера</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="event-card">
-                        <h3>Локация</h3>
-                        <p>Усадьба Архангельское, Москва</p>
-                        <p
-                            style="font-size: 0.85rem; color: #a1958a; margin-top: 10px;">Пожалуйста,
-                            позаботьтесь о комфортной обуви.</p>
+
+                    <!-- Правая карточка: Локация (Полностью пересобрана структура) -->
+                    <div class="event-card location-card">
+                        <div class="location-header">
+                            <h3 class="card-title">Место проведения</h3>
+                            <p class="location-address">Агроусадьба Лесная
+                                мечта</p>
+                            <p class="location-city">Брест, Посёлок
+                                Костычи</p>
+                        </div>
+
+                        <!-- Интерактивная карта (Теперь идет сразу после заголовка) -->
                         <iframe class="map-box"
-                            src="https://yandex.ru"></iframe>
+                            src="https://yandex.ru/map-widget/v1/?um=constructor%3A639a338255ff89dcd4396ca7260c5f71c470027ec28b1bd31c8decd7815d7d80&amp;source=constructor"
+                            allowfullscreen="true"
+                            loading="lazy">
+                        </iframe>
+
+                        <!-- Блок действий под картой -->
+                        <div class="location-footer">
+                            <p class="location-note">📍 Пожалуйста, позаботьтесь
+                                о комфортной обуви для прогулок по парку.</p>
+
+                            <a href="https://yandex.by/maps/-/CTAPa8M0"
+                                target="_blank"
+                                class="material-btn">
+                                <span>Построить маршрут</span>
+                                <span class="btn-icon">→</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section id="dress">
+            <section id="dress" class="reveal-text">
                 <h2>Дресс-код</h2>
-                <p class="text-p">Мы будем рады видеть вас в элегантных нарядах.
+                <p class="text-p">Мы будем рады видеть вас в элегантных
+                    нарядах.
                     Поддержать атмосферу праздника можно, выбрав одежду в
                     палитре торжества:</p>
                 <div class="palette">
@@ -147,7 +200,7 @@
                 </div>
             </section>
 
-            <section id="rsvp">
+            <section id="rsvp" class="reveal-text">
                 <h2>Подтверждение присутствия</h2>
                 <p class="text-p" style="margin-bottom: 30px;">Пожалуйста,
                     ответьте на вопросы до 1 мая 2026 года.</p>
@@ -167,7 +220,8 @@
                                     name="attend" value="Да, с радостью"
                                     checked> Я приду</label>
                             <label class="choice-label"><input type="radio"
-                                    name="attend" value="К сожалению, нет"> Не
+                                    name="attend" value="К сожалению, нет">
+                                Не
                                 смогу</label>
                         </div>
                     </div>
@@ -175,23 +229,32 @@
                     <div class="input-block">
                         <label>Пожелания по напиткам</label>
                         <div class="alcohol-grid">
-                            <label class="choice-label"><input type="checkbox"
-                                    name="alcohol" value="Игристое"> Игристое
+                            <label class="choice-label"><input
+                                    type="checkbox"
+                                    name="alcohol" value="Игристое">
+                                Игристое
                                 вино</label>
-                            <label class="choice-label"><input type="checkbox"
+                            <label class="choice-label"><input
+                                    type="checkbox"
                                     name="alcohol" value="Белое вино"> Белое
                                 вино</label>
-                            <label class="choice-label"><input type="checkbox"
-                                    name="alcohol" value="Kрасное вино"> Красное
+                            <label class="choice-label"><input
+                                    type="checkbox"
+                                    name="alcohol" value="Kрасное вино">
+                                Красное
                                 вино</label>
-                            <label class="choice-label"><input type="checkbox"
+                            <label class="choice-label"><input
+                                    type="checkbox"
                                     name="alcohol" value="Крепкий алкоголь">
                                 Виски / Коньяк</label>
-                            <label class="choice-label"><input type="checkbox"
+                            <label class="choice-label"><input
+                                    type="checkbox"
                                     name="alcohol" value="Коктейли">
                                 Коктейли</label>
-                            <label class="choice-label"><input type="checkbox"
-                                    name="alcohol" value="Без алкоголя"> Не пью
+                            <label class="choice-label"><input
+                                    type="checkbox"
+                                    name="alcohol" value="Без алкоголя"> Не
+                                пью
                                 алкоголь</label>
                         </div>
                     </div>

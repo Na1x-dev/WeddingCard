@@ -10,24 +10,9 @@ section {
 h2 { font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 20px; letter-spacing: -0.5px; }
 .text-p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
 
-/* Общий групповой селектор для скруглений внутренних карточек (Оптимизация кода) */
-.event-card, .map-box { border-radius: 20px; background: var(--accent-light); }
-
-/* Сетка программы дня */
-.event-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 30px; text-align: left; }
-.event-card { padding: 24px; }
-.event-card h3 { font-size: 1.25rem; margin-bottom: 8px; font-weight: 800; color: var(--accent); }
-.event-card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 4px; }
-.map-box { width: 100%; height: 220px; border: none; margin-top: 15px; }
-
 /* Дресс-код палитра */
 .palette { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .color-circle { width: 50px; height: 50px; border-radius: 18px; }
-
-@media (min-width: 550px) {
-    .event-grid { grid-template-columns: 1fr 1fr; }
-}
-
 
 
 /* ==========================================================================

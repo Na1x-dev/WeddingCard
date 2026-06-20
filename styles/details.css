@@ -1,0 +1,194 @@
+/* ==========================================================================
+   ИСПРАВЛЕННАЯ СЕКЦИЯ ДЕТАЛЕЙ (МАТЕРИАЛ ДИЗАЙН И ФИКС ЛИНИИ)
+   ========================================================================== */
+
+#details {
+  /* Полностью наследует ваши общие стили section: background: var(--card-bg) и т.д. */
+  text-align: center;
+}
+
+.event-grid { 
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: 20px; 
+  margin-top: 28px; 
+  text-align: left; 
+}
+
+.event-card { 
+  background: var(--accent-light); 
+  border-radius: 28px; 
+  padding: 32px 24px; 
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title { 
+  font-size: 0.85rem; 
+  font-weight: 700; 
+  color: var(--text-muted); 
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   АБСОЛЮТНО КОРРЕКТНЫЙ ТАЙМЛАЙН (ЛИНИЯ ПРЕКРАЩАЕТСЯ НА ПОСЛЕДНЕЙ ТОЧКЕ)
+   ========================================================================== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 16px;
+  /* УДАЛИЛИ общую линию ::before отсюда */
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 24px; /* Зазор между событиями */
+}
+
+/* Направляючую линию теперь рисует каждый пункт индивидуально */
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: -12px; /* Выравниваем ровно по центру кружочка */
+  top: 14px;   /* Стартует строго от центра текущей точки */
+  bottom: 0;   /* Тянется до начала следующего пункта */
+  width: 2px;
+  background: rgba(74, 99, 78, 0.25);
+  z-index: 1;
+}
+
+/* МАГИЯ: Самый последний пункт больше не рисует линию вниз! */
+.timeline-item:last-child::after {
+  display: none !important;
+}
+
+/* Убираем лишний отступ снизу у самого последнего элемента */
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Изящные точки-индикаторы */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -17px; /* Центрируем поверх линии */
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  z-index: 2; /* Точка перекрывает линию сверху */
+}
+
+.timeline-time {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent);
+  z-index: 2;
+}
+
+.timeline-desc {
+  font-size: 1rem;
+  color: var(--text-main);
+  font-weight: 400;
+  line-height: 1.4;
+  z-index: 2;
+}
+
+
+/* ПЕРЕРАБОТАННАЯ КАРТОЧКА ЛОКАЦИИ */
+.location-card {
+  gap: 16px;
+}
+
+.location-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.location-card .card-title {
+  margin-bottom: 8px;
+}
+
+.location-address {
+  font-size: 1.4rem; /* Крупный, красивый заголовок места */
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.location-city {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.map-box { 
+  width: 100%; 
+  height: 200px; 
+  border: none; 
+  border-radius: 20px; 
+  background: var(--card-bg);
+}
+
+.location-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: auto; /* Прижимает блок к низу, выравнивая по высоте с левой картой */
+}
+
+.location-note {
+  font-size: 0.85rem; 
+  color: var(--text-muted); 
+  line-height: 1.5;
+  background: rgba(255, 255, 255, 0.4); /* Легкая подложка для важного примечания */
+  padding: 12px;
+  border-radius: 14px;
+}
+
+/* Кнопка-капсула */
+.material-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--accent);
+  color: var(--card-bg);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 14px 24px;
+  border-radius: 100px;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+}
+
+.material-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ
+   ========================================================================== */
+@media (min-width: 550px) {
+  .event-grid { 
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .map-box {
+    height: 220px; /* Идеальный баланс пропорций на десктопе */
+  }
+}
