@@ -1,47 +1,94 @@
 // Скрипт отправки формы в Google Таблицу
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwC_m4Qg1UfOv-u60cyOeb3PJA1-fXMe8J5KqO3RMgspUE6nX9q5NV69coaFeakirZE/exec";
+// const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwjrbGpAy_seUWcKBUf1LNVbADViJRPTlRfaYsb4mdFKxA_2d_N2rUdH3vGffI-KNks6Q/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxpal6eaY9GFuvcFbksjCkt1w3zWKXewYNNrJpZXzFa9TQDATTH73hi4ZYMzm3LdN3kUA/exec";
+document.addEventListener('DOMContentLoaded', () => {
+    const rsvpForm = document.getElementById('rsvpForm');
+    const additionalQuestions = document.getElementById('additional-questions');
+    const radioAttend = document.querySelectorAll('input[name="attend"]');
+    const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]');
+    const noAlcoholCheckbox = document.getElementById('no-alcohol');
 
-document.getElementById('rsvpForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const submitBtn = document.getElementById('submitBtn');
-    const statusDiv = document.getElementById('form-status');
-
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Отправка...";
-    statusDiv.style.color = "var(--text-main)";
-    statusDiv.innerText = "Пожалуйста, подождите...";
-
-    const checkedAlcohol = [];
-    document.querySelectorAll('input[name="alcohol"]:checked').forEach(cb => {
-        checkedAlcohol.push(cb.value);
+    // 1. Динамическое скрытие полей, если гость не придет
+    radioAttend.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === "К сожалению, нет") {
+                additionalQuestions.classList.add('hidden');
+            } else {
+                additionalQuestions.classList.remove('hidden');
+            }
+        });
     });
 
-    const formData = {
-        guest_name: document.getElementById('guest_name').value,
-        attend: document.querySelector('input[name="attend"]:checked').value,
-        alcohol: checkedAlcohol.join(', '),
-        wishes: document.getElementById('wishes').value
-    };
-
-    fetch(WEB_APP_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-    })
-        .then(() => {
-            statusDiv.style.color = "green";
-            statusDiv.innerText = "Спасибо! Ваш ответ успешно сохранен.";
-            submitBtn.innerText = "Отправлено";
-            document.getElementById('rsvpForm').reset();
-        })
-        .catch(error => {
-            console.error('Ошибка:', error);
-            statusDiv.style.color = "red";
-            statusDiv.innerText = "Ошибка отправки. Попробуйте еще раз.";
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Отправить ответ";
+    // 2. Логика алкогольных чипсов: если выбрано "Не пью", снимаем галочки с остальных
+    alcoholCheckboxes.forEach(cb => {
+        cb.addEventListener('change', (e) => {
+            if (e.target === noAlcoholCheckbox && noAlcoholCheckbox.checked) {
+                alcoholCheckboxes.forEach(item => {
+                    if (item !== noAlcoholCheckbox) item.checked = false;
+                });
+            } else if (e.target !== noAlcoholCheckbox && e.target.checked) {
+                noAlcoholCheckbox.checked = false;
+            }
         });
+    });
+
+    // 3. Безопасная отправка данных
+    if (rsvpForm) {
+        rsvpForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const statusDiv = document.getElementById('form-status');
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Отправка...";
+            statusDiv.style.color = "var(--text-main)";
+            statusDiv.innerText = "Пожалуйста, подождите...";
+
+            const attendValue = document.querySelector('input[name="attend"]:checked').value;
+            const checkedAlcohol = [];
+            
+            // Собираем алкоголь только если гость идет
+            if (attendValue !== "К сожалению, нет") {
+                document.querySelectorAll('input[name="alcohol"]:checked').forEach(cb => {
+                    checkedAlcohol.push(cb.value);
+                });
+            }
+
+            // Формируем безопасный URLSearchParams формат данных
+            const params = new URLSearchParams();
+            params.append('guest_name', document.getElementById('guest_name').value);
+            params.append('attend', attendValue);
+            params.append('alcohol', checkedAlcohol.length > 0 ? checkedAlcohol.join(', ') : '—');
+            params.append('wishes', attendValue !== "К сожалению, нет" ? document.getElementById('wishes').value : '—');
+
+            // Используем вашу ссылку на веб-приложение
+    
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'cors', // ВКЛЮЧАЕМ CORS для обработки ответов сервера
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response error');
+                return response.json();
+            })
+            .then(data => {
+                statusDiv.style.color = "#4A634E";
+                statusDiv.innerText = "Спасибо! Ваш ответ успешно сохранен.";
+                submitBtn.innerText = "Отправлено";
+                rsvpForm.reset();
+                additionalQuestions.classList.remove('hidden');
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                statusDiv.style.color = "#b3261e";
+                statusDiv.innerText = "Ошибка отправки. Попробуйте еще раз.";
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Отправить ответ";
+            });
+        });
+    }
 });
 
 // Скрипт обратного отсчета (Дата: 15 июня 2026 года)

@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="styles/responsive.css">
         <link rel="stylesheet" href="styles/countdown.css">
         <link rel="stylesheet" href="styles/details.css">
-        
+
         <!-- Всегда подключается самым последним -->
 
     </head>
@@ -206,6 +206,7 @@
                     ответьте на вопросы до 1 июля 2026 года.</p>
 
                 <form class="form-rsvp" id="rsvpForm">
+                    <!-- Блок имени -->
                     <div class="input-block">
                         <label for="guest_name">Ваше имя и фамилия</label>
                         <input type="text" id="guest_name" name="guest_name"
@@ -213,58 +214,71 @@
                             required>
                     </div>
 
+                    <!-- Блок присутствия -->
                     <div class="input-block">
-                        <label>Присутствие</label>
+                        <label>Сможете ли вы разделить с нами этот день?</label>
                         <div class="choice-group">
-                            <label class="choice-label"><input type="radio"
-                                    name="attend" value="Да, с радостью"
-                                    checked> Я приду</label>
-                            <label class="choice-label"><input type="radio"
-                                    name="attend" value="К сожалению, нет">
-                                Не
-                                смогу</label>
+                            <label class="choice-label">
+                                <input type="radio" name="attend"
+                                    value="Да, с радостью" checked>
+                                <span>Я приду</span>
+                            </label>
+                            <label class="choice-label">
+                                <input type="radio" name="attend"
+                                    value="К сожалению, нет">
+                                <span>Не смогу</span>
+                            </label>
                         </div>
                     </div>
 
-                    <div class="input-block">
-                        <label>Пожелания по напиткам</label>
-                        <div class="alcohol-grid">
-                            <label class="choice-label"><input
-                                    type="checkbox"
-                                    name="alcohol" value="Игристое">
-                                Игристое
-                                вино</label>
-                            <label class="choice-label"><input
-                                    type="checkbox"
-                                    name="alcohol" value="Белое вино"> Белое
-                                вино</label>
-                            <label class="choice-label"><input
-                                    type="checkbox"
-                                    name="alcohol" value="Kрасное вино">
-                                Красное
-                                вино</label>
-                            <label class="choice-label"><input
-                                    type="checkbox"
-                                    name="alcohol" value="Крепкий алкоголь">
-                                Виски / Коньяк</label>
-                            <label class="choice-label"><input
-                                    type="checkbox"
-                                    name="alcohol" value="Коктейли">
-                                Коктейли</label>
-                            <label class="choice-label"><input
-                                    type="checkbox"
-                                    name="alcohol" value="Без алкоголя"> Не
-                                пью
-                                алкоголь</label>
+                    <!-- Контейнер дополнительных вопросов (скрывается, если гость не придет) -->
+                    <div id="additional-questions" class="fade-container">
+                        <!-- Алкоголь в виде чипсов -->
+                        <div class="input-block">
+                            <label>Пожелания по напиткам (можно выбрать
+                                несколько)</label>
+                            <div class="alcohol-chips">
+                                <label class="chip-label">
+                                    <input type="checkbox" name="alcohol"
+                                        value="Игристое вино">
+                                    <span class="chip">🥂 Игристое вино</span>
+                                </label>
+                                <label class="chip-label">
+                                    <input type="checkbox" name="alcohol"
+                                        value="Белое вино">
+                                    <span class="chip">🥂 Белое вино</span>
+                                </label>
+                                <label class="chip-label">
+                                    <input type="checkbox" name="alcohol"
+                                        value="Красное вино">
+                                    <span class="chip">🍷 Красное вино</span>
+                                </label>
+                                <label class="chip-label">
+                                    <input type="checkbox" name="alcohol"
+                                        value="Виски / Коньяк">
+                                    <span class="chip">🥃 Виски / Коньяк</span>
+                                </label>
+                                <label class="chip-label">
+                                    <input type="checkbox" name="alcohol"
+                                        value="Коктейли">
+                                    <span class="chip">🍹 Коктейли</span>
+                                </label>
+                                <label class="chip-label">
+                                    <input type="checkbox" name="alcohol"
+                                        value="Без алкоголя" id="no-alcohol">
+                                    <span class="chip">🥤 Не пью алкоголь</span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="input-block">
-                        <label for="wishes">Особые пожелания (меню,
-                            аллергии)</label>
-                        <input type="text" id="wishes" name="wishes"
-                            class="field-text"
-                            placeholder="Например: вегетарианец">
+                        <!-- Предпочтения по еде -->
+                        <div class="input-block">
+                            <label for="wishes">Особые пожелания (меню,
+                                аллергии, детское кресло)</label>
+                            <input type="text" id="wishes" name="wishes"
+                                class="field-text"
+                                placeholder="Например: вегетарианец, аллергия на орехи">
+                        </div>
                     </div>
 
                     <button type="submit" class="btn-submit"
@@ -272,6 +286,7 @@
                     <div id="form-status"></div>
                 </form>
             </section>
+
         </div>
 
         <script src="script.js"></script>
