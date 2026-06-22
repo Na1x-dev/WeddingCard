@@ -1,3 +1,7 @@
+/* ==========================================================================
+   SECTION BASE STYLES
+   ========================================================================== */
+
 section {
     background: var(--card-bg);
     padding: 50px 40px;
@@ -7,150 +11,135 @@ section {
     scroll-margin-top: 20px;
 }
 
-h2 { font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 20px; letter-spacing: -0.5px; }
-.text-p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
+h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
 
-/* Дресс-код палитра */
-.palette { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.color-circle { width: 50px; height: 50px; border-radius: 18px; }
+.text-p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto;
+}
 
 
 /* ==========================================================================
-   ЭФФЕКТ ВЫПЛЫВАНИЯ (SCROLL REVEAL) ДЛЯ ОБЩЕЙ КОМПОЗИЦИИ
+   SCROLL REVEAL ANIMATION
    ========================================================================== */
 
-/* Начальное состояние: элементы слегка опущены и прозрачны */
 .reveal-text {
-  opacity: 0;
-  transform: translateY(24px);
-  /* Премиальная, летящая анимация за счет кубического безье */
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
 }
 
-/* Класс, который JS включит при прокрутке */
 .reveal-text.visible {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Элегантный каскад: текст проявляется чуть позже заголовка */
 .reveal-text.delay-1 {
-  transition-delay: 0.2s;
-}
-
-/* Адаптивный отступ для секций на мобильных (добавить в ваш @media (max-width: 600px), если он есть) */
-@media (max-width: 600px) {
-  section {
-    padding: 40px 20px; /* Делаем падинги чуть компактнее на смартфонах */
-  }
+    transition-delay: 0.2s;
 }
 
 
+/* ==========================================================================
+   DRESS CODE PALETTE
+   ========================================================================== */
 
-/* Прокачанный дресс-код: Палитра-кейс */
-.palette { 
-  display: inline-flex; 
-  justify-content: center; 
-  align-items: center;
-  flex-wrap: wrap; 
-  gap: 20px; /* Больше пространства между цветами */
-  margin-top: 36px; 
-  /* background: rgba(74, 99, 78, 0.03); Мягкая эко-подложка */
-  padding: 20px 28px;
-  border-radius: 24px;
-  /* Резервируем место снизу под всплывающие подсказки, чтобы контент страницы не прыгал */
-  padding-bottom: 44px; 
+.palette {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 36px;
+    padding: 20px 28px 44px;
+    border-radius: 24px;
 }
 
-.color-circle { 
-  width: 56px; 
-  height: 56px; 
-  border-radius: 18px; 
-  position: relative;
-  cursor: pointer;
-  box-shadow: 
-    0 4px 10px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.06); /* Тонкая внутренняя рамка вместо outline */
-  
-  /* Идеальный пружинистый переход для анимаций */
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  
-  /* Убираем синее выделение и подсветку тапа на смартфонах */
-  -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
-  user-select: none;
+.color-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    position: relative;
+    cursor: pointer;
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.04),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-/* Эффект нажатия (тапа) — плашка пружинит внутрь */
 .color-circle:active {
-  transform: scale(0.9) !important;
+    transform: scale(0.9) !important;
 }
 
-/* Наведение на десктопе */
 @media (hover: hover) {
-  .color-circle:hover {
-    transform: translateY(-6px) scale(1.05);
-    box-shadow: 
-      0 12px 20px rgba(74, 99, 78, 0.15),
-      inset 0 0 0 1px rgba(74, 99, 78, 0.2);
-  }
+    .color-circle:hover {
+        transform: translateY(-6px) scale(1.05);
+        box-shadow:
+            0 12px 20px rgba(74, 99, 78, 0.15),
+            inset 0 0 0 1px rgba(74, 99, 78, 0.2);
+    }
 }
 
-/* Красивое всплывающее облачко (Тултип) */
 .color-circle::after {
-  content: attr(title);
-  position: absolute;
-  bottom: -38px; /* Увеличили отступ от цвета */
-  left: 50%;
-  transform: translateX(-50%) scale(0.8); /* Стартует чуть уменьшенным */
-  background: var(--accent);
-  color: var(--card-bg);
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 10px;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  box-shadow: 0 6px 14px rgba(74, 99, 78, 0.2);
-  
-  /* Плавное проявление с изменением размера */
-  transition: 
-    opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-    transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    visibility 0.25s;
-  z-index: 10;
+    content: attr(title);
+    position: absolute;
+    bottom: -38px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background: var(--accent);
+    color: var(--card-bg);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0 6px 14px rgba(74, 99, 78, 0.2);
+    transition:
+        opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        visibility 0.25s;
+    z-index: 10;
 }
 
-/* Маленький аккуратный носик-стрелочка для облачка */
 .color-circle::before {
-  content: '';
-  position: absolute;
-  bottom: -16px; /* Позиция стрелочки строго между цветом и облачком */
-  left: 50%;
-  transform: translateX(-50%) scale(0.5);
-  border-width: 6px;
-  border-style: solid;
-  border-color: transparent transparent var(--accent) transparent; /* Рисуем треугольник вверх */
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  z-index: 11;
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.5);
+    border: 6px solid transparent;
+    border-top: none;
+    border-bottom-color: var(--accent);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 11;
 }
 
-/* Активация эффектов при наведении или удержании тапа */
 .color-circle:hover::after,
 .color-circle:active::after {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) scale(1); /* Распрямляется до оригинального размера */
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
 }
 
 .color-circle:hover::before,
 .color-circle:active::before {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) scale(1);
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
 }

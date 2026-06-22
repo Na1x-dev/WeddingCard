@@ -1,98 +1,201 @@
+/* ==========================================================================
+   ПРОКАЧАННАЯ СЕКЦИЯ RSVP (МАКСИМУМ ВОЗДУХА И МАТЕРИАЛ-СТИЛЬ)
+   ========================================================================== */
+
 .form-rsvp {
     max-width: 100%;
-    margin: 30px auto 0;
+    margin: 36px auto 0; /* Увеличили отступ от заголовка */
     text-align: left;
     background: var(--accent-light);
-    padding: 32px 24px;
+    padding: 40px 28px; /* Больше внутренних отступов для объема */
     border-radius: 28px;
 }
 
-.input-block { margin-bottom: 24px; }
+/* Увеличенные зазоры между блоками вопросов */
+.input-block { 
+    margin-bottom: 28px; 
+}
+
+/* Изящные, читаемые заголовки полей */
 .input-block label { 
     display: block; 
     font-size: 0.85rem; 
     font-weight: 700; 
-    margin-bottom: 10px; 
+    margin-bottom: 12px; /* Больше отступ до поля/кнопок */
     color: var(--accent); 
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
 }
 
+/* Воздушные текстовые поля */
 .field-text {
-    width: 100%; padding: 16px 20px; border: 2px solid transparent; border-radius: 16px;
-    font-family: inherit; font-size: 1rem; background: var(--card-bg); color: var(--text-main);
-    outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%; 
+    padding: 16px 20px; /* Увеличили внутренний отступ, поле стало выше и удобнее */
+    border: 2px solid transparent; 
+    border-radius: 16px;
+    font-family: inherit; 
+    font-size: 1rem; 
+    background: var(--card-bg); 
+    color: var(--text-main);
+    outline: none; 
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Мягкий фокус с левитацией поля */
 .field-text:focus { 
     border-color: var(--accent); 
-    box-shadow: 0 0 0 4px rgba(74, 99, 78, 0.1);
+    background: var(--card-bg);
+    box-shadow: 
+        0 8px 20px rgba(74, 99, 78, 0.06),
+        0 0 0 4px rgba(74, 99, 78, 0.1);
 }
 
-/* Радиокнопки */
-.choice-group { display: flex; gap: 16px; margin-top: 8px; }
+/* Переключатели присутствия (Да / Нет) */
+.choice-group { 
+    display: flex; 
+    gap: 12px; 
+    margin-top: 4px; 
+    width: 100%;
+}
+
 .choice-label { 
-    flex: 1;
+    flex: 1; /* Кнопки строго одинакового размера (по 50% ширины) */
     display: flex; 
     align-items: center; 
-    justify-content: center;
-    gap: 10px; 
-    padding: 14px;
+    justify-content: center; /* Текст встает идеально по центру плашки */
+    text-align: center;
+    padding: 16px 12px; /* Равномерные внутренние отступы со всех сторон */
     background: var(--card-bg);
-    border: 2px solid transparent;
+    border: 1px solid rgba(74, 99, 78, 0.15); /* Мягкая рамка в тон вашей зелени */
     border-radius: 16px;
-    font-size: 1rem; 
+    font-size: 0.95rem; 
     font-weight: 700; 
     color: var(--text-main); 
     cursor: pointer; 
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
+    white-space: nowrap;
     -webkit-tap-highlight-color: transparent;
 }
-.choice-label input { accent-color: var(--accent); transform: scale(1.2); }
-.choice-label:has(input:checked) {
-    border-color: var(--accent);
-    background: rgba(74, 99, 78, 0.05);
+
+/* МАГИЯ: Полностью и аккуратно прячем дефолтные кружочки, сохраняя доступность формы */
+.choice-label input { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
 }
 
-/* Новая сетка чипсов для алкоголя */
+/* Стиль кнопки, когда она выбрана гостем */
+.choice-label:has(input:checked) {
+    border-color: var(--accent);
+    background: rgba(74, 99, 78, 0.08); /* Приятный мягкий зеленый оттенок фона */
+    color: var(--accent); /* Текст тоже окрашивается в акцентный цвет */
+}
+
+
+/* Сетка чипсов для алкоголя */
+
+.chip-label input {
+    display: none; 
+}
+
+/* Компактный контейнер чипсов */
 .alcohol-chips { 
     display: flex; 
     flex-wrap: wrap; 
-    gap: 10px; 
+    gap: 8px 10px; /* Первый параметр — зазор между рядами, второй — между чипсами */
+    width: 100%;
 }
+
+/* Принудительно делаем обертку инлайновой, чтобы чипсы не прыгали на новые строки */
 .chip-label {
+    display: inline-flex;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 }
-.chip-label input {
-    display: none; /* Прячем дефолтный чекбокс */
-}
+
+/* Сам чипс */
 .chip {
     display: inline-block;
-    padding: 10px 16px;
+    padding: 10px 16px; /* Чуть уменьшили паддинг для идеальной мобильной посадки */
     background: var(--card-bg);
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(74, 99, 78, 0.15); 
     border-radius: 100px;
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* Оптимальный размер шрифта */
     font-weight: 600;
     color: var(--text-main);
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
+    white-space: nowrap; /* Запрещаем тексту внутри одного чипса рваться на две строки */
 }
-/* Стили при выборе чипса */
+
+
+/* Эффект при наведении на чипс */
+@media (hover: hover) {
+    .chip:hover {
+        border-color: var(--accent);
+        background: rgba(74, 99, 78, 0.02);
+    }
+}
+
+/* Активное состояние чипса при выборе */
 .chip-label input:checked + .chip {
     background: var(--accent);
     color: var(--card-bg);
     border-color: var(--accent);
-    box-shadow: 0 4px 10px rgba(74, 99, 78, 0.2);
+    box-shadow: 0 6px 16px rgba(74, 99, 78, 0.18);
 }
 
-/* Анимация скрытия дополнительных блоков */
+/* Кнопка отправки формы */
+.btn-submit {
+    background-color: var(--accent); 
+    color: var(--card-bg); 
+    border: none; 
+    width: 100%; 
+    padding: 20px; /* Кнопка стала более весомой и премиальной */
+    font-size: 1.05rem; 
+    font-weight: 700; 
+    border-radius: 100px; 
+    cursor: pointer; 
+    margin-top: 16px; /* Больше отступ сверху */
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(74, 99, 78, 0.15);
+}
+
+.btn-submit:hover { 
+    opacity: 0.95; 
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(74, 99, 78, 0.2);
+}
+
+.btn-submit:active { 
+    transform: scale(0.98); 
+}
+
+.btn-submit:disabled { 
+    background-color: var(--text-muted); 
+    cursor: not-allowed; 
+    transform: none; 
+    box-shadow: none;
+}
+
+/* Статус отправки */
+#form-status { 
+    text-align: center; 
+    margin-top: 20px; 
+    font-size: 0.95rem; 
+    font-weight: 700; 
+}
+
+/* Плавный контейнер дополнительных полей */
 .fade-container {
-    max-height: 500px;
+    max-height: 600px; /* Увеличили под новые отступы */
     opacity: 1;
     overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin 0.3s ease;
 }
+
 .fade-container.hidden {
     max-height: 0;
     opacity: 0;
@@ -100,18 +203,9 @@
     pointer-events: none;
 }
 
-.btn-submit {
-    background-color: var(--accent); color: var(--card-bg); border: none; width: 100%; padding: 18px;
-    font-size: 1rem; font-weight: 700; border-radius: 100px; cursor: pointer; margin-top: 10px;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(74, 99, 78, 0.15);
-}
-.btn-submit:hover { opacity: 0.95; transform: translateY(-1px); }
-.btn-submit:active { transform: scale(0.98); }
-.btn-submit:disabled { background-color: var(--text-muted); cursor: not-allowed; transform: none; }
-
-#form-status { text-align: center; margin-top: 15px; font-size: 0.95rem; font-weight: 700; }
-
+/* Адаптивность для десктопа */
 @media (min-width: 550px) {
-    .form-rsvp { padding: 40px; }
+    .form-rsvp { 
+        padding: 48px 40px; /* Еще больше воздуха на больших экранах */
+    }
 }
