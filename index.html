@@ -3,62 +3,56 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Александр и Михаил | Свадебное приглашение</title>
-        <!-- Подключение красивых шрифтов Google Fonts -->
-        <link rel="icon" type="image/png" href="sources/hearts.svg">
+        <title>Александра и Михаил | Свадебное приглашение</title>
+
+        <!-- Фавиконка и шрифты -->
+        <!-- Правильное подключение SVG-иконки -->
+        <link rel="icon" type="image/svg+xml" href="sources/color-hearts.svg"
+            sizes="any">
         <link rel="preconnect" href="https://googleapis.com">
         <link rel="preconnect" href="https://gstatic.com" crossorigin>
         <link
-            href="https://googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap"
+            href="https://googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap"
             rel="stylesheet">
+
+        <!-- Главный объединенный файл стилей (после рефакторинга) -->
         <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/hero.css">
-        <link rel="stylesheet" href="styles/sections.css">
-        <link rel="stylesheet" href="styles/rsvp.css">
-        <link rel="stylesheet" href="styles/responsive.css">
-        <link rel="stylesheet" href="styles/countdown.css">
-        <link rel="stylesheet" href="styles/details.css">
-
-        <!-- Всегда подключается самым последним -->
-
     </head>
     <body>
-
         <div class="wrapper">
+
+            <!-- БЛОК 1: HERO (Главный экран) -->
             <header class="hero">
-                <!-- Декоративные парящие элементы по диагоналям -->
-                <div class="floating-particle p-rings-top"></div>
-                <div class="floating-particle p-branch-top"></div>
-                <div class="floating-particle p-branch-bottom"></div>
-                <div class="floating-particle p-rings-bottom"></div>
+                <div class="floating-particle p-rings-top"
+                    aria-hidden="true"></div>
+                <div class="floating-particle p-branch-top"
+                    aria-hidden="true"></div>
+                <div class="floating-particle p-branch-bottom"
+                    aria-hidden="true"></div>
+                <div class="floating-particle p-rings-bottom"
+                    aria-hidden="true"></div>
 
                 <div class="hero-monogram">A&M</div>
-
                 <div class="hero-couple">
                     <div class="couple-person">
                         <span class="couple-role">Невеста</span>
-                        <h2 class="couple-name">Александра</h2>
+                        <h1 class="couple-name">Александра</h1>
                     </div>
-
                     <div class="couple-divider">
                         <img src="sources/heart.svg" class="pulse-heart-img"
-                            alt="and">
+                            alt="и">
                     </div>
-
                     <div class="couple-person">
                         <span class="couple-role">Жених</span>
-                        <h2 class="couple-name">Михаил</h1>
+                        <h1 class="couple-name">Михаил</h1>
                     </div>
                 </div>
-
                 <div class="hero-date">15.06.2026</div>
             </header>
 
+            <!-- БЛОК 2: ABOUT (Приглашение) -->
             <section id="about">
-                <!-- Заголовок выплывает первым -->
                 <h2 class="reveal-text">Дорогие гости!</h2>
-
-                <!-- Текст выплывает следом с легкой задержкой -->
                 <p class="text-p reveal-text delay-1">
                     Один день в нашей жизни обещает быть особенным.
                     Мы хотим провести его в окружении самых близких людей.
@@ -66,10 +60,10 @@
                 </p>
             </section>
 
+            <!-- БЛОК 3: COUNTDOWN (Таймер обратного отсчета) -->
             <section id="countdown-section" class="reveal-text">
-                <h2 class="countdown-title">До нашей свадьбы осталось</h2>
+                <h2>До нашей свадьбы осталось</h2>
                 <div class="countdown-container">
-                    <!-- Дни -->
                     <div class="countdown-item">
                         <div class="flip-card" id="days-card">
                             <div class="digit-wrapper">
@@ -79,7 +73,6 @@
                         </div>
                         <p>дней</p>
                     </div>
-                    <!-- Часы -->
                     <div class="countdown-item">
                         <div class="flip-card" id="hours-card">
                             <div class="digit-wrapper">
@@ -89,7 +82,6 @@
                         </div>
                         <p>часов</p>
                     </div>
-                    <!-- Минуты -->
                     <div class="countdown-item">
                         <div class="flip-card" id="minutes-card">
                             <div class="digit-wrapper">
@@ -99,7 +91,6 @@
                         </div>
                         <p>минут</p>
                     </div>
-                    <!-- Секунды -->
                     <div class="countdown-item">
                         <div class="flip-card" id="seconds-card">
                             <div class="digit-wrapper">
@@ -112,11 +103,10 @@
                 </div>
             </section>
 
+            <!-- БЛОК 4: DETAILS (Программа и Локация) -->
             <section id="details" class="reveal-text">
                 <h2>Когда и где</h2>
-
                 <div class="event-grid">
-                    <!-- Левая карточка: Программа дня -->
                     <div class="event-card">
                         <h3 class="card-title">Программа дня</h3>
                         <div class="timeline">
@@ -140,7 +130,6 @@
                                 <div class="timeline-desc">Свадебный праздничный
                                     ужин</div>
                             </div>
-                            <!-- Важно: добавили класс .last -->
                             <div class="timeline-item last">
                                 <div class="timeline-time">21:30</div>
                                 <div class="timeline-desc">Праздничный торт и
@@ -149,31 +138,25 @@
                         </div>
                     </div>
 
-                    <!-- Правая карточка: Локация (Полностью пересобрана структура) -->
                     <div class="event-card location-card">
                         <div class="location-header">
                             <h3 class="card-title">Место проведения</h3>
                             <p class="location-address">Агроусадьба Лесная
                                 мечта</p>
-                            <p class="location-city">Брест, Посёлок
-                                Костычи</p>
+                            <p class="location-city">Брест, Посёлок Костычи</p>
                         </div>
 
-                        <!-- Интерактивная карта (Теперь идет сразу после заголовка) -->
                         <iframe class="map-box"
                             src="https://yandex.ru/map-widget/v1/?um=constructor%3A639a338255ff89dcd4396ca7260c5f71c470027ec28b1bd31c8decd7815d7d80&amp;source=constructor"
                             allowfullscreen="true"
                             loading="lazy">
                         </iframe>
 
-                        <!-- Блок действий под картой -->
                         <div class="location-footer">
                             <p class="location-note">📍 Пожалуйста, позаботьтесь
                                 о комфортной обуви для прогулок по парку.</p>
-
                             <a href="https://yandex.by/maps/-/CTAPa8M0"
-                                target="_blank"
-                                class="material-btn">
+                                target="_blank" class="material-btn">
                                 <span>Построить маршрут</span>
                                 <span class="btn-icon">→</span>
                             </a>
@@ -181,11 +164,10 @@
                     </div>
                 </div>
             </section>
-
+            <!-- БЛОК 5: DRESS CODE (Дресс-код палитра) -->
             <section id="dress" class="reveal-text">
                 <h2>Дресс-код</h2>
-                <p class="text-p">Мы будем рады видеть вас в элегантных
-                    нарядах.
+                <p class="text-p">Мы будем рады видеть вас в элегантных нарядах.
                     Поддержать атмосферу праздника можно, выбрав одежду в
                     палитре торжества:</p>
                 <div class="palette">
@@ -200,6 +182,7 @@
                 </div>
             </section>
 
+            <!-- БЛОК 6: RSVP (Форма подтверждения присутствия) -->
             <section id="rsvp" class="reveal-text">
                 <h2>Подтверждение присутствия</h2>
                 <p class="text-p" style="margin-bottom: 30px;">Пожалуйста,
@@ -231,13 +214,13 @@
                         </div>
                     </div>
 
-                    <!-- Контейнер дополнительных вопросов (скрывается, если гость не придет) -->
+                    <!-- Контейнер дополнительных вопросов -->
                     <div id="additional-questions" class="fade-container">
-                        <!-- Алкоголь в виде чипсов -->
                         <div class="input-block">
                             <label>Пожелания по напиткам (можно выбрать
                                 несколько)</label>
                             <div class="alcohol-chips">
+
                                 <label class="chip-label">
                                     <input type="checkbox" name="alcohol"
                                         value="Игристое вино">
@@ -251,20 +234,16 @@
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round">
                                                 <path
-                                                    d="M8 3h8v6c0 2.21-1.79 4-4 4s-4-1.79-4-4V3z" />
-                                                <path d="M12 13v8M8 21h8" />
+                                                    d="M8 3h8v6c0 2.21-1.79 4-4 4s-4-1.79-4-4V3z" /><path
+                                                    d="M12 13v8M8 21h8" />
                                                 <circle cx="11" cy="6" r="1"
-                                                    fill="#A2394B"
+                                                    fill="currentColor"
                                                     stroke="none" />
                                                 <circle cx="13" cy="8" r="1"
-                                                    fill="#A2394B"
-                                                    stroke="none" />
-                                                <circle cx="10" cy="9" r="0.7"
-                                                    fill="#A2394B"
+                                                    fill="currentColor"
                                                     stroke="none" />
                                             </g>
-                                        </svg>
-                                        Игристое вино
+                                        </svg>Игристое вино
                                     </span>
                                 </label>
 
@@ -281,14 +260,10 @@
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round">
                                                 <path
-                                                    d="M7 4h10v5c0 2.76-2.24 5-5 5s-5-2.24-5-5V4z" />
-                                                <path d="M12 14v7M9 21h6" />
-                                                <path d="M7 9c2 1 4-1 6 0l4-1"
-                                                    stroke="#A2394B"
-                                                    stroke-width="1.5" />
+                                                    d="M7 4h10v5c0 2.76-2.24 5-5 5s-5-2.24-5-5V4z" /><path
+                                                    d="M12 14v7M9 21h6" />
                                             </g>
-                                        </svg>
-                                        Белое вино
+                                        </svg>Белое вино
                                     </span>
                                 </label>
 
@@ -305,18 +280,10 @@
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round">
                                                 <path
-                                                    d="M6 5h12v4c0 3.31-2.69 6-6 6s-6-2.69-6-6V5z" />
-                                                <path d="M12 15v6M8 21h8" />
-                                                <path d="M6 10h12"
-                                                    stroke="#A2394B"
-                                                    fill="#A2394B"
-                                                    opacity="0.2" />
-                                                <path d="M6 10c3 1 6-1 12 0"
-                                                    stroke="#A2394B"
-                                                    stroke-width="1.5" />
+                                                    d="M6 5h12v4c0 3.31-2.69 6-6 6s-6-2.69-6-6V5z" /><path
+                                                    d="M12 15v6M8 21h8" />
                                             </g>
-                                        </svg>
-                                        Красное вино
+                                        </svg>Красное вино
                                     </span>
                                 </label>
 
@@ -334,17 +301,8 @@
                                                 stroke-linejoin="round">
                                                 <path
                                                     d="M6 4l1.5 14c.1.9.9 1.6 1.8 1.6h5.4c.9 0 1.7-.7 1.8-1.6L18 4H6z" />
-                                                <rect x="10" y="12" width="4"
-                                                    height="4" rx="1"
-                                                    transform="rotate(15 12 14)"
-                                                    stroke="#A2394B" />
-                                                <path d="M6.5 11h11"
-                                                    stroke="#A2394B"
-                                                    stroke-width="1"
-                                                    stroke-dasharray="2 2" />
                                             </g>
-                                        </svg>
-                                        Виски / Коньяк
+                                        </svg>Виски / Коньяк
                                     </span>
                                 </label>
 
@@ -360,16 +318,11 @@
                                                 stroke-width="2"
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round">
-                                                <path d="M5 4h14l-7 9-7-9z" />
-                                                <path d="M12 13v8M7 21h10" />
-                                                <path d="M11 7l5-4"
-                                                    stroke="#A2394B" />
-                                                <circle cx="11" cy="7" r="1.5"
-                                                    fill="#A2394B"
-                                                    stroke="none" />
+                                                <path
+                                                    d="M5 4h14l-7 9-7-9z" /><path
+                                                    d="M12 13v8M7 21h10" />
                                             </g>
-                                        </svg>
-                                        Коктейли
+                                        </svg>Коктейли
                                     </span>
                                 </label>
 
@@ -386,23 +339,13 @@
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round">
                                                 <path
-                                                    d="M12 3a9 9 0 0 1 9 9c0 4.97-4.03 9-9 9s-9-4.03-9-9a9 9 0 0 1 9-9z"
-                                                    stroke-dasharray="24 2" />
-                                                <path
-                                                    d="M12 7c-2.76 0-5 2.24-5 5s5 5 5 5 5-2.24 5-5-2.24-5-5-5z"
-                                                    fill="#A2394B"
-                                                    opacity="0.15"
-                                                    stroke="none" />
-                                                <path
-                                                    d="M8 14c1-2 3-3 4-3s3 1 4 3"
-                                                    stroke="#A2394B" />
+                                                    d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM12 7v5M12 16h.01" />
                                             </g>
-                                        </svg>
-                                        Не пью алкоголь
+                                        </svg>Не пью алкоголь
                                     </span>
                                 </label>
-                            </div>
 
+                            </div>
                         </div>
 
                         <!-- Предпочтения по еде -->
@@ -415,30 +358,25 @@
                         </div>
                     </div>
 
-                    <!-- <button type="submit" class="btn-submit"
+                    <button type="submit" class="btn-submit"
                         id="submitBtn">Отправить ответ</button>
-                    <div id="form-status"></div> -->
-                
-                
-                                    <!-- Кнопка со встроенным SVG лоадером -->
-                    <button type="submit" class="btn-submit" id="submitBtn">
-                        <span class="btn-text">Отправить ответ</span>
-                        <div class="md-loader" id="btnLoader">
-                            <svg viewBox="0 0 50 50">
-                                <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
-                            </svg>
-                        </div>
-                    </button>
-                    
-                    <!-- Сюда JS вставит красивое финальное сообщение вместо всей формы -->
-                    
 
                 </form>
-                <div id="form-success-card" class="success-card"></div>
-            </section>
 
+                <!-- Карточка благодарности (вынесена из формы) -->
+                <div id="form-success-card" class="success-card">
+                    <svg class="success-icon" xmlns="http://w3.org"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                    <h3 id="success-title" class="success-title"></h3>
+                    <p id="success-text" class="success-text"></p>
+                </div>
+            </section>
         </div>
 
+        <!-- Скрипты -->
         <script src="script.js"></script>
     </body>
 </html>

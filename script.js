@@ -1,16 +1,162 @@
-// Скрипт отправки формы в Google Таблицу
-// const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwjrbGpAy_seUWcKBUf1LNVbADViJRPTlRfaYsb4mdFKxA_2d_N2rUdH3vGffI-KNks6Q/exec";
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxpal6eaY9GFuvcFbksjCkt1w3zWKXewYNNrJpZXzFa9TQDATTH73hi4ZYMzm3LdN3kUA/exec";
-// const WEB_APP_URL = "https://google.com";
+// ==========================================================================
+// WEDDING CARD - MAIN SCRIPT (PART 1)
+// ==========================================================================
 
+// Константа URL веб-приложения Google Скрипта для RSVP
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzbGCOgvgGijKkzxKfvTMw-QyKSaDbjW3_mEyp0rQDozYQxx7LNTEd6iSOWhJ1mxZs-uA/exec";
+// Установка целевой даты торжества (15 июня 2026 года)
+const targetDate = new Date("June 15, 2026 14:00:00").getTime();
+
+/**
+ * Функция перелистывания карточки таймера (Rolling Clock)
+ * @param {string} cardId - ID контейнера карточки
+ * @param {string} newValue - Двузначное строковое значение цифры
+ */
+function rollCard(cardId, newValue) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+
+    const wrapper = card.querySelector(".digit-wrapper");
+    const currentSpan = card.querySelector(".current");
+    const nextSpan = card.querySelector(".next");
+
+    // Если цифра не поменялась — анимацию не запускаем
+    if (currentSpan.innerText === newValue) return;
+
+    // 1. Загружаем новое значение в нижний невидимый слот
+    nextSpan.innerText = newValue;
+
+    // 2. Запускаем аппаратный сдвиг каретки вверх
+    wrapper.classList.remove("no-transition");
+    wrapper.classList.add("animate");
+
+    // 3. По окончании перехода бесшовно сбрасываем позицию
+    setTimeout(() => {
+        currentSpan.innerText = newValue;
+        wrapper.classList.add("no-transition");
+        wrapper.classList.remove("animate");
+    }, 400);
+}
+
+/**
+ * Расчет оставшегося времени и обновление счетчиков
+ */
+function updateCountdown() {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    // Если свадьба уже наступила — скрываем секцию таймера
+    if (difference < 0) {
+        const section = document.getElementById("countdown-section");
+        if (section) section.style.display = "none";
+        return;
+    }
+
+    // Математический расчет единиц времени
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    // Форматирование в двузначный вид (01, 02 и т.д.)
+    const strDays = days < 10 ? "0" + days : "" + days;
+    const strHours = hours < 10 ? "0" + hours : "" + hours;
+    const strMinutes = minutes < 10 ? "0" + minutes : "" + minutes;
+    const strSeconds = seconds < 10 ? "0" + seconds : "" + seconds;
+
+    // Запуск прокрутки для каждой карточки
+    rollCard("days-card", strDays);
+    rollCard("hours-card", strHours);
+    rollCard("minutes-card", strMinutes);
+    rollCard("seconds-card", strSeconds);
+}
+
+// Запуск интервала таймера (1 раз в секунду) и первичная инициализация
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Инициализация Reveal-анимаций появления элементов при скролле страницы
+document.addEventListener("DOMContentLoaded", () => {
+    const revealElements = document.querySelectorAll('.reveal-text');
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Анимируем строго один раз за сессию
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '0px 0px -10% 0px', // Срабатывает, когда блок на 10% зашел в область экрана
+        threshold: 0.05
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+});
+// ==========================================================================
+// WEDDING CARD - MAIN SCRIPT (PART 2) - UPDATED & FIXED
+// ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const rsvpForm = document.getElementById('rsvpForm');
     const additionalQuestions = document.getElementById('additional-questions');
     const radioAttend = document.querySelectorAll('input[name="attend"]');
     const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]');
     const noAlcoholCheckbox = document.getElementById('no-alcohol');
+    const colorCircles = document.querySelectorAll('.color-circle');
+    const statusDiv = document.getElementById('form-status'); // ИСПРАВЛЕНО: Объявили недостающий элемент
 
-    // 1. Динамическое скрытие полей, если гость не придет (до отправки)
+    // По умолчанию подсвечиваем оливковый как активный (базовый)
+    colorCircles.forEach(c => {
+        if (c.getAttribute('title') === 'Оливковый') c.classList.add('active-theme');
+    });
+
+    // 1. ДИНАМИЧЕСКАЯ СМЕНА РАСЦВЕТКИ ВСЕЙ СТРАНИЦЫ
+    const colorThemes = {
+        'Песочный': {
+            accent: '#8c6b53',
+            accentLight: '#eae0d5',
+            bgColor: '#f5ebe0'
+        },
+        'Шампань': {
+            accent: '#9a7b66',
+            accentLight: '#f4ece4',
+            bgColor: '#faf3ec'
+        },
+        'Оливковый': {
+            accent: '#3a4f3e',
+            accentLight: '#d6e2d3',
+            bgColor: '#eef3ed'
+        },
+        'Небесно-голубой': {
+            accent: '#34658a',
+            accentLight: '#dbe6f0',
+            bgColor: '#e6eef5'
+        }
+    };
+
+    colorCircles.forEach(circle => {
+        circle.addEventListener('click', function () {
+            const colorName = this.getAttribute('title');
+            const theme = colorThemes[colorName];
+            if (theme) {
+                // Переназначаем переменные на :root
+                document.documentElement.style.setProperty('--accent', theme.accent);
+                document.documentElement.style.setProperty('--accent-light', theme.accentLight);
+                document.documentElement.style.setProperty('--bg-color', theme.bgColor);
+
+                // Анимация переключения классов на кнопках цветов
+                colorCircles.forEach(c => c.classList.remove('active-theme'));
+                this.classList.add('active-theme');
+
+                // Эффект упругого тапа
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => { this.style.transform = ''; }, 100);
+            }
+        });
+    });
+
+    // 2. ДИНАМИЧЕСКОЕ СКРЫТИЕ ПОЛЕЙ АНКЕТЫ ДО ОТПРАВКИ
     radioAttend.forEach(radio => {
         radio.addEventListener('change', (e) => {
             if (e.target.value === "К сожалению, нет") {
@@ -21,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. Логика алкогольных чипсов: если выбрано "Не пью", снимаем галочки с остальных
+    // 3. ЛОГИКА ЧИПСОВ АЛКОГОЛЯ (Взаимоисключение для "Не пью")
     if (alcoholCheckboxes.length > 0 && noAlcoholCheckbox) {
         alcoholCheckboxes.forEach(cb => {
             cb.addEventListener('change', (e) => {
@@ -36,273 +182,107 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Безопасная отправка данных с поддержкой Material You анимаций
+    // 4. ОБРАБОТКА И ОТПРАВКА RSVP ФОРМЫ
     if (rsvpForm) {
         rsvpForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
             const successCard = document.getElementById('form-success-card');
 
-            // Включаем анимацию загрузки на кнопке
+            // Включаем визуальный лоадер (текст скроется через CSS, появится спиннер)
             submitBtn.disabled = true;
-            submitBtn.classList.add('loading');
+
+            if (statusDiv) {
+                statusDiv.style.color = "var(--accent)";
+                statusDiv.innerText = "Сохраняем ваш ответ...";
+                statusDiv.style.display = "block";
+            }
 
             const guestName = document.getElementById('guest_name').value.trim();
             const attendValue = document.querySelector('input[name="attend"]:checked').value;
             const checkedAlcohol = [];
-            
-            // Собираем алкоголь только если гость идет
+
             if (attendValue !== "К сожалению, нет") {
                 document.querySelectorAll('input[name="alcohol"]:checked').forEach(cb => {
                     checkedAlcohol.push(cb.value);
                 });
             }
 
-            // Формируем безопасный URLSearchParams формат данных
             const params = new URLSearchParams();
             params.append('guest_name', guestName);
             params.append('attend', attendValue);
             params.append('alcohol', checkedAlcohol.length > 0 ? checkedAlcohol.join(', ') : '—');
-            params.append('wishes', attendValue !== "К сожалению, net" ? document.getElementById('wishes').value : '—');
-    
+            params.append('wishes', (attendValue !== "К сожалению, нет" && document.getElementById('wishes')) ? document.getElementById('wishes').value : '—');
+
             fetch(WEB_APP_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Фикс ошибки doGet
+                mode: 'cors',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params
             })
-                        .then(() => {
-                // 1. Схлопываем форму в ноль
-                rsvpForm.classList.add('collapsed');
-                
-                // 2. Вычисляем точную позицию заголовка секции на экране до прыжка высоты
-                const rsvpSection = document.getElementById('rsvp');
-                let targetTop = 0;
-                
-                if (rsvpSection) {
-                    // Находим позицию секции относительно верха страницы с учетом текущей прокрутки
-                    targetTop = rsvpSection.getBoundingClientRect().top + window.pageYOffset - 20; 
-                }
-                
-                // Берем имя для вежливого обращения
-                const nameArray = guestName.split(' ');
-                const shortName = nameArray[0]; // Исправлено: берем строго первый элемент [0]
-                
-                let titleText = "";
-                let bodyText = "";
+                // ... (выше идет код отправки fetch)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response error');
+                    return response.json();
+                })
+                .then(data => {
+                    const rsvpSection = document.getElementById('rsvp');
+                    let targetTop = 0;
+                    if (rsvpSection) {
+                        targetTop = rsvpSection.getBoundingClientRect().top + window.pageYOffset - 20;
+                    }
 
-                // 3. Генерируем контекстный текст благодарности
-                if (attendValue === "Да, с радостью") {
-                    titleText = `${shortName}, до встречи! ✨`;
-                    bodyText = "Ваше присутствие успешно подтверждено. Мы очень счастливы, что вы разделите с нами этот особенный день! Ждем вас в агроусадьбе «Лесная мечта».";
-                } else {
-                    titleText = `${shortName}, спасибо за ответ! 🤍`;
-                    bodyText = "Нам очень жаль, что у вас не получится приехать. Искренне благодарим, что предупредили нас заранее. Ваша поддержка важна нам даже на расстоянии!";
-                }
-                
-                // 4. Монтируем карточку благодарности
-                if (successCard) {
-                    successCard.innerHTML = `
-                        <h3 class="success-title">${titleText}</h3>
-                        <p class="success-text">${bodyText}</p>
-                    `;
-                    
-                    // Небольшой таймаут, чтобы дать форме начать сворачиваться,
-                    // и одновременно выполняем математически точный плавный скролл
+                    // Благородная пауза для лоадера
                     setTimeout(() => {
-                        window.scrollTo({
-                            top: targetTop,
-                            behavior: 'smooth' // Плавно удерживаем экран на нужной координате
-                        });
-                        
-                        successCard.style.display = "block";
-                        setTimeout(() => successCard.classList.add('show'), 50);
-                    }, 150);
-                }
-            })
+                        if (statusDiv) statusDiv.style.display = "none";
 
-            .catch(error => {
-                console.error('Ошибка:', error);
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('loading');
-                alert("Не удалось отправить ответ. Пожалуйста, проверьте интернет-соединение.");
-            });
+                        // Плавное вертикальное схлопывание формы
+                        rsvpForm.classList.add('collapsed');
+
+                        // Берем имя для обращения
+                        const nameArray = guestName.split(' ');
+                        const shortName = nameArray[0];
+                        let titleText = "";
+                        let bodyText = "";
+
+                        if (attendValue === "Да, с радостью") {
+                            titleText = `${shortName}, до встречи!`;
+                            bodyText = "Ваше присутствие успешно подтверждено. Мы искренне счастливы, что вы разделите с нами этот особенный день! Ждем вас в агроусадьбе «Лесная мечта».";
+                        } else {
+                            titleText = `${shortName}, спасибо за ответ!`;
+                            bodyText = "Нам очень жаль, что у вас не получится приехать. Искренне благодарим, что предупредили нас заранее. Ваша поддержка важна нам даже на расстоянии!";
+                        }
+
+                        // ИСПРАВЛЕНО: Меняем только текст, не пересоздавая DOM-узлы
+                        const successTitleEl = document.getElementById('success-title');
+                        const successTextEl = document.getElementById('success-text');
+
+                        if (successCard && successTitleEl && successTextEl) {
+                            successTitleEl.innerText = titleText;
+                            successTextEl.innerText = bodyText;
+
+                            // Мягкий скролл к началу блока RSVP
+                            window.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+                            // Эффектно проявляем карточку
+                            successCard.style.display = "block";
+                            setTimeout(() => {
+                                successCard.classList.add('show');
+                            }, 50);
+                        }
+                    }, 1200);
+                })
+                // ... (дальше идет catch)
+
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    submitBtn.disabled = false; // Возвращаем кнопку в рабочее состояние при ошибке
+                    if (statusDiv) {
+                        statusDiv.style.color = "#b3261e";
+                        statusDiv.innerText = "Ошибка отправки. Пожалуйста, попробуйте еще раз.";
+                    }
+                });
         });
     }
+
 });
-
-
-// Скрипт обратного отсчета (Дата: 15 июня 2026 года)
-const targetDate = new Date("July 15, 2026 14:00:00").getTime();
-
-function rollCard(cardId, newValue) {
-    const card = document.getElementById(cardId);
-    if (!card) return;
-
-    const wrapper = card.querySelector(".digit-wrapper");
-    const currentSpan = card.querySelector(".current");
-    const nextSpan = card.querySelector(".next");
-
-    // Если цифра не поменялась — ничего не делаем
-    if (currentSpan.innerText === newValue) return;
-
-    // 1. Ставим новое значение в нижний скрытый слот
-    nextSpan.innerText = newValue;
-
-    // 2. Включаем анимацию улетания вверх
-    wrapper.classList.remove("no-transition");
-    wrapper.classList.add("animate");
-
-    // 3. После окончания анимации (400мс) бесшовно сбрасываем позицию
-    setTimeout(() => {
-        // Моментально переносим новое значение наверх
-        currentSpan.innerText = newValue; 
-        // Отключаем плавность, чтобы сброс позиции не вызвал прыжок вниз
-        wrapper.classList.add("no-transition"); 
-        wrapper.classList.remove("animate");
-    }, 400);
-}
-
-function updateCountdown() {
-    const now = new Date().getTime();
-    const difference = targetDate - now;
-
-    if (difference < 0) {
-        const section = document.getElementById("countdown-section");
-        if (section) section.style.display = "none";
-        return;
-    }
-
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    const strDays = days < 10 ? "0" + days : "" + days;
-    const strHours = hours < 10 ? "0" + hours : "" + hours;
-    const strMinutes = minutes < 10 ? "0" + minutes : "" + minutes;
-    const strSeconds = seconds < 10 ? "0" + seconds : "" + seconds;
-
-    rollCard("days-card", strDays);
-    rollCard("hours-card", strHours);
-    rollCard("minutes-card", strMinutes);
-    rollCard("seconds-card", strSeconds);
-}
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const revealElements = document.querySelectorAll('.reveal-text');
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Анимируем только один раз
-            }
-        });
-    }, {
-        root: null,
-        rootMargin: '0px 0px -10% 0px', // Срабатывает, когда блок на 10% зашел на экран
-        threshold: 0.05
-    });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-});
-
-
-
-
-
-// плавное перетекание цветов
-// document.addEventListener('DOMContentLoaded', () => {
-//     const colorCircles = document.querySelectorAll('.color-circle');
-    
-//     // Карта тем для динамической смены расцветки всей страницы
-//     const colorThemes = {
-//         'Песочный': {
-//             accent: '#aa8c74',       // Насыщенный песочно-древесный для текста и кнопок
-//             accentLight: '#f5ebe0'  // Мягкий светлый крем для подложки карточек
-//         },
-//         'Шампань': {
-//             accent: '#bfa895',       // Благородный темный нюд
-//             accentLight: '#faf5f0'  // Очень нежный теплый белый
-//         },
-//         'Оливковый': {
-//             accent: '#4a634e',       // Ваш глубокий фирменный зеленый
-//             accentLight: '#f0f4f1'  // Легкий шалфейный фон для карточек
-//         },
-//         'Небесно-голубой': {
-//             accent: '#4682b4',       // Спокойный стальной голубой
-//             accentLight: '#f0f4f8'  // Свежий прохладный оттенок для карточек
-//         }
-//     };
-
-//     colorCircles.forEach(circle => {
-//         circle.addEventListener('click', function() {
-//             const colorName = this.getAttribute('title');
-//             const theme = colorThemes[colorName];
-
-//             if (theme) {
-//                 // Плавно меняем CSS-переменные на самом верхнем уровне (:root)
-//                 document.documentElement.style.setProperty('--accent', theme.accent);
-//                 document.documentElement.style.setProperty('--accent-light', theme.accentLight);
-                
-//                 // Добавляем микро-эффект пульсации для нажатого круга
-//                 colorCircles.forEach(c => c.style.transform = 'scale(1)');
-//                 this.style.transform = 'scale(1.15)';
-//                 setTimeout(() => {
-//                     this.style.transform = '';
-//                 }, 300);
-//             }
-//         });
-//     });
-// });
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const colorCircles = document.querySelectorAll('.color-circle');
-    
-//     // Карта тем для динамической смены расцветки всей страницы
-//     const colorThemes = {
-//         'Песочный': {
-//             accent: '#aa8c74',       // Насыщенный песочно-древесный для текста и кнопок
-//             accentLight: '#f5ebe0'  // Мягкий светлый крем для подложки карточек
-//         },
-//         'Шампань': {
-//             accent: '#bfa895',       // Благородный темный нюд
-//             accentLight: '#faf5f0'  // Очень нежный теплый белый
-//         },
-//         'Оливковый': {
-//             accent: '#4a634e',       // Ваш глубокий фирменный зеленый
-//             accentLight: '#f0f4f1'  // Легкий шалфейный фон для карточек
-//         },
-//         'Небесно-голубой': {
-//             accent: '#4682b4',       // Спокойный стальной голубой
-//             accentLight: '#f0f4f8'  // Свежий прохладный оттенок для карточек
-//         }
-//     };
-
-//     colorCircles.forEach(circle => {
-//         circle.addEventListener('click', function() {
-//             const colorName = this.getAttribute('title');
-//             const theme = colorThemes[colorName];
-
-//             if (theme) {
-//                 // Плавно меняем CSS-переменные на самом верхнем уровне (:root)
-//                 document.documentElement.style.setProperty('--accent', theme.accent);
-//                 document.documentElement.style.setProperty('--accent-light', theme.accentLight);
-                
-//                 // Добавляем микро-эффект пульсации для нажатого круга
-//                 colorCircles.forEach(c => c.style.transform = 'scale(1)');
-//                 this.style.transform = 'scale(1.15)';
-//                 setTimeout(() => {
-//                     this.style.transform = '';
-//                 }, 300);
-//             }
-//         });
-//     });
-// });
