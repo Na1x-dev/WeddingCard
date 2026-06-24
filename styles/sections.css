@@ -48,20 +48,19 @@ h2 {
     transition-delay: 0.2s;
 }
 
-
 /* ==========================================================================
-   DRESS CODE PALETTE
+   DRESS CODE PALETTE (СТРОГО В ОДИН РЯД БЕЗ СКРОЛЛА)
    ========================================================================== */
 
 .palette {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-wrap: nowrap; /* СТРОГО запрещаем перенос последнего элемента вниз */
+    gap: 16px; /* Оптимальный зазор, чтобы всё влезло на 375px */
     margin-top: 36px;
-    padding: 20px 28px 44px;
-    border-radius: 24px;
+    padding: 20px 0 44px; /* Убрали боковые паддинги, чтобы не сжимать ряд */
+    width: 100%;
 }
 
 .color-circle {
@@ -70,6 +69,7 @@ h2 {
     border-radius: 18px;
     position: relative;
     cursor: pointer;
+    flex-shrink: 0; /* Запрещаем браузеру деформировать и сжимать плашки */
     box-shadow:
         0 4px 10px rgba(0, 0, 0, 0.04),
         inset 0 0 0 1px rgba(0, 0, 0, 0.06);
@@ -77,6 +77,19 @@ h2 {
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
     user-select: none;
+}
+
+/* На смартфонах меньше 400px (например, 375px и меньше) аккуратно пропорционально 
+   уменьшаем размер плашек и зазоры, чтобы они сидели идеально свободно и свободно */
+@media (max-width: 400px) {
+    .palette {
+        gap: 12px; /* Чуть присобираем зазоры на мелких экранах */
+    }
+    .color-circle {
+        width: 50px; /* Идеальный размер для 375px: 4 плашки по 50px + зазоры займут всего ~240px */
+        height: 50px;
+        border-radius: 16px; /* Чуть уменьшаем скругление под стать размеру */
+    }
 }
 
 .color-circle:active {
@@ -92,6 +105,7 @@ h2 {
     }
 }
 
+/* Дальнейшие ваши стили для тултипов ::after и ::before остаются без изменений */
 .color-circle::after {
     content: attr(title);
     position: absolute;

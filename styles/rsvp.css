@@ -128,6 +128,8 @@
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     white-space: nowrap; /* Запрещаем тексту внутри одного чипса рваться на две строки */
+    display: inline-flex;
+    align-items: center;
 }
 
 
