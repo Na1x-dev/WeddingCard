@@ -9,6 +9,25 @@
     background: var(--accent-light);
     padding: 40px 28px; /* Больше внутренних отступов для объема */
     border-radius: 28px;
+    /* Плавный переход для эффекта схлопывания */
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.4s ease, 
+                margin 0.5s ease;
+    max-height: 2000px; /* Запас по высоте для плавной анимации */
+    opacity: 1;
+    overflow: hidden;
+}
+
+/* Класс сжатия формы после отправки */
+.form-rsvp.collapsed {
+    max-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    opacity: 0;
+    margin-bottom: 0;
+    pointer-events: none;
 }
 
 /* Увеличенные зазоры между блоками вопросов */
@@ -77,7 +96,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-/* МАГИЯ: Полностью и аккуратно прячем дефолтные кружочки, сохраняя доступность формы */
+/* Полностью и аккуратно прячем дефолтные кружочки, сохраняя доступность формы */
 .choice-label input { 
     position: absolute;
     opacity: 0;
@@ -93,9 +112,7 @@
     color: var(--accent); /* Текст тоже окрашивается в акцентный цвет */
 }
 
-
 /* Сетка чипсов для алкоголя */
-
 .chip-label input {
     display: none; 
 }
@@ -117,7 +134,8 @@
 
 /* Сам чипс */
 .chip {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     padding: 10px 16px; /* Чуть уменьшили паддинг для идеальной мобильной посадки */
     background: var(--card-bg);
     border: 1px solid rgba(74, 99, 78, 0.15); 
@@ -128,10 +146,7 @@
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     user-select: none;
     white-space: nowrap; /* Запрещаем тексту внутри одного чипса рваться на две строки */
-    display: inline-flex;
-    align-items: center;
 }
-
 
 /* Эффект при наведении на чипс */
 @media (hover: hover) {
@@ -149,20 +164,24 @@
     box-shadow: 0 6px 16px rgba(74, 99, 78, 0.18);
 }
 
-/* Кнопка отправки формы */
+/* Кнопка отправки формы и позиционирование лоадера */
 .btn-submit {
     background-color: var(--accent); 
     color: var(--card-bg); 
     border: none; 
     width: 100%; 
-    padding: 20px; /* Кнопка стала более весомой и премиальной */
+    padding: 20px; 
     font-size: 1.05rem; 
     font-weight: 700; 
     border-radius: 100px; 
     cursor: pointer; 
-    margin-top: 16px; /* Больше отступ сверху */
+    margin-top: 16px;
     transition: all 0.25s ease;
     box-shadow: 0 6px 20px rgba(74, 99, 78, 0.15);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-submit:hover { 
@@ -182,32 +201,99 @@
     box-shadow: none;
 }
 
-/* Статус отправки */
-#form-status { 
-    text-align: center; 
-    margin-top: 20px; 
-    font-size: 0.95rem; 
-    font-weight: 700; 
+/* Анимация текста кнопки при отправке */
+.btn-submit .btn-text {
+    transition: opacity 0.2s ease;
 }
+
+.btn-submit.loading .btn-text {
+    opacity: 0; /* Растворяем текст при загрузке */
+}
+
+/* Элегантный круглый лоадер Material You */
+.md-loader {
+    display: none; 
+    position: absolute;
+    width: 24px;
+    height: 24px;
+}
+
+.btn-submit.loading .md-loader {
+    display: block; /* Проявляем лоадер */
+}
+
+.md-loader svg {
+    animation: rotate 2s linear infinite;
+    width: 100%;
+    height: 100%;
+}
+
+.md-loader circle {
+    stroke: var(--card-bg);
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+}
+
+/* Карточка финального ответа (появляется вместо формы) */
+.success-card {
+    display: none;
+    background: var(--accent-light);
+    padding: 40px 24px;
+    border-radius: 28px;
+    text-align: center;
+    margin-top: 24px;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); /* Пружинистый вылет */
+}
+
+.success-card.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.success-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 12px;
+}
+
+.success-text {
+    font-size: 1rem;
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+/* Анимации бесконечного вращения индикатора */
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes dash {
+    0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+    50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+    100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+}
+
+/* Адаптивность */
+@media (min-width: 550px) {
+    .form-rsvp { padding: 48px 40px; }
+}
+
 
 /* Плавный контейнер дополнительных полей */
 .fade-container {
-    max-height: 600px; /* Увеличили под новые отступы */
+    max-height: 700px; /* С запасом под отступы */
     opacity: 1;
     overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin 0.3s ease;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin-bottom 0.3s ease;
 }
 
+/* Эффект скрытия, который накидывает JS */
 .fade-container.hidden {
-    max-height: 0;
-    opacity: 0;
-    margin-bottom: 0;
+    max-height: 0 !important;
+    opacity: 0 !important;
+    margin-bottom: 0 !important;
     pointer-events: none;
-}
-
-/* Адаптивность для десктопа */
-@media (min-width: 550px) {
-    .form-rsvp { 
-        padding: 48px 40px; /* Еще больше воздуха на больших экранах */
-    }
 }

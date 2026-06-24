@@ -1,6 +1,8 @@
 // Скрипт отправки формы в Google Таблицу
 // const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwjrbGpAy_seUWcKBUf1LNVbADViJRPTlRfaYsb4mdFKxA_2d_N2rUdH3vGffI-KNks6Q/exec";
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxpal6eaY9GFuvcFbksjCkt1w3zWKXewYNNrJpZXzFa9TQDATTH73hi4ZYMzm3LdN3kUA/exec";
+// const WEB_APP_URL = "https://google.com";
+
 document.addEventListener('DOMContentLoaded', () => {
     const rsvpForm = document.getElementById('rsvpForm');
     const additionalQuestions = document.getElementById('additional-questions');
@@ -8,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]');
     const noAlcoholCheckbox = document.getElementById('no-alcohol');
 
-    // 1. Динамическое скрытие полей, если гость не придет
+    // 1. Динамическое скрытие полей, если гость не придет (до отправки)
     radioAttend.forEach(radio => {
         radio.addEventListener('change', (e) => {
             if (e.target.value === "К сожалению, нет") {
@@ -20,30 +22,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 2. Логика алкогольных чипсов: если выбрано "Не пью", снимаем галочки с остальных
-    alcoholCheckboxes.forEach(cb => {
-        cb.addEventListener('change', (e) => {
-            if (e.target === noAlcoholCheckbox && noAlcoholCheckbox.checked) {
-                alcoholCheckboxes.forEach(item => {
-                    if (item !== noAlcoholCheckbox) item.checked = false;
-                });
-            } else if (e.target !== noAlcoholCheckbox && e.target.checked) {
-                noAlcoholCheckbox.checked = false;
-            }
+    if (alcoholCheckboxes.length > 0 && noAlcoholCheckbox) {
+        alcoholCheckboxes.forEach(cb => {
+            cb.addEventListener('change', (e) => {
+                if (e.target === noAlcoholCheckbox && noAlcoholCheckbox.checked) {
+                    alcoholCheckboxes.forEach(item => {
+                        if (item !== noAlcoholCheckbox) item.checked = false;
+                    });
+                } else if (e.target !== noAlcoholCheckbox && e.target.checked) {
+                    noAlcoholCheckbox.checked = false;
+                }
+            });
         });
-    });
+    }
 
-    // 3. Безопасная отправка данных
+    // 3. Безопасная отправка данных с поддержкой Material You анимаций
     if (rsvpForm) {
         rsvpForm.addEventListener('submit', function (e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
-            const statusDiv = document.getElementById('form-status');
+            const successCard = document.getElementById('form-success-card');
 
+            // Включаем анимацию загрузки на кнопке
             submitBtn.disabled = true;
-            submitBtn.innerText = "Отправка...";
-            statusDiv.style.color = "var(--text-main)";
-            statusDiv.innerText = "Пожалуйста, подождите...";
+            submitBtn.classList.add('loading');
 
+            const guestName = document.getElementById('guest_name').value.trim();
             const attendValue = document.querySelector('input[name="attend"]:checked').value;
             const checkedAlcohol = [];
             
@@ -56,40 +60,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Формируем безопасный URLSearchParams формат данных
             const params = new URLSearchParams();
-            params.append('guest_name', document.getElementById('guest_name').value);
+            params.append('guest_name', guestName);
             params.append('attend', attendValue);
             params.append('alcohol', checkedAlcohol.length > 0 ? checkedAlcohol.join(', ') : '—');
-            params.append('wishes', attendValue !== "К сожалению, нет" ? document.getElementById('wishes').value : '—');
-
-            // Используем вашу ссылку на веб-приложение
+            params.append('wishes', attendValue !== "К сожалению, net" ? document.getElementById('wishes').value : '—');
     
             fetch(WEB_APP_URL, {
                 method: 'POST',
-                mode: 'cors', // ВКЛЮЧАЕМ CORS для обработки ответов сервера
+                mode: 'no-cors', // Фикс ошибки doGet
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params
             })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response error');
-                return response.json();
+                        .then(() => {
+                // 1. Схлопываем форму в ноль
+                rsvpForm.classList.add('collapsed');
+                
+                // 2. Вычисляем точную позицию заголовка секции на экране до прыжка высоты
+                const rsvpSection = document.getElementById('rsvp');
+                let targetTop = 0;
+                
+                if (rsvpSection) {
+                    // Находим позицию секции относительно верха страницы с учетом текущей прокрутки
+                    targetTop = rsvpSection.getBoundingClientRect().top + window.pageYOffset - 20; 
+                }
+                
+                // Берем имя для вежливого обращения
+                const nameArray = guestName.split(' ');
+                const shortName = nameArray[0]; // Исправлено: берем строго первый элемент [0]
+                
+                let titleText = "";
+                let bodyText = "";
+
+                // 3. Генерируем контекстный текст благодарности
+                if (attendValue === "Да, с радостью") {
+                    titleText = `${shortName}, до встречи! ✨`;
+                    bodyText = "Ваше присутствие успешно подтверждено. Мы очень счастливы, что вы разделите с нами этот особенный день! Ждем вас в агроусадьбе «Лесная мечта».";
+                } else {
+                    titleText = `${shortName}, спасибо за ответ! 🤍`;
+                    bodyText = "Нам очень жаль, что у вас не получится приехать. Искренне благодарим, что предупредили нас заранее. Ваша поддержка важна нам даже на расстоянии!";
+                }
+                
+                // 4. Монтируем карточку благодарности
+                if (successCard) {
+                    successCard.innerHTML = `
+                        <h3 class="success-title">${titleText}</h3>
+                        <p class="success-text">${bodyText}</p>
+                    `;
+                    
+                    // Небольшой таймаут, чтобы дать форме начать сворачиваться,
+                    // и одновременно выполняем математически точный плавный скролл
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetTop,
+                            behavior: 'smooth' // Плавно удерживаем экран на нужной координате
+                        });
+                        
+                        successCard.style.display = "block";
+                        setTimeout(() => successCard.classList.add('show'), 50);
+                    }, 150);
+                }
             })
-            .then(data => {
-                statusDiv.style.color = "#4A634E";
-                statusDiv.innerText = "Спасибо! Ваш ответ успешно сохранен.";
-                submitBtn.innerText = "Отправлено";
-                rsvpForm.reset();
-                additionalQuestions.classList.remove('hidden');
-            })
+
             .catch(error => {
                 console.error('Ошибка:', error);
-                statusDiv.style.color = "#b3261e";
-                statusDiv.innerText = "Ошибка отправки. Попробуйте еще раз.";
                 submitBtn.disabled = false;
-                submitBtn.innerText = "Отправить ответ";
+                submitBtn.classList.remove('loading');
+                alert("Не удалось отправить ответ. Пожалуйста, проверьте интернет-соединение.");
             });
         });
     }
 });
+
 
 // Скрипт обратного отсчета (Дата: 15 июня 2026 года)
 const targetDate = new Date("July 15, 2026 14:00:00").getTime();
