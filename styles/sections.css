@@ -157,3 +157,14 @@ h2 {
     visibility: visible;
     transform: translateX(-50%) scale(1);
 }
+
+
+
+/* плавное перетекание цветов
+body, section, .event-card, .form-rsvp, .btn-submit, h2, label, .chip, .success-card {
+    transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.4s ease, 
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+} */

@@ -215,3 +215,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
+
+// плавное перетекание цветов
+// document.addEventListener('DOMContentLoaded', () => {
+//     const colorCircles = document.querySelectorAll('.color-circle');
+    
+//     // Карта тем для динамической смены расцветки всей страницы
+//     const colorThemes = {
+//         'Песочный': {
+//             accent: '#aa8c74',       // Насыщенный песочно-древесный для текста и кнопок
+//             accentLight: '#f5ebe0'  // Мягкий светлый крем для подложки карточек
+//         },
+//         'Шампань': {
+//             accent: '#bfa895',       // Благородный темный нюд
+//             accentLight: '#faf5f0'  // Очень нежный теплый белый
+//         },
+//         'Оливковый': {
+//             accent: '#4a634e',       // Ваш глубокий фирменный зеленый
+//             accentLight: '#f0f4f1'  // Легкий шалфейный фон для карточек
+//         },
+//         'Небесно-голубой': {
+//             accent: '#4682b4',       // Спокойный стальной голубой
+//             accentLight: '#f0f4f8'  // Свежий прохладный оттенок для карточек
+//         }
+//     };
+
+//     colorCircles.forEach(circle => {
+//         circle.addEventListener('click', function() {
+//             const colorName = this.getAttribute('title');
+//             const theme = colorThemes[colorName];
+
+//             if (theme) {
+//                 // Плавно меняем CSS-переменные на самом верхнем уровне (:root)
+//                 document.documentElement.style.setProperty('--accent', theme.accent);
+//                 document.documentElement.style.setProperty('--accent-light', theme.accentLight);
+                
+//                 // Добавляем микро-эффект пульсации для нажатого круга
+//                 colorCircles.forEach(c => c.style.transform = 'scale(1)');
+//                 this.style.transform = 'scale(1.15)';
+//                 setTimeout(() => {
+//                     this.style.transform = '';
+//                 }, 300);
+//             }
+//         });
+//     });
+// });
+
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     const colorCircles = document.querySelectorAll('.color-circle');
+    
+//     // Карта тем для динамической смены расцветки всей страницы
+//     const colorThemes = {
+//         'Песочный': {
+//             accent: '#aa8c74',       // Насыщенный песочно-древесный для текста и кнопок
+//             accentLight: '#f5ebe0'  // Мягкий светлый крем для подложки карточек
+//         },
+//         'Шампань': {
+//             accent: '#bfa895',       // Благородный темный нюд
+//             accentLight: '#faf5f0'  // Очень нежный теплый белый
+//         },
+//         'Оливковый': {
+//             accent: '#4a634e',       // Ваш глубокий фирменный зеленый
+//             accentLight: '#f0f4f1'  // Легкий шалфейный фон для карточек
+//         },
+//         'Небесно-голубой': {
+//             accent: '#4682b4',       // Спокойный стальной голубой
+//             accentLight: '#f0f4f8'  // Свежий прохладный оттенок для карточек
+//         }
+//     };
+
+//     colorCircles.forEach(circle => {
+//         circle.addEventListener('click', function() {
+//             const colorName = this.getAttribute('title');
+//             const theme = colorThemes[colorName];
+
+//             if (theme) {
+//                 // Плавно меняем CSS-переменные на самом верхнем уровне (:root)
+//                 document.documentElement.style.setProperty('--accent', theme.accent);
+//                 document.documentElement.style.setProperty('--accent-light', theme.accentLight);
+                
+//                 // Добавляем микро-эффект пульсации для нажатого круга
+//                 colorCircles.forEach(c => c.style.transform = 'scale(1)');
+//                 this.style.transform = 'scale(1.15)';
+//                 setTimeout(() => {
+//                     this.style.transform = '';
+//                 }, 300);
+//             }
+//         });
+//     });
+// });
