@@ -1,0 +1,107 @@
+// ВСТАВЬТЕ СЮДА ВАШИ ДАННЫЕ ОТ ТЕЛЕГРАМ БОТА
+const TG_TOKEN = "YOUR_TG_TOKEN"; 
+const TG_CHAT_ID = "YOUR_CHAT_ID"; // Верный ID вашей супергруппы
+
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000); // Защита от race condition (одновременных кликов)
+  
+  try {
+    var p = e.parameter;
+    var name = p.guest_name.trim();
+    var attend = p.attend;
+    var alcohol = p.alcohol;
+    var wishes = p.wishes || "—";
+    var timestamp = new Date();
+    
+    var doc = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = doc.getSheets()[0]; // Выбираем строго первый лист таблицы
+    
+    // 1. АВТО-СОЗДАНИЕ И КРАСИВОЕ ОФОРМЛЕНИЕ ТАБЛИЦЫ
+    if (sheet.getLastRow() === 0) {
+      var headers = ["Дата изменения", "Имя и Фамилия", "Присутствие", "Напитки", "Пожелания"];
+      sheet.appendRow(headers);
+      
+      var headerRange = sheet.getRange(1, 1, 1, 5);
+      headerRange.setBackground("#4A634E")
+                 .setFontColor("#FFFFFF")
+                 .setFontWeight("bold")
+                 .setHorizontalAlignment("center")
+                 .setFontFamily("Roboto");
+      
+      sheet.setFrozenRows(1);
+      sheet.setColumnWidth(1, 160);
+      sheet.setColumnWidth(2, 220);
+      sheet.setColumnWidth(3, 130);
+      sheet.setColumnWidth(4, 200);
+      sheet.setColumnWidth(5, 300);
+    }
+    
+    // 2. ПРОГРАММА ПЕРЕЗАПИСИ (Поиск дубликатов по Имени)
+    var data = sheet.getDataRange().getValues();
+    var rowIndex = -1;
+    
+    for (var i = 1; i < data.length; i++) {
+      if (data[i] && data[i][1] && data[i][1].toString().toLowerCase() === name.toLowerCase()) {
+        rowIndex = i + 1;
+        break;
+      }
+    }
+    
+    var isNewGuest = (rowIndex === -1);
+    var rowData = [timestamp, name, attend, alcohol, wishes];
+    
+    if (isNewGuest) {
+      sheet.appendRow(rowData);
+    } else {
+      sheet.getRange(rowIndex, 1, 1, 5).setValues([rowData]);
+    }
+    
+    var lastRow = isNewGuest ? sheet.getLastRow() : rowIndex;
+    sheet.getRange(lastRow, 1).setHorizontalAlignment("center");
+    sheet.getRange(lastRow, 3).setHorizontalAlignment("center");
+    
+    // 3. ОТПРАВКА СТАНДАРТНОГО МАРКДАУНА В ТЕЛЕГРАМ
+    sendTelegramMessage(name, attend, alcohol, wishes, isNewGuest);
+    
+    return ContentService.createTextOutput(JSON.stringify({ "result": "success" }))
+        .setMimeType(ContentService.MimeType.JSON);
+        
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ "result": "error", "error": error.toString() }))
+        .setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function sendTelegramMessage(name, attend, alcohol, wishes, isNewGuest) {
+  var emoji = attend.includes("Да") ? "✅" : "❌";
+  var title = isNewGuest ? "🔔 *Новый ответ RSVP*" : "🔄 *Обновление ответа RSVP*";
+  
+  var text = title + "\n\n" +
+             "👤 *Гость:* " + name + "\n" +
+             emoji + " *Статус:* " + attend + "\n";
+             
+  if (attend.includes("Да")) {
+    text += "🥂 *Напитки:* " + alcohol + "\n" +
+            "📝 *Пожелания:* " + wishes;
+  }
+  
+  var url = "https://api.telegram.org/bot" + TG_TOKEN + "/sendMessage";
+  
+  var payload = {
+    "chat_id": TG_CHAT_ID,
+    "text": text,
+    "parse_mode": "Markdown"
+  };
+  
+  var options = {
+    "method": "post",
+    "contentType": "application/json",
+    "payload": JSON.stringify(payload),
+    "muteHttpExceptions": true
+  };
+  
+  UrlFetchApp.fetch(url, options);
+}

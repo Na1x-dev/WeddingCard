@@ -3,7 +3,7 @@
 // ==========================================================================
 
 // Константа URL веб-приложения Google Скрипта для RSVP
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzbGCOgvgGijKkzxKfvTMw-QyKSaDbjW3_mEyp0rQDozYQxx7LNTEd6iSOWhJ1mxZs-uA/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwAbiKYDhv5sG_e60mVBEhtAWUtQ1xCLZ4i4U0m1PNhQMCDxs2eVZK-IDdMI6NfJzEXzg/exec";
 // Установка целевой даты торжества (15 июня 2026 года)
 const targetDate = new Date("June 15, 2026 14:00:00").getTime();
 
@@ -286,3 +286,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
+
