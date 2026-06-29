@@ -1,245 +1,346 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Александра и Михаил | Свадебное приглашение</title>
-    <!-- Мета-теги Open Graph для красивого превью в мессенджерах -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Александра и Михаил | Свадебное приглашение">
-    <meta property="og:description" content="Разделите с нами этот особенный день! Ждем вас 15.09.2026.">
-    <meta property="og:image" content="sources/color-hearts.svg">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Александра и Михаил | Свадебное торжество</title>
 
-    <!-- Фавиконка и шрифты (Исправлен URL Google Fonts) -->
-    <link rel="icon" type="image/svg+xml" href="sources/color-hearts.svg" sizes="any">
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="main.css">
-</head>
-<body>
-    <div class="wrapper">
-        <!-- БЛОК 1: HERO (Главный экран) -->
-        <header class="hero">
-            <div class="floating-particle p-rings-top" aria-hidden="true"></div>
-            <div class="floating-particle p-branch-top" aria-hidden="true"></div>
-            <div class="floating-particle p-branch-bottom" aria-hidden="true"></div>
-            <div class="floating-particle p-rings-bottom" aria-hidden="true"></div>
-            <div class="hero-monogram">A&M</div>
-            <div class="hero-couple">
-                <div class="couple-person">
-                    <span class="couple-role">Невеста</span>
-                    <h1 class="couple-name">Александра</h1>
+        <meta property="og:type" content="website">
+        <meta property="og:title"
+            content="Александра и Михаил | Свадебное приглашение">
+        <meta property="og:description"
+            content="Разделите с нами этот особенный день. Приглашение на торжество 15.06.2026.">
+        <meta property="og:image" content="sources/color-hearts.svg">
+
+        <link rel="icon" type="image/svg+xml" href="sources/color-hearts.svg"
+            sizes="any">
+        <link rel="preconnect" href="https://googleapis.com">
+        <link rel="preconnect" href="https://gstatic.com" crossorigin>
+        <link
+            href="https://googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
+            rel="stylesheet">
+
+        <link rel="stylesheet" href="main.css?v=2">
+    </head>
+    <body>
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="editorial-container">
+
+            <!-- БЛОК 1: ПОЛНОЭКРАННАЯ ОБЛОЖКА -->
+            <header class="luxury-hero">
+                <div class="hero-bg-photo"
+                    style="background-image: url('sources/couple.png');"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-editorial-content">
+                    <p class="hero-sub">Приглашение на свадьбу</p>
+                    <div class="main-monogram">A & M</div>
+                    <h1 class="fine-art-title">
+                        <span class="name-span">Александра</span>
+                        <span class="ampersand">&</span>
+                        <span class="name-span">Михаил</span>
+                    </h1>
+                    <div class="hero-line"></div>
+                    <p class="hero-calendar-date" id="hero-date">Загрузка
+                        даты...</p>
                 </div>
-                <div class="couple-divider">
-                    <img src="sources/heart.svg" class="pulse-heart-img" alt="и">
+                <div class="scroll-indicator">
+                    <span class="scroll-text">Листать вниз</span>
+                    <span class="scroll-arrow">↓</span>
                 </div>
-                <div class="couple-person">
-                    <span class="couple-role">Жених</span>
-                    <h1 class="couple-name">Михаил</h1>
+            </header>
+
+            <!-- БЛОК 2: ПИСЬМО-ПРИГЛАШЕНИЕ -->
+            <section id="about" class="editorial-section reveal-section">
+                <div class="centered-content-wrapper">
+                    <p class="editorial-pre">Дорогие близкие и друзья</p>
+                    <h2 class="serif-title">Наша история</h2>
+                    <div class="ornament-divider">✦ ✦ ✦</div>
+                    <p class="elegant-paragraph">
+                        Один день в нашей жизни обещает быть по-настоящему
+                        особенным.
+                        Мы хотим провести его в окружении людей, которые
+                        наполняют нашу жизнь теплом и смыслом.
+                        С большим удовольствием и трепетом приглашаем вас стать
+                        свидетелями начала нашей новой главы!
+                    </p>
                 </div>
+            </section>
+            <!-- БЛОК 3: ВОЗДУШНЫЙ ХРОНОГРАФ -->
+            <section id="countdown-section"
+                class="editorial-section reveal-section tint-bg">
+                <div class="centered-content-wrapper">
+                    <p class="editorial-pre">До торжества осталось</p>
+                    <div class="editorial-timer-grid">
+                        <div class="timer-node" id="days-card">
+                            <span class="timer-digits">00</span>
+                            <span class="timer-label">дней</span>
+                        </div>
+                        <div class="timer-node" id="hours-card">
+                            <span class="timer-digits">00</span>
+                            <span class="timer-label">часов</span>
+                        </div>
+                        <div class="timer-node" id="minutes-card">
+                            <span class="timer-digits">00</span>
+                            <span class="timer-label">минут</span>
+                        </div>
+                        <div class="timer-node" id="seconds-card">
+                            <span class="timer-digits">00</span>
+                            <span class="timer-label">секунд</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- БЛОК 4: ПРОГРАММА ТОРЖЕСТВА И КАРТА -->
+            <section id="details" class="editorial-section reveal-section">
+                <div class="full-width-editorial-grid">
+
+                    <div class="editorial-column">
+                        <p class="editorial-pre">План мероприятий</p>
+                        <h2 class="serif-title left-align">Программа дня</h2>
+
+                        <div class="fine-art-timeline">
+                            <div class="timeline-row">
+                                <span class="row-time">13:30</span>
+                                <div class="row-content">
+                                    <h4 class="row-title">Приветственный
+                                        коктейль</h4>
+                                    <p class="row-text">Сбор гостей, легкие
+                                        закуски и знакомство</p>
+                                </div>
+                            </div>
+                            <div class="timeline-row">
+                                <span class="row-time">14:00</span>
+                                <div class="row-content">
+                                    <h4 class="row-title">Выездная
+                                        регистрация</h4>
+                                    <p class="row-text">Торжественная церемония
+                                        под открытым небом</p>
+                                </div>
+                            </div>
+                            <div class="timeline-row">
+                                <span class="row-time">14:40</span>
+                                <div class="row-content">
+                                    <h4 class="row-title">Фотосессия и
+                                        поздравления</h4>
+                                    <p class="row-text">Время для объятий,
+                                        улыбок и памятных кадров</p>
+                                </div>
+                            </div>
+                            <div class="timeline-row">
+                                <span class="row-time">16:00</span>
+                                <div class="row-content">
+                                    <h4 class="row-title">Праздничный ужин</h4>
+                                    <p class="row-text">Банкет, музыкальная
+                                        программа и танцы</p>
+                                </div>
+                            </div>
+                            <div class="timeline-row">
+                                <span class="row-time">21:30</span>
+                                <div class="row-content">
+                                    <h4 class="row-title">Свадебный торт</h4>
+                                    <p class="row-text">Праздничный десерт и
+                                        завершение официальной части</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="editorial-column central-y">
+                        <div class="luxury-location-card">
+                            <p class="editorial-pre">Где все произойдет</p>
+                            <h3 class="location-main-title">Лесная мечта</h3>
+                            <p class="location-sub-address">Брест, Посёлок
+                                Костычи</p>
+
+                            <div class="map-wrapper-premium">
+                                <!-- Ссылка src удалена, она подставится из config.js -->
+                                <iframe class="map-iframe-premium"
+                                    allowfullscreen="true"
+                                    loading="lazy"></iframe>
+                            </div>
+
+                            <p class="location-tip">Рекомендуем выбрать удобную
+                                обувь для вечерней прогулки по территории
+                                усадьбы.</p>
+
+                            <!-- Добавлен id="route-btn", а href удален — он подставится из config.js -->
+                            <a href="#" target="_blank" class="editorial-btn"
+                                id="route-btn">
+                                <span class="btn-text-content">Построить
+                                    маршрут</span>
+                                <span class="btn-arrow-content">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="mid-photo-parallax"
+                style="background-image: url('sources/fabric-and-branch.png');">
+                <div class="parallax-overlay"></div>
             </div>
-            <div class="hero-date">15.09.2026</div>
-        </header>
+            <!-- БЛОК 5: ДРЕСС-КОД -->
+            <section id="dress" class="editorial-section reveal-section">
+                <div class="centered-content-wrapper">
+                    <p class="editorial-pre">Пожелания к стилю</p>
+                    <h2 class="serif-title">Дресс-код</h2>
+                    <p class="elegant-paragraph narrow">
+                        Нам будет очень приятно, если вы поддержите гармонию
+                        нашего праздника и выберете элегантные наряды в палитре
+                        торжества:
+                    </p>
 
-        <!-- БЛОК 2: ABOUT (Приглашение) -->
-        <section id="about">
-            <h2 class="reveal-text">Дорогие гости!</h2>
-            <p class="text-p reveal-text delay-1">
-                Один день в нашей жизни обещает быть особенным. 
-                Мы хотим провести его в окружении самых близких людей. 
-                С большим удовольствием приглашаем вас на нашу свадьбу!
-            </p>
-        </section>
+                    <div class="premium-palette-grid">
+                        <div class="palette-node">
+                            <div class="color-swatch active-theme"
+                                style="background-color: #eddcd2;"
+                                title="Песочный"></div>
+                            <span class="swatch-name">Песочный</span>
+                        </div>
+                        <div class="palette-node">
+                            <div class="color-swatch"
+                                style="background-color: #fff1e6;"
+                                title="Шампань"></div>
+                            <span class="swatch-name">Шампань</span>
+                        </div>
+                        <div class="palette-node">
+                            <div class="color-swatch"
+                                style="background-color: #e2ecc8;"
+                                title="Оливковый"></div>
+                            <span class="swatch-name">Оливковый</span>
+                        </div>
+                        <div class="palette-node">
+                            <div class="color-swatch"
+                                style="background-color: #cfe2f3;"
+                                title="Небесно-голубой"></div>
+                            <span class="swatch-name">Голубой</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- БЛОК 3: COUNTDOWN (Таймер обратного отсчета) -->
-        <section id="countdown-section" class="reveal-text">
-            <h2>До нашей свадьбы осталось</h2>
-            <div class="countdown-container">
-                <div class="countdown-item">
-                    <div class="flip-card" id="days-card">
-                        <div class="digit-wrapper">
-                            <span class="current">00</span>
-                            <span class="next">00</span>
-                        </div>
-                    </div>
-                    <p>дней</p>
-                </div>
-                <div class="countdown-item">
-                    <div class="flip-card" id="hours-card">
-                        <div class="digit-wrapper">
-                            <span class="current">00</span>
-                            <span class="next">00</span>
-                        </div>
-                    </div>
-                    <p>часов</p>
-                </div>
-                <div class="countdown-item">
-                    <div class="flip-card" id="minutes-card">
-                        <div class="digit-wrapper">
-                            <span class="current">00</span>
-                            <span class="next">00</span>
-                        </div>
-                    </div>
-                    <p>минут</p>
-                </div>
-                <div class="countdown-item">
-                    <div class="flip-card" id="seconds-card">
-                        <div class="digit-wrapper">
-                            <span class="current">00</span>
-                            <span class="next">00</span>
-                        </div>
-                    </div>
-                    <p>секунд</p>
-                </div>
-            </div>
-        </section>
-        <!-- БЛОК 4: DETAILS (Программа и Локация) -->
-        <section id="details" class="reveal-text">
-            <h2>Когда и где</h2>
-            <div class="event-grid">
-                <div class="event-card">
-                    <h3 class="card-title">Программа дня</h3>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-time">13:30</div>
-                            <div class="timeline-desc">Сбор гостей и приветственный коктейль</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-time">14:00</div>
-                            <div class="timeline-desc">Торжественная выездная регистрация</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-time">14:40</div>
-                            <div class="timeline-desc">Поздравления и свадебная фотосессия</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-time">16:00</div>
-                            <div class="timeline-desc">Свадебный праздничный ужин</div>
-                        </div>
-                        <div class="timeline-item last">
-                            <div class="timeline-time">21:30</div>
-                            <div class="timeline-desc">Праздничный торт и завершение вечера</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-card location-card">
-                    <div class="location-header">
-                        <h3 class="card-title">Место проведения</h3>
-                        <p class="location-address">Агроусадьба Лесная мечта</p>
-                        <p class="location-city">Брест, Посёлок Костычи</p>
-                    </div>
-                    <iframe class="map-box" src="https://yandex.ru/map-widget/v1/?um=constructor%3A639a338255ff89dcd4396ca7260c5f71c470027ec28b1bd31c8decd7815d7d80&amp;source=constructor" allowfullscreen="true" loading="lazy"></iframe>
-                    <div class="location-footer">
-                        <p class="location-note">Пожалуйста, позаботьтесь о комфортной обуви для прогулок по парку.</p>
-                        <a href="https://yandex.by/maps/-/CTAPa8M0" target="_blank" class="material-btn">
-                            <span>Построить маршрут</span>
-                            <span class="btn-icon">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <!-- БЛОК 6: RSVP АНКЕТА -->
+            <section id="rsvp"
+                class="editorial-section reveal-section last-section">
+                <div class="centered-content-wrapper">
+                    <p class="editorial-pre">Заполните анкету</p>
+                    <h2 class="serif-title">Подтверждение</h2>
+                    <p class="elegant-paragraph" style="margin-bottom: 40px;">
+                        Будем признательны, если вы ответите на вопросы анкеты
+                        до <span id="rsvp-deadline">...</span>.
+                    </p>
 
-        <!-- БЛОК 5: DRESS CODE (Дресс-код палитра) -->
-        <section id="dress" class="reveal-text">
-            <h2>Дресс-код</h2>
-            <p class="text-p">Мы будем рады видеть вас в элегантных нарядах. Поддержать атмосферу праздника можно, выбрав одежду в палитре торжества:</p>
-            <div class="palette">
-                <div class="palette-item">
-                    <div class="color-circle" style="background: #eddcd2;" title="Песочный" data-color="#eddcd2"></div>
-                    <span class="color-name">Песочный</span>
-                </div>
-                <div class="palette-item">
-                    <div class="color-circle" style="background: #fff1e6;" title="Шампань" data-color="#fff1e6"></div>
-                    <span class="color-name">Шампань</span>
-                </div>
-                <div class="palette-item">
-                    <div class="color-circle" style="background: #e2ecc8;" title="Оливковый" data-color="#e2ecc8"></div>
-                    <span class="color-name">Оливковый</span>
-                </div>
-                <div class="palette-item">
-                    <div class="color-circle" style="background: #cfe2f3;" title="Небесно-голубой" data-color="#cfe2f3"></div>
-                    <span class="color-name">Голубой</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- БЛОК 6: RSVP (Форма подтверждения присутствия) -->
-        <section id="rsvp" class="reveal-text">
-            <h2>Подтверждение присутствия</h2>
-            <p class="text-p" style="margin-bottom: 30px;">Пожалуйста, ответьте на вопросы до 1 августа 2026 года.</p>
-            
-            <form class="form-rsvp" id="rsvpForm">
-                <!-- Блок имени -->
-                <div class="input-block">
-                    <label for="guest_name">Ваше имя и фамилия</label>
-                    <input type="text" id="guest_name" name="guest_name" class="field-text" placeholder="Имя Фамилия" required>
-                </div>
-                <!-- Блок присутствия -->
-                <div class="input-block">
-                    <label>Сможете ли вы разделить с нами этот день?</label>
-                    <div class="choice-group">
-                        <label class="choice-label">
-                            <input type="radio" name="attend" value="Да, с радостью" checked>
-                            <span class="choice-text">Я приду</span>
-                        </label>
-                        <label class="choice-label">
-                            <input type="radio" name="attend" value="К сожалению, нет">
-                            <span class="choice-text">Не смогу</span>
-                        </label>
-                    </div>
-                </div>
-                <!-- Контейнер дополнительных вопросов -->
-                <div id="additional-questions" class="fade-container">
-                    <div class="input-block">
-                        <label>Пожелания по напиткам (можно выбрать несколько)</label>
-                        <div class="alcohol-chips">
-                            <label class="chip-label">
-                                <input type="checkbox" name="alcohol" value="Игристое вино">
-                                <span class="chip">🥂 Игристое вино</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="checkbox" name="alcohol" value="Белое вино">
-                                <span class="chip">🍷 Белое вино</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="checkbox" name="alcohol" value="Красное вино">
-                                <span class="chip">🍷 Красное вино</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="checkbox" name="alcohol" value="Виски / Коньяк">
-                                <span class="chip">🥃 Виски / Коньяк</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="checkbox" name="alcohol" value="Коктейли">
-                                <span class="chip">🍹 Коктейли</span>
-                            </label>
-                            <label class="chip-label">
-                                <input type="checkbox" name="alcohol" value="Без алкоголя" id="no-alcohol">
-                                <span class="chip">🥤 Не пью алкоголь</span>
-                            </label>
+                    <form class="glass-rsvp-form" id="rsvpForm">
+                        <div class="premium-input-group">
+                            <label for="guest_name" class="premium-label">Ваше
+                                имя и фамилия</label>
+                            <input type="text" id="guest_name" name="guest_name"
+                                class="premium-input"
+                                placeholder="Александр Иванов" required>
                         </div>
-                    </div>
-                    <div class="input-block">
-                        <label for="wishes">Особые пожелания (меню, аллергии, детское кресло)</label>
-                        <input type="text" id="wishes" name="wishes" class="field-text" placeholder="Например: вегетарианец, аллергия на орехи">
+
+                        <div class="premium-input-group">
+                            <label class="premium-label">Сможете ли вы быть с
+                                нами?</label>
+                            <div class="luxury-radio-wrapper">
+                                <label class="luxury-radio-label">
+                                    <input type="radio" name="attend"
+                                        value="Да, с радостью" checked>
+                                    <span class="custom-radio-button">Я
+                                        приеду</span>
+                                </label>
+                                <label class="luxury-radio-label">
+                                    <input type="radio" name="attend"
+                                        value="К сожалению, нет">
+                                    <span class="custom-radio-button">Не
+                                        смогу</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="additional-questions" class="premium-fade-box">
+                            <div class="premium-input-group">
+                                <label class="premium-label">Предпочтения по
+                                    алкоголю (несколько вариантов)</label>
+                                <div class="luxury-checkbox-grid">
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Игристое вино">
+                                        <span class="custom-check-box">Игристое
+                                            вино</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Белое вино">
+                                        <span class="custom-check-box">Белое
+                                            вино</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Красное вино">
+                                        <span class="custom-check-box">Красное
+                                            вино</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Виски / Коньяк">
+                                        <span class="custom-check-box">Крепкий
+                                            алкоголь</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Коктейли">
+                                        <span class="custom-check-box">Легкие
+                                            коктейли</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Без алкоголя"
+                                            id="no-alcohol">
+                                        <span class="custom-check-box">Не пью
+                                            алкоголь</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="premium-input-group">
+                                <label for="wishes" class="premium-label">Особые
+                                    пожелания к меню</label>
+                                <input type="text" id="wishes" name="wishes"
+                                    class="premium-input"
+                                    placeholder="Аллергии, вегетарианское меню и т.д.">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="premium-submit-btn"
+                            id="submitBtn">Отправить ответ</button>
+                        <div id="form-status" style="display:none;"></div>
+                    </form>
+
+                    <div id="form-success-card" class="premium-success-card">
+                        <div class="success-heart-wrapper">
+                            <svg width="32" height="32" viewBox="0 0 24 24"
+                                fill="currentColor"
+                                style="color: var(--accent); opacity: 0.7;">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                            </svg>
+                        </div>
+                        <h3 id="success-title"
+                            class="luxury-success-title"></h3>
+                        <p id="success-text" class="luxury-success-text"></p>
                     </div>
                 </div>
-                <button type="submit" class="btn-submit" id="submitBtn">Отправить ответ</button>
-                <div id="form-status" style="display:none;"></div>
-            </form>
+            </section>
 
-            <div id="form-success-card" class="success-card">
-                <svg class="success-icon" xmlns="http://w3.org" viewBox="0 0 24 24">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                </svg>
-                <h3 id="success-title" class="success-title"></h3>
-                <p id="success-text" class="success-text"></p>
-            </div>
-        </section>
-    </div>
-    <script src="script.js"></script>
-</body>
+            <footer class="luxury-footer">
+                <p class="footer-monogram">A & M</p>
+                <p class="footer-copy">2026 • Ждем вас</p>
+            </footer>
+        </div>
+
+        <script src="config.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
