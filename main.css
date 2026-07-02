@@ -2,16 +2,22 @@
 1. ШРИФТОВАЯ СИСТЕМА, ПЕРЕМЕННЫЕ И СБРОС СТИЛЕЙ
 ========================================================================== */
 :root {
-  --bg-color: #faf9f6; 
-  --card-bg: transparent; 
-  --accent: #2c3e2b; 
-  --text-main: #1c221e; 
-  --text-muted: #6e7770; 
-  --accent-light: #f1efea; 
-  --glass-bg: rgba(255, 255, 255, 0.85); 
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Montserrat', system-ui, sans-serif;
+ --bg-color: #faf9f6; 
+ --card-bg: transparent; 
+ --accent: #2c3e2b; 
+ --text-main: #1c221e; 
+ --text-muted: #6e7770; 
+ --accent-light: #f1efea; 
+ --glass-bg: rgba(255, 255, 255, 0.85); 
+ /* Обновленные премиальные шрифты */
+--font-serif: 'Forum', Georgia, serif;
+--font-sans: 'Tenor Sans', sans-serif;
+
+
+
+
 }
+
 
 * {
   box-sizing: border-box;
@@ -205,13 +211,14 @@ h1, h2, h3, h4, .main-monogram, .timer-digits, .footer-monogram, .luxury-success
 
 /* Изящный, тонкий амперсанд строго по центру */
 .fine-art-title .ampersand {
-  font-style: italic;
-  font-size: 0.75em;
-  opacity: 0.75;
-  line-height: 1;
-  margin: 8px 0 !important; /* Небольшой аккуратный отступ сверху и снизу от имен */
-  font-family: 'Playfair Display', Georgia, serif !important;
+ font-family: var(--font-serif) !important;
+ font-style: italic !important; /* Включает красивое каллиграфическое начертание */
+ font-size: 0.85em;
+ opacity: 0.8;
+ line-height: 1;
+ margin: 8px 0 !important;
 }
+
 
 
 
