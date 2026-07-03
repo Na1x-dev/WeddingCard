@@ -61,8 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         CONFIG.PALETTE.forEach((color, index) => {
             const node = document.createElement('div');
             node.className = 'palette-node';
-            
-            // Делаем первый цвет активным по умолчанию, как в исходной верстке
             const activeClass = index === 0 ? 'active-theme' : '';
             
             node.innerHTML = `
@@ -74,13 +72,29 @@ document.addEventListener("DOMContentLoaded", () => {
             paletteGrid.appendChild(node);
         });
 
-        // Навешивание событий клика на созданные кружочки
         const colorSwatches = paletteGrid.querySelectorAll('.color-swatch');
         colorSwatches.forEach(swatch => {
             swatch.addEventListener('click', function() {
                 colorSwatches.forEach(s => s.classList.remove('active-theme'));
                 this.classList.add('active-theme');
             });
+        });
+    }
+
+    // ДИНАМИЧЕСКАЯ ГЕНЕРАЦИЯ ТАЙМЛАЙНА
+    const timelineContainer = document.querySelector('.fine-art-timeline');
+    if (timelineContainer && CONFIG.TIMELINE && CONFIG.TIMELINE.length > 0) {
+        CONFIG.TIMELINE.forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'timeline-row';
+            row.innerHTML = `
+                <div class="row-time">${item.time}</div>
+                <div class="row-content">
+                    <div class="row-title">${item.title}</div>
+                    <div class="row-text">${item.text}</div>
+                </div>
+            `;
+            timelineContainer.appendChild(row);
         });
     }
     
@@ -165,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (statusDiv) statusDiv.style.display = "none";
                 rsvpForm.classList.add('collapsed');
                 
-                const shortName = guestName.split(' ')[0];
+                const shortName = guestName.split(' ');
                 let titleText = "", bodyText = "";
                 
                 if (attendValue === "Да, с радостью") {

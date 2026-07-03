@@ -23,6 +23,14 @@ const CONFIG = {
         { hex: "#e2ecc8", name: "Оливковый" },
         { hex: "#cfe2f3", name: "Голубой" }
     ],
+    
+    // Программа дня (Таймлайн) — можно добавлять любое количество событий
+    TIMELINE: [
+        { time: "14:30", title: "Сбор гостей", text: "Приветственные напитки, знакомство и легкий фуршет перед началом" },
+        { time: "15:00", title: "Выездная регистрация", text: "Самый трогательный момент нашего дня у лесной арки" },
+        { time: "16:00", title: "Свадебный ужин", text: "Праздничный банкет, поздравления, танцы и шоу-программа" },
+        { time: "22:00", title: "Свадебный торт и финал", text: "Яркое завершение вечера и десерт" }
+    ],
 
     // URL веб-приложения Google Apps Script (Бэкенд)
     WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwAbiKYDhv5sG_e60mVBEhtAWUtQ1xCLZ4i4U0m1PNhQMCDxs2eVZK-IDdMI6NfJzEXzg/exec"
