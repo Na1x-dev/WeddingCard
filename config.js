@@ -1,49 +1,110 @@
-const CONFIG = {
-    // Данные молодоженов
-    NAMES: {
-        BRIDE: "Александра",
-        GROOM: "Михаил",
-        MONOGRAM: "A & M"
+const SITE_CONFIG = {
+    // 1. ВАШИ ЧИСТЫЕ ХВОСТЫ КОНТАКТОВ БЕЗ АДРЕСОВ САЙТОВ
+    contacts: {
+        telegram: "/bakery_product_driver",
+        instagram: "symnearone",
+        email: "na1x.1024@gmail.com"
     },
 
-    WEDDING_DATE: new Date(2026, 8, 15, 14, 0, 0),
-
-    // Локация проведения
-    LOCATION: {
-        TITLE: "Лесная мечта",
-        ADDRESS: "Брест, Посёлок Костычи",
-        MAP_SRC: "https://yandex.ru/map-widget/v1/?um=constructor%3A639a338255ff89dcd4396ca7260c5f71c470027ec28b1bd31c8decd7815d7d80&amp;source=constructor",
-        ROUTE_HREF: "https://yandex.by/maps/-/CTAPa8M0"
+    // 2. ДОБАВЛЕНЫ ШАБЛОНЫ СООБЩЕНИЙ В ПЕРЕВОДЫ ИНТЕРФЕЙСА
+    translations: {
+        ru: {
+            navCatalog: "Каталог",
+            navCustom: "Свой макет",
+            navContacts: "Контакты",
+            heroTitle: "Стильные цифровые пригласительные на вашу свадьбу",
+            heroSubtitle: "Выберите готовый дизайн или предложите свою идею. Сделаем ваш день незабываемым с первых секунд!",
+            catalogTitle: "Каталог шаблонов",
+            btnDemo: "Смотреть демо",
+            btnOrder: "Заказать",
+            customTitle: "У вас есть свой макет или идея?",
+            customSubtitle: "Мы с радостью воплотим её в жизнь! Отправьте нам референс или ТЗ в любой удобный мессенджер.",
+            customBtn: "Обсудить свой дизайн",
+            contactsTitle: "Связаться с нами",
+            contactsSubtitle: "Выберите удобный способ связи для заказа или консультации:",
+            modalTitle: "Оформить заказ",
+            modalSubtitle: "Выберите удобный мессенджер или почту. Напишите нам, и мы обсудим все детали!",
+            modalSelected: "Выбранный шаблон:",
+            modalCustomOrder: "Индивидуальный заказ по вашему макету",
+            noTemplates: "В этой категории пока нет шаблонов.",
+            
+            // Тексты автоматических сообщений (RU)
+            msgDefault: "Здравствуйте! Хочу задать вопрос по поводу свадебных пригласительных.",
+            msgCustom: "Здравствуйте! У меня есть свой макет, хочу обсудить индивидуальный заказ пригласительного.",
+            msgTemplate: "Здравствуйте! Хочу заказать цифровое пригласительное по шаблону: "
+        },
+        en: {
+            navCatalog: "Catalog",
+            navCustom: "Custom Design",
+            navContacts: "Contacts",
+            heroTitle: "Elegant Digital Wedding Invitations",
+            heroSubtitle: "Choose a ready-made design or bring your own idea to life. Make your day memorable from the very start!",
+            catalogTitle: "Our Templates",
+            btnDemo: "Live Demo",
+            btnOrder: "Order Now",
+            customTitle: "Have your own layout or idea?",
+            customSubtitle: "We will gladly bring it to life! Send us your reference or requirements via any messenger.",
+            customBtn: "Discuss Custom Design",
+            contactsTitle: "Contact Us",
+            contactsSubtitle: "Choose a convenient way to contact us for orders or consultations:",
+            modalTitle: "Place an Order",
+            modalSubtitle: "Choose a messenger or email below. Text us, and we will discuss all the details!",
+            modalSelected: "Selected template:",
+            modalCustomOrder: "Custom design based on your layout",
+            noTemplates: "No templates in this category yet.",
+            
+            // Тексты автоматических сообщений (EN)
+            msgDefault: "Hello! I have a question regarding your wedding invitations.",
+            msgCustom: "Hello! I have my own layout and would like to discuss a custom invitation design.",
+            msgTemplate: "Hello! I would like to order a digital invitation template: "
+        }
     },
-
-    // Палитра дресс-кода (можно добавлять/удалять любые цвета)
-    PALETTE: [
-        { hex: "#eddcd2", name: "Песочный" },
-        { hex: "#fff1e6", name: "Шампань" },
-        { hex: "#e2ecc8", name: "Оливковый" },
-        { hex: "#cfe2f3", name: "Голубой" }
-    ],
     
-    // Программа дня (Таймлайн) — можно добавлять любое количество событий
-    TIMELINE: [
-        { time: "14:30", title: "Сбор гостей", text: "Приветственные напитки, знакомство и легкий фуршет перед началом" },
-        { time: "15:00", title: "Выездная регистрация", text: "Самый трогательный момент нашего дня у лесной арки" },
-        { time: "16:00", title: "Свадебный ужин", text: "Праздничный банкет, поздравления, танцы и шоу-программа" },
-        { time: "22:00", title: "Свадебный торт и финал", text: "Яркое завершение вечера и десерт" }
-    ],
 
-    // URL веб-приложения Google Apps Script (Бэкенд)
-    WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwAbiKYDhv5sG_e60mVBEhtAWUtQ1xCLZ4i4U0m1PNhQMCDxs2eVZK-IDdMI6NfJzEXzg/exec"
-};
+    // 3. БАЗА ДАННЫХ ВАШИХ ШАБЛОНОВ (ПОРТФОЛИО)
+       templates: [
+        {
+            id: 1,
+            style: "classic",
+            image: "/source/pre_img/classic.png", // ИСПРАВЛЕНО: путь к реальному файлу
+            demoUrl: "/classic_design/index.html", // Можете вставить ссылку на ваш тестовый github-лендинг
+            title: {
+                ru: "Нежная классика",
+                en: "Gentle Classics"
+            },
+            description: {
+                ru: "Минимализм, изящная каллиграфия и пастельные тона.",
+                en: "Minimalism, elegant calligraphy, and pastel tones."
+            }
+        },
+    //     {
+    //         id: 2,
+    //         style: "modern",
+    //         image: "source/2.avif", // ИСПРАВЛЕНО
+    //         demoUrl: "https://example.com",
+    //         title: {
+    //             ru: "Золотой Модерн",
+    //             en: "Golden Modern"
+    //         },
+    //         description: {
+    //             ru: "Геометрические линии и глубокие золотые акценты.",
+    //             en: "Geometric lines and deep golden accents."
+    //         }
+    //     },
+    //     {
+    //         id: 3,
+    //         style: "boho",
+    //         image: "source/3.webp", // ИСПРАВЛЕНО
+    //         demoUrl: "https://example.com",
+    //         title: {
+    //             ru: "Лесное Бохо",
+    //             en: "Forest Boho"
+    //         },
+    //         description: {
+    //             ru: "Пампасная трава, акварельные сухоцветы и теплота.",
+    //             en: "Pampas grass, watercolor dried flowers, and warmth."
+    //         }
+    //     }
+     ]
 
-const _monthsRU = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
-
-CONFIG.getWeddingTextDate = function () {
-    return `${this.WEDDING_DATE.getDate()} ${_monthsRU[this.WEDDING_DATE.getMonth()]} ${this.WEDDING_DATE.getFullYear()}`;
-};
-
-CONFIG.getRSVPTextDate = function () {
-    const rsvpDate = new Date(this.WEDDING_DATE);
-    rsvpDate.setMonth(rsvpDate.getMonth() - 1); // Ровно на месяц раньше даты свадьбы
-    return `${rsvpDate.getDate()} ${_monthsRU[rsvpDate.getMonth()]} ${rsvpDate.getFullYear()} года`;
 };

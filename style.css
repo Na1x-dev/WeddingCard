@@ -1,0 +1,458 @@
+/* Общие стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Резервируем отступ сверху при скролле по ссылкам, чтобы fixed-шапка не закрывала заголовки */
+    scroll-margin-top: 90px; 
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #1a1a1a;
+    line-height: 1.8;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5)), 
+                      url('source/2.jpeg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .logo {
+    font-family: 'Forum', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+/* Полупрозрачная легкая шапка */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: padding 0.3s ease;
+}
+
+.logo {
+    font-size: 1.6rem;
+    color: #3a3028;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+.logo:hover { opacity: 0.8; }
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 25px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+.nav a:hover { color: #bfa38f; }
+
+/* Переключатель языков */
+.lang-switcher {
+    display: flex;
+    gap: 6px;
+    margin-left: 25px;
+}
+.lang-btn {
+    background: none;
+    border: 1px solid #3a3028;
+    color: #3a3028;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.lang-btn.active, .lang-btn:hover {
+    background: #3a3028;
+    color: #fff;
+}
+
+/* Приветственный блок */
+.hero {
+    text-align: center;
+    padding: 120px 20px 60px;
+}
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: #2c221e;
+    margin-bottom: 25px;
+    line-height: 1.3;
+}
+.hero p {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    max-width: 600px;
+    margin: 0 auto;
+    color: #4a403a;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+/* Секция каталога */
+.catalog-section {
+    padding: 60px 5%;
+    max-width: 1300px;
+    margin: 0 auto;
+    scroll-margin-top: 100px;
+}
+.catalog-section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: #2c221e;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 35px;
+}
+
+/* Карточки шаблонов (Glassmorphism) */
+.card {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 15px 35px rgba(58, 48, 40, 0.06);
+}
+
+.card-image {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    background: rgba(58, 48, 40, 0.05);
+}
+.card-image img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+}
+.card-image:hover img { transform: scale(1.04); }
+
+/* Эффект наведения Live Demo */
+.card-image::after {
+    content: 'Live Demo ✨';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.card-image:hover::after { opacity: 1; }
+
+.card-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: center;
+}
+.card-content h3 {
+    font-size: 1.4rem;
+    color: #2c221e;
+    margin-bottom: 10px;
+}
+.card-content p {
+    font-size: 0.9rem;
+    color: #5a504a;
+    font-weight: 300;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.btn-order {
+    border: 1px solid #3a3028;
+    background: transparent;
+    color: #3a3028;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: auto;
+    transition: all 0.3s ease;
+}
+.btn-order:hover {
+    background: #3a3028;
+    color: #fff;
+}
+
+/* Секция Свой макет */
+.custom-order-section {
+    max-width: 800px;
+    margin: 80px auto;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 50px 30px;
+    text-align: center;
+    border-radius: 24px;
+    scroll-margin-top: 100px;
+}
+.custom-order-section h2 { font-size: 2rem; margin-bottom: 15px; }
+.custom-order-section p { font-weight: 300; margin-bottom: 30px; color: #4a403a; }
+
+.btn-secondary {
+    background: #3a3028;
+    color: #fff;
+    border: none;
+    padding: 14px 35px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-secondary:hover { background: #524439; }
+
+/* Подвал */
+.footer {
+    background: #1e1915;
+    color: #e2dad4;
+    padding: 60px 5% 40px;
+    text-align: center;
+    scroll-margin-top: 100px;
+}
+.footer h2 { color: #fff; margin-bottom: 10px; font-size: 2rem; }
+.footer p { font-weight: 300; font-size: 0.95rem; }
+.copyright { font-size: 0.8rem !important; color: #8a8078; margin-top: 40px; }
+
+/* Кнопки соцсетей */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    min-width: 160px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, filter 0.3s ease;
+}
+.social-icon:hover {
+    transform: translateY(-4px);
+    filter: brightness(1.08);
+}
+.social-icon:active { transform: translateY(-1px); }
+
+.telegram { background-color: #2ea6da; }
+.telegram:hover { box-shadow: 0 6px 20px rgba(46, 166, 218, 0.3); }
+
+.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important; }
+.instagram:hover { box-shadow: 0 6px 20px rgba(220, 39, 67, 0.3); }
+
+.email { background-color: #4a5568; }
+.email:hover { box-shadow: 0 6px 20px rgba(74, 85, 104, 0.3); }
+
+/* МОДАЛЬНОЕ ОКНО */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.modal.show {
+    display: block;
+    opacity: 1;
+}
+.modal.closing {
+    opacity: 0;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10vh auto;
+    padding: 40px;
+    border-radius: 24px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(58, 48, 40, 0.12);
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal.show .modal-content { transform: translateY(0); }
+.modal.closing .modal-content { transform: translateY(-20px); }
+
+.close-modal {
+    position: absolute; right: 24px; top: 20px;
+    color: #bfa38f; font-size: 28px; cursor: pointer;
+    transition: color 0.2s;
+}
+.close-modal:hover { color: #3a3028; }
+
+#modal-title { font-size: 2.2rem; color: #2c221e; margin-bottom: 12px; }
+#modal-subtitle { font-size: 0.9rem; color: #6a605a; margin-bottom: 25px; font-weight: 300; }
+
+.modal-product-info {
+    margin: 20px 0;
+    padding: 14px 20px;
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    color: #4a403a;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+.modal-product-info strong { font-weight: 500; color: #2c221e; }
+.modal-product-info .highlight { color: #bc9c82; font-weight: 600; margin-left: 5px; }
+
+.modal-socials { flex-direction: column; gap: 12px; }
+.modal-socials .social-icon { width: 100%; }
+
+/* ==========================================================================
+   МЕДИА-ЗАПРОСЫ ДЛЯ СМАРТФОНОВ И ПЛАНШЕТОВ
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header { padding: 15px 4%; }
+    .logo { font-size: 1.4rem; }
+    .nav a { margin-left: 15px; font-size: 0.85rem; }
+    .lang-switcher { margin-left: 15px; }
+    .hero { padding: 90px 20px 40px; }
+}
+
+@media (max-width: 600px) {
+    /* Скрываем навигацию, оставляем лого и языки, чтобы ничего не сминалось */
+    .nav { display: none; }
+    .header { justify-content: space-between; }
+    
+    .catalog-grid { grid-template-columns: 1fr; gap: 25px; }
+    .custom-order-section { padding: 40px 20px; margin: 40px auto; }
+    
+    .footer { padding: 40px 20px; }
+    .social-links { flex-direction: column; gap: 10px; }
+    .social-icon { width: 100%; }
+    
+    .modal-content { padding: 30px 20px; }
+    #modal-title { font-size: 1.8rem; }
+}
+
+
+/* Стили полноэкранного прелоадера */
+#main-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #faf9f6; /* Мягкий матовый фон */
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
+}
+
+.preloader-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.preloader-logo {
+  font-family: 'Forum', Georgia, serif;
+  font-size: 2rem;
+  color: #3a3028;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* Изящный линейный индикатор вместо банального спиннера */
+.preloader-line {
+  width: 140px;
+  height: 1px;
+  background: rgba(58, 48, 40, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.preloader-line::after {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: #3a3028;
+  animation: lineLoad 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes lineLoad {
+  0% { left: -100%; }
+  50% { left: 0; }
+  100% { left: 100%; }
+}
+
+/* Класс для плавного исчезновения */
+#main-preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}

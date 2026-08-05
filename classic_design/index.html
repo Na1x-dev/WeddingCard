@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Александра и Михаил | Свадебное торжество</title>
+
+        <meta property="og:type" content="website">
+        <meta property="og:title"
+            content="Александра и Михаил | Свадебное приглашение">
+        <meta property="og:description"
+            content="Разделите с нами этот особенный день. Приглашение на торжество 15.06.2026.">
+        <meta property="og:image" content="sources/color-hearts.svg">
+
+        <link rel="icon" type="image/svg+xml" href="sources/color-hearts.svg"
+            sizes="any">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Forum&family=Tenor+Sans&display=swap"
+            rel="stylesheet">
+
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <!-- ЭКРАН ЗАГРУЗКИ (PRELOADER) -->
+        <div id="preloader">
+            <div class="preloader-content">
+                <div class="preloader-spinner"></div>
+                <p class="preloader-text">Загрузка...</p>
+            </div>
+        </div>
+
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="editorial-container">
+
+            <!-- БЛОК 1: ПОЛНОЭКРАННАЯ ОБЛОЖКА -->
+            <!-- БЛОК 1: ПОЛНОЭКРАННАЯ ЖУРНАЛЬНАЯ ОБЛОЖКА -->
+            <header class="luxury-hero">
+                <div class="hero-bg-photo"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-editorial-content">
+                    <p class="hero-sub">Приглашение на свадьбу</p>
+                    <h1 class="fine-art-title">
+                        <span class="name-left">Александра</span>
+                        <span class="ampersand">&</span>
+                        <span class="name-right">Михаил</span>
+                    </h1>
+                    <p class="hero-calendar-date" id="hero-date">Загрузка
+                        даты...</p>
+                </div>
+                <div class="scroll-indicator">
+                    <span class="scroll-text">Листать вниз</span>
+                    <span class="scroll-arrow"></span>
+                </div>
+            </header>
+
+            <!-- БЛОК 2: ПИСЬМО-ПРИГЛАШЕНИЕ -->
+            <section id="about" class="editorial-section reveal-section">
+                <div class="centered-content-wrapper">
+                    <p class="editorial-pre">Дорогие близкие и друзья</p>
+                    <h2 class="serif-title">Наша история</h2>
+                    <div class="ornament-divider">❖ ❖ ❖</div>
+                    <p class="elegant-paragraph">
+                        Один день в нашей жизни обещает быть по-настоящему
+                        особенным.
+                        Мы хотим провести его в окружении людей, которые
+                        наполняют нашу жизнь теплом и смыслом.
+                        С большим удовольствием и трепетом приглашаем вас стать
+                        свидетелями начала нашей новой главы!
+                    </p>
+                </div>
+            </section>
+
+            <!-- БЛОК 3: ВОЗДУШНЫЙ ХРОНОГРАФ (ТАЙМЕР) -->
+            <section id="countdown-section"
+                class="editorial-section reveal-section tint-bg">
+                <div class="centered-content-wrapper">
+                    <p class="editorial-pre">До торжества осталось</p>
+                    <div class="editorial-timer-grid">
+                        <div class="timer-node" id="days-card">
+                            <span class="timer-digits">00</span>
+                            <span class="timer-label">дней</span>
+                        </div>
+                        <div class="timer-node" id="hours-card">
+                            <span class="timer-digits">00</span>
+                            <span class="timer-label">часов</span>
+                        </div>
+                        <div class="timer-node" id="minutes-card">
+                            <span class="timer-digits">00</span>
+                            <span class="timer-label">минут</span>
+                        </div>
+                        <div class="timer-node" id="seconds-card">
+                            <span class="timer-digits">00</span>
+                            <span class="timer-label">секунд</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- БЛОК 4: ПРОГРАММА ТОРЖЕСТВА И КАРТА -->
+            <section id="details" class="editorial-section reveal-section">
+                <div class="full-width-editorial-grid">
+                    <div class="editorial-column">
+
+                        <h2 class="serif-title left-align">Программа дня</h2>
+                        <!-- Контейнер таймлайна в разметке оставляем пустым -->
+                        <div class="fine-art-timeline"></div>
+                    </div>
+
+                    <div class="timeline-map-divider"></div>
+
+                    <div class="editorial-column central-y">
+                        <div class="luxury-location-card">
+                            <p class="editorial-pre">Где все произойдет</p>
+                            <h3 class="location-main-title">Лесная мечта</h3>
+                            <p class="location-sub-address">Брест, Посёлок
+                                Костычи</p>
+                            <div class="map-wrapper-premium">
+                                <iframe class="map-iframe-premium"
+                                    allowfullscreen="true"
+                                    loading="lazy"></iframe>
+                            </div>
+                            <p class="location-tip">Рекомендуем выбрать удобную
+                                обувь для вечерней прогулки по территории
+                                усадьбы.</p>
+                            <a href="#" target="_blank" class="editorial-btn"
+                                id="route-btn">
+                                <span class="btn-text-content">Построить
+                                    маршрут</span>
+                                <span class="btn-arrow-content">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="mid-photo-parallax"
+                style="background-image: url('sources/fabric-and-branch.png');">
+                <div class="parallax-overlay"></div>
+            </div>
+
+            <!-- БЛОК 5: ДРЕСС-КОД -->
+            <section id="dress" class="editorial-section reveal-section">
+                <div class="centered-content-wrapper">
+                    <p class="editorial-pre">Пожелания к стилю</p>
+                    <h2 class="serif-title">Дресс-код</h2>
+                    <p class="elegant-paragraph narrow">
+                        Нам будет очень приятно, если вы поддержите гармонию
+                        нашего праздника и выберете элегантные наряды в палитре
+                        торжества:
+                    </p>
+                    <!-- Контейнер оставляем пустым для динамической генерации -->
+                    <div class="premium-palette-grid"></div>
+                </div>
+            </section>
+
+            <!-- БЛОК 6: RSVP АНКЕТА -->
+            <section id="rsvp"
+                class="editorial-section reveal-section last-section">
+                <div class="centered-content-wrapper">
+                    <p class="editorial-pre">Заполните анкету</p>
+                    <h2 class="serif-title">Подтверждение</h2>
+                    <p class="elegant-paragraph" style="margin-bottom: 40px;">
+                        Будем признательны, если вы ответите на вопросы анкеты
+                        до <span id="rsvp-deadline">...</span>.
+                    </p>
+                    <form class="glass-rsvp-form" id="rsvpForm">
+                        <div class="premium-input-group">
+                            <label for="guest_name" class="premium-label">Ваше
+                                имя и фамилия</label>
+                            <input type="text" id="guest_name" name="guest_name"
+                                class="premium-input"
+                                placeholder="Александр Иванов" required>
+                        </div>
+                        <div class="premium-input-group">
+                            <label class="premium-label">Сможете ли вы быть с
+                                нами?</label>
+                            <div class="luxury-radio-wrapper">
+                                <label class="luxury-radio-label">
+                                    <input type="radio" name="attend"
+                                        value="Да, с радостью" checked>
+                                    <span class="custom-radio-button">Я
+                                        приеду</span>
+                                </label>
+                                <label class="luxury-radio-label">
+                                    <input type="radio" name="attend"
+                                        value="К сожалению, нет">
+                                    <span class="custom-radio-button">Не
+                                        смогу</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="additional-questions" class="premium-fade-box">
+                            <div class="premium-input-group">
+                                <label class="premium-label">Предпочтения по
+                                    алкоголю (несколько вариантов)</label>
+                                <div class="luxury-checkbox-grid">
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Игристое вино">
+                                        <span class="custom-check-box">Игристое
+                                            вино</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Белое вино">
+                                        <span class="custom-check-box">Белое
+                                            вино</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Красное вино">
+                                        <span class="custom-check-box">Красное
+                                            вино</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Виски / Коньяк">
+                                        <span class="custom-check-box">Крепкий
+                                            алкоголь</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Коктейли">
+                                        <span class="custom-check-box">Легкие
+                                            коктейли</span>
+                                    </label>
+                                    <label class="luxury-check-label">
+                                        <input type="checkbox" name="alcohol"
+                                            value="Без алкоголя"
+                                            id="no-alcohol">
+                                        <span class="custom-check-box">Не пью
+                                            алкоголь</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="premium-input-group">
+                                <label for="wishes" class="premium-label">Особые
+                                    пожелания к меню</label>
+                                <input type="text" id="wishes" name="wishes"
+                                    class="premium-input"
+                                    placeholder="Аллергии, вегетарианское меню и т.д.">
+                            </div>
+                        </div>
+                        <button type="submit" class="premium-submit-btn"
+                            id="submitBtn">Отправить ответ</button>
+                        <div id="form-status" style="display:none;"></div>
+                    </form>
+
+                    <div id="form-success-card" class="premium-success-card">
+                        <div class="success-heart-wrapper">
+                            <svg width="32" height="32" viewBox="0 0 24 24"
+                                fill="currentColor"
+                                style="color: var(--accent); opacity: 0.7;">
+                                <path
+                                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                            </svg>
+                        </div>
+                        <h3 id="success-title"
+                            class="luxury-success-title"></h3>
+                        <p id="success-text" class="luxury-success-text"></p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="luxury-footer">
+                <p class="footer-monogram">A & M</p>
+                <p class="footer-copy">2026 • Ждем вас</p>
+            </footer>
+        </div>
+
+        <script src="config.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

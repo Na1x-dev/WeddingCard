@@ -1,228 +1,278 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Инициализация конфигурационных данных локации и ссылок
-  const mapIframe = document.querySelector(".map-iframe-premium");
-  const routeBtn = document.getElementById("route-btn");
-  const heroDateEl = document.getElementById("hero-date");
-  const rsvpDeadlineEl = document.getElementById("rsvp-deadline");
+document.addEventListener('DOMContentLoaded', () => {
+    let currentLang = 'ru';
 
-  if (mapIframe && CONFIG.LOCATION?.MAP_SRC) mapIframe.src = CONFIG.LOCATION.MAP_SRC;
-  if (routeBtn && CONFIG.LOCATION?.ROUTE_HREF) routeBtn.href = CONFIG.LOCATION.ROUTE_HREF;
+    // Элементы DOM
+    const catalogGrid = document.getElementById('catalog-grid');
+    const langButtons = document.querySelectorAll('.lang-btn');
+    const modal = document.getElementById('order-modal');
+    const closeModalX = document.querySelector('.close-modal');
+    const modalProductInfo = document.getElementById('modal-product-info');
 
-  if (heroDateEl) heroDateEl.innerText = CONFIG.getWeddingTextDate();
-  if (rsvpDeadlineEl) rsvpDeadlineEl.innerText = CONFIG.getRSVPTextDate();
-
-  // Динамическое заполнение имен пары и локации из CONFIG
-  const nameLeftEl = document.querySelector(".name-left");
-  const nameRightEl = document.querySelector(".name-right");
-  const footerMonogramEl = document.querySelector(".footer-monogram");
-  const locationTitleEl = document.querySelector(".location-main-title");
-  const locationAddressEl = document.querySelector(".location-sub-address");
-
-  if (nameLeftEl && CONFIG.NAMES?.BRIDE) nameLeftEl.innerText = CONFIG.NAMES.BRIDE;
-  if (nameRightEl && CONFIG.NAMES?.GROOM) nameRightEl.innerText = CONFIG.NAMES.GROOM;
-  if (footerMonogramEl && CONFIG.NAMES?.MONOGRAM) footerMonogramEl.innerText = CONFIG.NAMES.MONOGRAM;
-  if (locationTitleEl && CONFIG.LOCATION?.TITLE) locationTitleEl.innerText = CONFIG.LOCATION.TITLE;
-  if (locationAddressEl && CONFIG.LOCATION?.ADDRESS) locationAddressEl.innerText = CONFIG.LOCATION.ADDRESS;
-
-  // Стабильный таймер обратного отсчета
-  const targetTime = CONFIG.WEDDING_DATE.getTime();
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const difference = targetTime - now;
-
-    if (difference < 0) {
-      const section = document.getElementById("countdown-section");
-      if (section) section.style.display = "none";
-      return;
+    // 1. ФУНКЦИЯ ПЕРЕВОДА СТАТИЧНОГО ТЕКСТА
+    function translateInterface() {
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (SITE_CONFIG.translations[currentLang][key]) {
+                element.textContent = SITE_CONFIG.translations[currentLang][key];
+            }
+        });
     }
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        // 2. ОБНОВЛЕННАЯ ФУНКЦИЯ ДИНАМИЧЕСКОЙ СБОРКИ ССЫЛОК С ТЕКСТОМ
+    function renderContacts(messageText) {
+        // Кодируем текст, чтобы пробелы и кириллица не ломали ссылки в браузере
+        const encodedText = encodeURIComponent(messageText);
+        
+        // Вручную собираем адреса сайтов и наши хвосты из config.js
+        const tgLink = "https://t.me" + SITE_CONFIG.contacts.telegram + "?text=" + encodedText;
+        const instaLink = "https://instagram.com/" + SITE_CONFIG.contacts.instagram;
+        const emailLink = "mailto:" + SITE_CONFIG.contacts.email + "?subject=" + encodeURIComponent("Digital Wedding") + "&body=" + encodedText;
 
-    const pad = (num) => String(num).padStart(2, '0');
-    const dEl = document.querySelector("#days-card .timer-digits");
-    const hEl = document.querySelector("#hours-card .timer-digits");
-    const mEl = document.querySelector("#minutes-card .timer-digits");
-    const sEl = document.querySelector("#seconds-card .timer-digits");
+        const contactHTML = `
+            <a href="${tgLink}" target="_blank" class="social-icon telegram">
+                <i class="fab fa-telegram-plane"></i> Telegram
+            </a>
+            <a href="${instaLink}" target="_blank" class="social-icon instagram">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="${emailLink}" class="social-icon email">
+                <i class="fas fa-envelope"></i> Email
+            </a>
+        `;
+        
+        // Вставляем сгенерированные кнопки в модальное окно
+        const modalSocials = document.querySelector('.modal-socials');
+        if (modalSocials) modalSocials.innerHTML = contactHTML;
+    }
 
-    if (dEl) dEl.innerText = pad(days);
-    if (hEl) hEl.innerText = pad(hours);
-    if (mEl) mEl.innerText = pad(minutes);
-    if (sEl) sEl.innerText = pad(seconds);
-  }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
+    // Вспомогательная базовая функция для подвала (там всегда идет дефолтное сообщение)
+    function renderFooterContacts() {
+        const defaultText = SITE_CONFIG.translations[currentLang]['msgDefault'];
+        const encodedText = encodeURIComponent(defaultText);
+        
+        const tgLink = "https://t.me/" + SITE_CONFIG.contacts.telegram + "?text=" + encodedText;
+        const instaLink = "https://instagram.com/" + SITE_CONFIG.contacts.instagram;
+        const emailLink = "mailto:" + SITE_CONFIG.contacts.email + "?subject=" + encodeURIComponent("Digital Wedding") + "&body=" + encodedText;
 
-  // ГЕНЕРАЦИЯ ПАЛИТРЫ ДРЕСС-КОДА
-  const paletteGrid = document.querySelector('.premium-palette-grid');
-  if (paletteGrid && CONFIG.PALETTE && CONFIG.PALETTE.length > 0) {
-    CONFIG.PALETTE.forEach((color, index) => {
-      const node = document.createElement('div');
-      node.className = 'palette-node';
-      const activeClass = index === 0 ? 'active-theme' : '';
-
-      node.innerHTML = `
-                <div class="color-swatch ${activeClass}" 
-                     style="background-color: ${color.hex};" 
-                     title="${color.name}"></div>
-                <span class="swatch-name">${color.name}</span>
+        const footerSocials = document.querySelector('.footer-socials');
+        if (footerSocials) {
+            footerSocials.innerHTML = `
+                <a href="${tgLink}" target="_blank" class="social-icon telegram"><i class="fab fa-telegram-plane"></i> Telegram</a>
+                <a href="${instaLink}" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="${emailLink}" class="social-icon email"><i class="fas fa-envelope"></i> Email</a>
             `;
-      paletteGrid.appendChild(node);
-    });
+        }
+    }
 
-    const colorSwatches = paletteGrid.querySelectorAll('.color-swatch');
-    colorSwatches.forEach(swatch => {
-      swatch.addEventListener('click', function () {
-        colorSwatches.forEach(s => s.classList.remove('active-theme'));
-        this.classList.add('active-theme');
-      });
-    });
-  }
+    // 4. УМНАЯ ЛОГИКА ОПРЕДЕЛЕНИЯ КНОПОК И ТЕКСТА В МОДЛАКЕ
+        // 4. ИСПРАВЛЕННАЯ ЛОГИКА СБОРКИ СТРОКИ ДЛЯ ТЕЛЕГРАМА
+    function openOrderModal(templateId = null) {
+        if (!modal || !modalProductInfo) return;
 
-  // ДИНАМИЧЕСКАЯ ГЕНЕРАЦИЯ ТАЙМЛАЙНА
-  const timelineContainer = document.querySelector('.fine-art-timeline');
-  if (timelineContainer && CONFIG.TIMELINE && CONFIG.TIMELINE.length > 0) {
-    CONFIG.TIMELINE.forEach(item => {
-      const row = document.createElement('div');
-      row.className = 'timeline-row';
-      row.innerHTML = `
-                <div class="row-time">${item.time}</div>
-                <div class="row-content">
-                    <div class="row-title">${item.title}</div>
-                    <div class="row-text">${item.text}</div>
+        let dynamicMessage = ""; // Переменная для хранения текста
+
+        if (templateId) {
+            // А) Если клиент кликнул по готовому шаблону
+            const template = SITE_CONFIG.templates.find(t => t.id === templateId);
+            
+            // Защита: если вдруг шаблон не найден, берем дефолтный заголовок
+            const title = template ? template.title[currentLang] : ""; 
+            const label = SITE_CONFIG.translations[currentLang]['modalSelected'];
+            
+            modalProductInfo.innerHTML = `<strong>${label}</strong><span class="highlight">${title}</span>`;
+            
+            // ИСПРАВЛЕНО: Явно собираем строку из конфига и названия макета
+            const baseText = SITE_CONFIG.translations[currentLang]['msgTemplate'];
+            dynamicMessage = baseText + ` "${title}"`;
+        } else {
+            // Б) Если клиент кликнул по кнопке "Свой макет"
+            modalProductInfo.innerHTML = `<span class="highlight">${SITE_CONFIG.translations[currentLang]['modalCustomOrder']}</span>`;
+            
+            // ИСПРАВЛЕНО: Берем чистый текст из свойства msgCustom
+            dynamicMessage = SITE_CONFIG.translations[currentLang]['msgCustom'];
+        }
+
+        // Передаем собранную строку в функцию генерации ссылок кнопок
+        renderContacts(dynamicMessage);
+
+        // Плавное открытие окна
+        modal.classList.remove('closing');
+        modal.style.display = 'block';
+        setTimeout(() => { modal.classList.add('show'); }, 10);
+        document.body.style.overflow = 'hidden'; 
+    }
+
+
+
+    // 3. ФУНКЦИЯ ОТРИСОВКИ КАРТОЧЕК КАТАЛОГА
+       // 3. ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ ФУНКЦИЯ ОТРИСОВКИ КАТАЛОГА
+    function renderCatalog() {
+        if (!catalogGrid) return;
+        catalogGrid.innerHTML = '';
+        
+        const allTemplates = SITE_CONFIG.templates;
+        if (!allTemplates || allTemplates.length === 0) {
+            catalogGrid.innerHTML = `<p class="no-templates">${SITE_CONFIG.translations[currentLang]['noTemplates']}</p>`;
+            return;
+        }
+
+        allTemplates.forEach(template => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            
+            const title = template.title[currentLang];
+            const desc = template.description[currentLang];
+            
+            card.innerHTML = `
+                <a href="${template.demoUrl}" target="_blank" class="card-image" title="${SITE_CONFIG.translations[currentLang]['btnDemo']}">
+                    <img src="${template.image}" alt="${title}" loading="lazy">
+                </a>
+                <div class="card-content">
+                    <h3>${title}</h3>
+                    <p>${desc}</p>
+                    <div class="card-actions" style="justify-content: center;">
+                        <!-- Кнопка жестко хранит корректный ID макета -->
+                        <button class="btn-order" data-id="${template.id}">
+                            ${SITE_CONFIG.translations[currentLang]['btnOrder']}
+                        </button>
+                    </div>
                 </div>
             `;
-      timelineContainer.appendChild(row);
-    });
-  }
+            catalogGrid.appendChild(card);
+        });
 
-  // Логика формы RSVP
-  const rsvpForm = document.getElementById('rsvpForm');
-  const additionalQuestions = document.getElementById('additional-questions');
-  const radioAttend = document.querySelectorAll('input[name="attend"]');
-  const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]');
-  const noAlcoholCheckbox = document.getElementById('no-alcohol');
-  const statusDiv = document.getElementById('form-status');
+        // ЖЕСТКИЙ ФИКС: Используем currentTarget вместо target, чтобы исключить undefined при клике на текст
+        document.querySelectorAll('.btn-order').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const templateId = parseInt(e.currentTarget.getAttribute('data-id'));
+                openOrderModal(templateId);
+            });
+        });
+    }
 
-  radioAttend.forEach(radio => {
-    radio.addEventListener('change', (e) => {
-      if (e.target.value === "К сожалению, нет") {
-        if (additionalQuestions) additionalQuestions.classList.add('hidden');
-      } else {
-        if (additionalQuestions) additionalQuestions.classList.remove('hidden');
-      }
+    // 4. ЛОГИКА МОДАЛЬНОГО ОКНА (С КОРРЕКТНЫМ ТАЙМАУТОМ ДЛЯ ЗАКРЫТИЯ)
+        // 4. ФИНАЛЬНАЯ НЕУБИВАЕМАЯ ЛОГИКА СБОРКИ СТРОКИ ДЛЯ ТЕЛЕГРАМА
+    function openOrderModal(templateId = null) {
+        if (!modal || !modalProductInfo) return;
+
+        let dynamicMessage = ""; 
+
+        // 1. ПРОВЕРЯЕМ, ЧТО КЛИКНУЛИ ПО КАРТОЧКЕ (ЕСТЬ ID)
+        if (templateId && !isNaN(templateId)) {
+            
+            // Ищем нужный шаблон в базе
+            const template = SITE_CONFIG.templates.find(t => t.id === templateId);
+            
+            if (template && template.title) {
+                // Если шаблон и его имя успешно найдены
+                const title = template.title[currentLang] || template.title['ru'];
+                const label = SITE_CONFIG.translations[currentLang]['modalSelected'] || "Выбранный шаблон:";
+                
+                modalProductInfo.innerHTML = `<strong>${label}</strong><span class="highlight"> ${title}</span>`;
+                
+                // Проверяем, есть ли заготовка фразы в конфиге
+                const baseText = SITE_CONFIG.translations[currentLang]['msgTemplate'];
+                if (baseText) {
+                    dynamicMessage = baseText + ` "${title}"`;
+                } else {
+                    // НАДЁЖНЫЙ ФОЛБЕК: если в конфиге пусто, пишем текст вручную
+                    dynamicMessage = currentLang === 'en' 
+                        ? `Hello! I want to order a digital invitation template: "${title}"`
+                        : `Здравствуйте! Хочу заказать цифровое пригласительное по шаблону: "${title}"`;
+                }
+            } else {
+                // Если ID передался, но в базе такого шаблона почему-то нет
+                modalProductInfo.innerHTML = `<span class="highlight">Заказ пригласительного</span>`;
+                dynamicMessage = "Здравствуйте! Хочу сделать заказ пригласительного на свадьбу.";
+            }
+
+        } else {
+            // 2. ЕСЛИ КЛИКНУЛИ ПО КНОПКЕ "СВОЙ МАКЕТ" (ID НЕТ)
+            const labelCustom = SITE_CONFIG.translations[currentLang]['modalCustomOrder'] || "Индивидуальный заказ";
+            modalProductInfo.innerHTML = `<span class="highlight">${labelCustom}</span>`;
+            
+            const customText = SITE_CONFIG.translations[currentLang]['msgCustom'];
+            if (customText) {
+                dynamicMessage = customText;
+            } else {
+                // НАДЁЖНЫЙ ФОЛБЕК: текст вручную
+                dynamicMessage = currentLang === 'en'
+                    ? "Hello! I have my own layout, let's discuss a custom design."
+                    : "Здравствуйте! У меня есть свой макет, хочу обсудить индивидуальный заказ.";
+            }
+        }
+
+        // ЖЕСТКИЙ ПЕРЕХВАТ ОШИБКИ: Если на выходе всё равно получилось undefined, принудительно заменяем текст
+        if (!dynamicMessage || dynamicMessage.includes('undefined')) {
+            dynamicMessage = "Здравствуйте! Хочу заказать свадебное пригласительное.";
+        }
+
+        // Отправляем чистую строку в функцию генерации кнопок
+        renderContacts(dynamicMessage);
+
+        // Анимация открытия окна
+        modal.classList.remove('closing');
+        modal.style.display = 'block';
+        setTimeout(() => { modal.classList.add('show'); }, 10);
+        document.body.style.overflow = 'hidden'; 
+    }
+
+    function closeModal() {
+        if (!modal) return;
+        
+        modal.classList.add('closing');
+        modal.classList.remove('show');
+        
+        // Ожидаем окончания 300ms CSS-анимации, прежде чем убрать display: none
+        setTimeout(() => {
+            modal.style.display = 'none';
+            modal.classList.remove('closing');
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    if (closeModalX) closeModalX.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => { 
+        if (e.target === modal) closeModal(); 
     });
+
+    // Дополнительное удобство: закрытие окна по клавише ESC
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
+    const openModalBtn = document.querySelector('.open-modal-btn');
+    if (openModalBtn) {
+        openModalBtn.addEventListener('click', () => openOrderModal(null));
+    }
+
+    // 5. ОБРАБОТКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКОВ
+    langButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            langButtons.forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+            currentLang = e.target.getAttribute('data-lang');
+            
+            translateInterface();
+            renderCatalog();
+        });
+    });
+
+    // ИНИЦИАЛИЗАЦИЯ
+    translateInterface();
+    renderFooterContacts();
+    renderCatalog();
+
+      window.addEventListener("load", () => {
+    const preloader = document.getElementById("main-preloader");
+    if (preloader) {
+      preloader.classList.add("fade-out");
+      // Полностью удаляем из разметки через 600мс, чтобы освободить память
+      setTimeout(() => {
+        preloader.remove();
+      }, 600);
+    }
   });
-
-  if (noAlcoholCheckbox) {
-    noAlcoholCheckbox.addEventListener('change', function () {
-      if (this.checked) {
-        alcoholCheckboxes.forEach(cb => {
-          if (cb !== noAlcoholCheckbox) cb.checked = false;
-        });
-      }
-    });
-
-    alcoholCheckboxes.forEach(cb => {
-      if (cb !== noAlcoholCheckbox) {
-        cb.addEventListener('change', function () {
-          if (this.checked && noAlcoholCheckbox.checked) {
-            noAlcoholCheckbox.checked = false;
-          }
-        });
-      }
-    });
-  }
-
-  // Отправка формы в Google Таблицы
-  if (rsvpForm) {
-    rsvpForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('submitBtn');
-      const successCard = document.getElementById('form-success-card');
-
-      submitBtn.disabled = true;
-      if (statusDiv) {
-        statusDiv.innerText = "Синхронизация данных...";
-        statusDiv.style.display = "block";
-      }
-
-      const guestName = document.getElementById('guest_name').value.trim();
-      const attendValue = document.querySelector('input[name="attend"]:checked').value;
-
-      const checkedAlcohol = [];
-      if (attendValue === "Да, с радостью") {
-        document.querySelectorAll('input[name="alcohol"]:checked').forEach(cb => {
-          checkedAlcohol.push(cb.value);
-        });
-      }
-
-      const params = new URLSearchParams();
-      params.append('guest_name', guestName);
-      params.append('attend', attendValue);
-      params.append('alcohol', checkedAlcohol.length > 0 ? checkedAlcohol.join(', ') : '—');
-      params.append('wishes', document.getElementById('wishes') ? document.getElementById('wishes').value.trim() : '—');
-
-      fetch(CONFIG.WEB_APP_URL, {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params
-      })
-        .then(response => {
-          if (!response.ok) throw new Error('Ошибка сети');
-          return response.json();
-        })
-        .then(data => {
-          if (statusDiv) statusDiv.style.display = "none";
-          rsvpForm.classList.add('collapsed');
-
-          const nameParts = guestName.split(' ');
-          const firstName = nameParts[0]; // Берем только первое слово (имя)
-          let titleText = "", bodyText = "";
-
-          if (attendValue === "Да, с радостью") {
-            titleText = `${firstName}, до встречи!`;
-
-            bodyText = "Ваш ответ успешно сохранен. Мы счастливы, что вы разделите с нами этот особенный день!";
-          } else {
-            titleText = `${firstName}, спасибо!`;
-            bodyText = "Нам очень жаль, что вы не сможете приехать. Благодарим, что предупредили нас об этом заранее.";
-          }
-
-          const successTitleEl = document.getElementById('success-title');
-          const successTextEl = document.getElementById('success-text');
-
-          if (successCard && successTitleEl && successTextEl) {
-            successTitleEl.innerText = titleText;
-            successTextEl.innerText = bodyText;
-            successCard.style.display = "block";
-            setTimeout(() => { successCard.classList.add('show'); }, 50);
-          }
-        })
-        .catch(error => {
-          console.error('Ошибка отправки:', error);
-          submitBtn.disabled = false;
-          if (statusDiv) {
-            statusDiv.innerText = "Произошла ошибка. Повторите попытку.";
-          }
-        });
-    });
-  }
-});
-
-
-
-// Скрытие прелоадера после полной загрузки всех картинок и стилей
-window.addEventListener("load", () => {
-  const preloader = document.getElementById("preloader");
-  if (preloader) {
-    preloader.classList.add("fade-out");
-    // Полностью удаляем из DOM через 500мс после анимации, чтобы не мешал
-    setTimeout(() => {
-      preloader.style.display = "none";
-    }, 500);
-  }
 });
