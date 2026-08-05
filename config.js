@@ -66,8 +66,8 @@ const SITE_CONFIG = {
         {
             id: 1,
             style: "classic",
-            image: "/source/pre_img/classic.png", // ИСПРАВЛЕНО: путь к реальному файлу
-            demoUrl: "/classic_design/index.html", // Можете вставить ссылку на ваш тестовый github-лендинг
+            image: "source/pre_img/classic.png", // ИСПРАВЛЕНО: путь к реальному файлу
+            demoUrl: "classic_design/index.html", // Можете вставить ссылку на ваш тестовый github-лендинг
             title: {
                 ru: "Нежная классика",
                 en: "Gentle Classics"
