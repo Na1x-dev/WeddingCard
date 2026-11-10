@@ -1,228 +1,152 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Инициализация конфигурационных данных локации и ссылок
-  const mapIframe = document.querySelector(".map-iframe-premium");
-  const routeBtn = document.getElementById("route-btn");
-  const heroDateEl = document.getElementById("hero-date");
-  const rsvpDeadlineEl = document.getElementById("rsvp-deadline");
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-  if (mapIframe && CONFIG.LOCATION?.MAP_SRC) mapIframe.src = CONFIG.LOCATION.MAP_SRC;
+  // Данные свадьбы и места проведения берутся из config.js
+  const mapIframe = $(".map-iframe-premium");
+  const mapEmpty = $(".map-empty");
+  const routeBtn = $("#route-btn");
+  const heroDate = $("#hero-date");
+  const deadline = $("#rsvp-deadline");
+  const names = CONFIG.NAMES || {};
+  if (heroDate && CONFIG.getWeddingTextDate) heroDate.textContent = CONFIG.getWeddingTextDate();
+  if (deadline && CONFIG.getRSVPTextDate) deadline.textContent = CONFIG.getRSVPTextDate();
+  if ($(".name-left") && names.BRIDE) $(".name-left").textContent = names.BRIDE;
+  if ($(".name-right") && names.GROOM) $(".name-right").textContent = names.GROOM;
+  if ($(".footer-monogram") && names.MONOGRAM) $(".footer-monogram").innerHTML = names.MONOGRAM.replace("&", "<i>&</i>");
+  if ($(".location-main-title") && CONFIG.LOCATION?.TITLE) $(".location-main-title").textContent = CONFIG.LOCATION.TITLE;
+  if ($(".location-sub-address") && CONFIG.LOCATION?.ADDRESS) $(".location-sub-address").textContent = CONFIG.LOCATION.ADDRESS;
+  if (mapIframe && CONFIG.LOCATION?.MAP_SRC) {
+    mapIframe.src = CONFIG.LOCATION.MAP_SRC;
+    if (mapEmpty) mapEmpty.hidden = true;
+  }
   if (routeBtn && CONFIG.LOCATION?.ROUTE_HREF) routeBtn.href = CONFIG.LOCATION.ROUTE_HREF;
+  else if (routeBtn) routeBtn.hidden = true;
 
-  if (heroDateEl) heroDateEl.innerText = CONFIG.getWeddingTextDate();
-  if (rsvpDeadlineEl) rsvpDeadlineEl.innerText = CONFIG.getRSVPTextDate();
-
-  // Динамическое заполнение имен пары и локации из CONFIG
-  const nameLeftEl = document.querySelector(".name-left");
-  const nameRightEl = document.querySelector(".name-right");
-  const footerMonogramEl = document.querySelector(".footer-monogram");
-  const locationTitleEl = document.querySelector(".location-main-title");
-  const locationAddressEl = document.querySelector(".location-sub-address");
-
-  if (nameLeftEl && CONFIG.NAMES?.BRIDE) nameLeftEl.innerText = CONFIG.NAMES.BRIDE;
-  if (nameRightEl && CONFIG.NAMES?.GROOM) nameRightEl.innerText = CONFIG.NAMES.GROOM;
-  if (footerMonogramEl && CONFIG.NAMES?.MONOGRAM) footerMonogramEl.innerText = CONFIG.NAMES.MONOGRAM;
-  if (locationTitleEl && CONFIG.LOCATION?.TITLE) locationTitleEl.innerText = CONFIG.LOCATION.TITLE;
-  if (locationAddressEl && CONFIG.LOCATION?.ADDRESS) locationAddressEl.innerText = CONFIG.LOCATION.ADDRESS;
-
-  // Стабильный таймер обратного отсчета
-  const targetTime = CONFIG.WEDDING_DATE.getTime();
+  // Обратный отсчёт до даты свадьбы
+  const targetTime = new Date(CONFIG.WEDDING_DATE).getTime();
   function updateCountdown() {
-    const now = new Date().getTime();
-    const difference = targetTime - now;
-
-    if (difference < 0) {
-      const section = document.getElementById("countdown-section");
-      if (section) section.style.display = "none";
-      return;
-    }
-
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-    const pad = (num) => String(num).padStart(2, '0');
-    const dEl = document.querySelector("#days-card .timer-digits");
-    const hEl = document.querySelector("#hours-card .timer-digits");
-    const mEl = document.querySelector("#minutes-card .timer-digits");
-    const sEl = document.querySelector("#seconds-card .timer-digits");
-
-    if (dEl) dEl.innerText = pad(days);
-    if (hEl) hEl.innerText = pad(hours);
-    if (mEl) mEl.innerText = pad(minutes);
-    if (sEl) sEl.innerText = pad(seconds);
+    const difference = targetTime - Date.now();
+    const section = $("#countdown-section");
+    if (difference <= 0) { if (section) section.hidden = true; return; }
+    const values = {
+      "#days-card .timer-digits": Math.floor(difference / 86400000),
+      "#hours-card .timer-digits": Math.floor((difference % 86400000) / 3600000),
+      "#minutes-card .timer-digits": Math.floor((difference % 3600000) / 60000),
+      "#seconds-card .timer-digits": Math.floor((difference % 60000) / 1000)
+    };
+    Object.entries(values).forEach(([selector, value]) => {
+      const el = $(selector);
+      if (el) el.textContent = String(value).padStart(selector.includes("days") ? 3 : 2, "0");
+    });
   }
-  setInterval(updateCountdown, 1000);
   updateCountdown();
+  window.setInterval(updateCountdown, 1000);
 
-  // ГЕНЕРАЦИЯ ПАЛИТРЫ ДРЕСС-КОДА
-  const paletteGrid = document.querySelector('.premium-palette-grid');
-  if (paletteGrid && CONFIG.PALETTE && CONFIG.PALETTE.length > 0) {
-    CONFIG.PALETTE.forEach((color, index) => {
-      const node = document.createElement('div');
-      node.className = 'palette-node';
-      const activeClass = index === 0 ? 'active-theme' : '';
-
-      node.innerHTML = `
-                <div class="color-swatch ${activeClass}" 
-                     style="background-color: ${color.hex};" 
-                     title="${color.name}"></div>
-                <span class="swatch-name">${color.name}</span>
-            `;
-      paletteGrid.appendChild(node);
-    });
-
-    const colorSwatches = paletteGrid.querySelectorAll('.color-swatch');
-    colorSwatches.forEach(swatch => {
-      swatch.addEventListener('click', function () {
-        colorSwatches.forEach(s => s.classList.remove('active-theme'));
-        this.classList.add('active-theme');
-      });
-    });
-  }
-
-  // ДИНАМИЧЕСКАЯ ГЕНЕРАЦИЯ ТАЙМЛАЙНА
-  const timelineContainer = document.querySelector('.fine-art-timeline');
-  if (timelineContainer && CONFIG.TIMELINE && CONFIG.TIMELINE.length > 0) {
-    CONFIG.TIMELINE.forEach(item => {
-      const row = document.createElement('div');
-      row.className = 'timeline-row';
-      row.innerHTML = `
-                <div class="row-time">${item.time}</div>
-                <div class="row-content">
-                    <div class="row-title">${item.title}</div>
-                    <div class="row-text">${item.text}</div>
-                </div>
-            `;
-      timelineContainer.appendChild(row);
-    });
-  }
-
-  // Логика формы RSVP
-  const rsvpForm = document.getElementById('rsvpForm');
-  const additionalQuestions = document.getElementById('additional-questions');
-  const radioAttend = document.querySelectorAll('input[name="attend"]');
-  const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]');
-  const noAlcoholCheckbox = document.getElementById('no-alcohol');
-  const statusDiv = document.getElementById('form-status');
-
-  radioAttend.forEach(radio => {
-    radio.addEventListener('change', (e) => {
-      if (e.target.value === "К сожалению, нет") {
-        if (additionalQuestions) additionalQuestions.classList.add('hidden');
-      } else {
-        if (additionalQuestions) additionalQuestions.classList.remove('hidden');
-      }
-    });
+  // Палитра дресс-кода
+  const paletteGrid = $(".premium-palette-grid");
+  (CONFIG.PALETTE || []).forEach(color => {
+    const node = document.createElement("div");
+    node.className = "palette-node";
+    const swatch = document.createElement("div");
+    swatch.className = "color-swatch";
+    swatch.style.backgroundColor = color.hex;
+    swatch.title = color.name;
+    const label = document.createElement("span");
+    label.className = "swatch-name";
+    label.textContent = color.name;
+    node.append(swatch, label);
+    paletteGrid?.appendChild(node);
   });
 
-  if (noAlcoholCheckbox) {
-    noAlcoholCheckbox.addEventListener('change', function () {
-      if (this.checked) {
-        alcoholCheckboxes.forEach(cb => {
-          if (cb !== noAlcoholCheckbox) cb.checked = false;
-        });
-      }
+  // Программа дня
+  const timeline = $(".fine-art-timeline");
+  (CONFIG.TIMELINE || []).forEach(item => {
+    const row = document.createElement("div");
+    row.className = "timeline-row";
+    const time = document.createElement("div");
+    time.className = "row-time";
+    time.textContent = item.time;
+    const content = document.createElement("div");
+    content.className = "row-content";
+    const title = document.createElement("div");
+    title.className = "row-title";
+    title.textContent = item.title;
+    const description = document.createElement("div");
+    description.className = "row-text";
+    description.textContent = item.text;
+    content.append(title, description);
+    row.append(time, content);
+    timeline?.appendChild(row);
+  });
+
+  // RSVP: скрываем дополнительные вопросы, если гость не сможет прийти
+  const form = $("#rsvpForm");
+  const extra = $("#additional-questions");
+  const status = $("#form-status");
+  const submit = $("#submitBtn");
+  const success = $("#form-success-card");
+  const alcohol = $$('input[name="alcohol"]');
+  const noAlcohol = $("#no-alcohol");
+
+  $$('input[name="attend"]').forEach(radio => radio.addEventListener("change", event => {
+    extra?.classList.toggle("hidden", event.target.value !== "Да, с радостью");
+  }));
+  noAlcohol?.addEventListener("change", () => {
+    if (noAlcohol.checked) alcohol.filter(input => input !== noAlcohol).forEach(input => input.checked = false);
+  });
+  alcohol.filter(input => input !== noAlcohol).forEach(input => input.addEventListener("change", () => {
+    if (input.checked && noAlcohol) noAlcohol.checked = false;
+  }));
+
+  form?.addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!CONFIG.WEB_APP_URL) {
+      if (status) status.textContent = "Отправка пока не настроена. Пожалуйста, свяжитесь с молодожёнами.";
+      return;
+    }
+    submit.disabled = true;
+    if (status) status.textContent = "Отправляем ваш ответ…";
+    const guestName = $("#guest_name").value.trim();
+    const attend = $('input[name="attend"]:checked')?.value || "";
+    const selectedDrinks = attend === "Да, с радостью" ? alcohol.filter(input => input.checked).map(input => input.value) : [];
+    const payload = new URLSearchParams({
+      guest_name: guestName,
+      attend,
+      alcohol: selectedDrinks.length ? selectedDrinks.join(", ") : "—",
+      wishes: $("#wishes")?.value.trim() || "—"
     });
-
-    alcoholCheckboxes.forEach(cb => {
-      if (cb !== noAlcoholCheckbox) {
-        cb.addEventListener('change', function () {
-          if (this.checked && noAlcoholCheckbox.checked) {
-            noAlcoholCheckbox.checked = false;
-          }
-        });
-      }
-    });
-  }
-
-  // Отправка формы в Google Таблицы
-  if (rsvpForm) {
-    rsvpForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('submitBtn');
-      const successCard = document.getElementById('form-success-card');
-
-      submitBtn.disabled = true;
-      if (statusDiv) {
-        statusDiv.innerText = "Синхронизация данных...";
-        statusDiv.style.display = "block";
-      }
-
-      const guestName = document.getElementById('guest_name').value.trim();
-      const attendValue = document.querySelector('input[name="attend"]:checked').value;
-
-      const checkedAlcohol = [];
-      if (attendValue === "Да, с радостью") {
-        document.querySelectorAll('input[name="alcohol"]:checked').forEach(cb => {
-          checkedAlcohol.push(cb.value);
-        });
-      }
-
-      const params = new URLSearchParams();
-      params.append('guest_name', guestName);
-      params.append('attend', attendValue);
-      params.append('alcohol', checkedAlcohol.length > 0 ? checkedAlcohol.join(', ') : '—');
-      params.append('wishes', document.getElementById('wishes') ? document.getElementById('wishes').value.trim() : '—');
-
-      fetch(CONFIG.WEB_APP_URL, {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params
-      })
-        .then(response => {
-          if (!response.ok) throw new Error('Ошибка сети');
-          return response.json();
-        })
-        .then(data => {
-          if (statusDiv) statusDiv.style.display = "none";
-          rsvpForm.classList.add('collapsed');
-
-          const nameParts = guestName.split(' ');
-          const firstName = nameParts[0]; // Берем только первое слово (имя)
-          let titleText = "", bodyText = "";
-
-          if (attendValue === "Да, с радостью") {
-            titleText = `${firstName}, до встречи!`;
-
-            bodyText = "Ваш ответ успешно сохранен. Мы счастливы, что вы разделите с нами этот особенный день!";
-          } else {
-            titleText = `${firstName}, спасибо!`;
-            bodyText = "Нам очень жаль, что вы не сможете приехать. Благодарим, что предупредили нас об этом заранее.";
-          }
-
-          const successTitleEl = document.getElementById('success-title');
-          const successTextEl = document.getElementById('success-text');
-
-          if (successCard && successTitleEl && successTextEl) {
-            successTitleEl.innerText = titleText;
-            successTextEl.innerText = bodyText;
-            successCard.style.display = "block";
-            setTimeout(() => { successCard.classList.add('show'); }, 50);
-          }
-        })
-        .catch(error => {
-          console.error('Ошибка отправки:', error);
-          submitBtn.disabled = false;
-          if (statusDiv) {
-            statusDiv.innerText = "Произошла ошибка. Повторите попытку.";
-          }
-        });
-    });
-  }
+    try {
+      const response = await fetch(CONFIG.WEB_APP_URL, {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body: payload
+      });
+      if (!response.ok) throw new Error("Сервер вернул ошибку");
+      const data = await response.json();
+      if (data && data.result === "error") throw new Error(data.message || "Не удалось сохранить ответ");
+      if (status) status.textContent = "";
+      form.classList.add("collapsed");
+      const firstName = guestName.split(/\s+/)[0];
+      $("#success-title").textContent = attend === "Да, с радостью" ? firstName + ", до встречи!" : firstName + ", спасибо!";
+      $("#success-text").textContent = attend === "Да, с радостью"
+        ? "Ваш ответ сохранён. Мы счастливы, что вы разделите с нами этот особенный день!"
+        : "Нам очень жаль, что вы не сможете приехать. Спасибо, что предупредили нас.";
+      success.style.display = "block";
+      requestAnimationFrame(() => success.classList.add("show"));
+    } catch (error) {
+      console.error("Ошибка отправки RSVP:", error);
+      if (status) status.textContent = "Не удалось отправить ответ. Проверьте соединение и попробуйте ещё раз.";
+      submit.disabled = false;
+    }
+  });
 });
 
-
-
-// Скрытие прелоадера после полной загрузки всех картинок и стилей
+// Прелоадер скрывается после полной загрузки страницы
 window.addEventListener("load", () => {
   const preloader = document.getElementById("preloader");
-  if (preloader) {
-    preloader.classList.add("fade-out");
-    // Полностью удаляем из DOM через 500мс после анимации, чтобы не мешал
-    setTimeout(() => {
-      preloader.style.display = "none";
-    }, 500);
-  }
+  if (!preloader) return;
+  preloader.classList.add("fade-out");
+  window.setTimeout(() => preloader.remove(), 500);
 });
