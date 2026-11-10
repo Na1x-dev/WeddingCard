@@ -1,13 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8e8d6">
-  <meta name="description" content="Свадебное приглашение Руслана и Вероники — 15 августа 2027">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Руслан & Вероника | Свадебное приглашение">
-  <meta property="og:description" content="Будем счастливы разделить с вами наш особенный день.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6e9d9">
+  <meta name="description" content="Руслан и Вероника приглашают вас разделить день своей свадьбы — 15 августа 2027 года.">
   <title>Руслан & Вероника — свадебное приглашение</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,95 +12,151 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="preloader"><div class="loader-mark">R <span>&</span> V</div><p>С любовью готовим этот день</p></div>
-  <main class="invitation">
-    <div class="topline"><span>15 / 08 / 2027</span><span>THE WEDDING DAY</span><span>СОХРАНИТЕ ДАТУ</span></div>
-    <header class="hero section-pad">
-      <p class="script-kicker">Один день. Одна история. Навсегда.</p>
-      <h1><span class="hero-name name-left">Руслан</span><i>&</i><span class="hero-name name-right">Вероника</span></h1>
-      <p class="hero-date" id="hero-date">15 августа 2027</p>
-      <!-- ФОТО 01: главное вертикальное фото пары. Замените .photo-placeholder на img при добавлении фотографии. -->
-      <div class="photo-placeholder hero-photo" role="img" aria-label="Место для главной фотографии пары">
-        <span class="photo-index">01 / OUR STORY</span><span class="photo-hint">МЕСТО ДЛЯ ФОТО ПАРЫ</span>
+  <div class="page-grain" aria-hidden="true"></div>
+  <div id="preloader" aria-label="Загрузка приглашения"><div class="loader-monogram">R <i>&</i> V</div><span>С любовью для вас</span></div>
+
+  <main class="invitation" id="top">
+    <nav class="topbar">
+      <a class="brand-mark" href="#top">R <i>&</i> V</a>
+      <span class="topbar-caption">НАША СВАДЬБА · 15 АВГУСТА 2027</span>
+      <a class="topbar-link" href="#rsvp">ПОДТВЕРДИТЬ ПРИСУТСТВИЕ <span>↗</span></a>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="script-kicker">День, который станет историей</p>
+        <p class="hero-overline">ЭЛЕКТРОННОЕ ПРИГЛАШЕНИЕ</p>
+        <h1><span class="name-left">Руслан</span><em>&</em><span class="name-right">Вероника</span></h1>
+        <div class="hero-rule"><span></span><span class="hero-date" id="hero-date">15 августа 2027</span><span></span></div>
+        <p class="hero-intro">С огромной радостью приглашаем вас стать частью самого важного дня в нашей истории.</p>
+        <a class="round-link" href="#welcome" aria-label="Листать к приглашению">ЛИСТАТЬ <span>↓</span></a>
       </div>
-      <p class="hero-caption">Мы начинаем новую главу<br>и хотим разделить её с вами</p>
-      <a class="scroll-cue" href="#welcome">ЛИСТАЙТЕ ВНИЗ <span>↓</span></a>
+      <!-- ФОТО 01 · Главное фото пары. Лучше вертикальный кадр 4:5 или 3:4. -->
+      <figure class="photo-frame hero-photo" data-photo="01">
+        <div class="photo-placeholder"><span>01</span><b>ГЛАВНОЕ ФОТО ПАРЫ</b><small>Замените этот блок своим изображением</small></div>
+        <figcaption>RUSLAN & VERONIKA <span>15.08.2027</span></figcaption>
+      </figure>
+      <div class="hero-side-note">ВМЕСТЕ · НАВСЕГДА · С ЛЮБОВЬЮ</div>
     </header>
 
-    <section class="welcome terracotta section-pad" id="welcome">
-      <p class="eyebrow light">ДОРОГИЕ РОДНЫЕ И ДРУЗЬЯ</p>
-      <h2>Приглашаем<br>на нашу свадьбу</h2>
-      <p class="body-copy light-copy">Совсем скоро начнётся новая глава нашей истории. Нам будет особенно радостно, если этот день вы проведёте вместе с нами.</p>
-      <div class="date-ribbon"><span>12</span><span>13</span><span>14</span><strong>15</strong><span>16</span><span>17</span><span>18</span></div>
-      <p class="month-label">АВГУСТ · 2027</p>
-      <p class="script-note">До встречи под одним небом</p>
+    <section class="welcome full-bleed" id="welcome">
+      <div class="welcome-ornament" aria-hidden="true">✳</div>
+      <div class="welcome-inner">
+        <p class="eyebrow">ДОРОГИЕ РОДНЫЕ И ДРУЗЬЯ</p>
+        <h2>Этот день<br><i>мы хотим разделить с вами</i></h2>
+        <p class="welcome-text">В нашей жизни начинается новая глава. И мы не представляем этот день без близких людей рядом. Будем счастливы видеть вас на нашей свадьбе!</p>
+        <div class="calendar-line"><span>12</span><span>13</span><span>14</span><strong>15</strong><span>16</span><span>17</span><span>18</span></div>
+        <p class="calendar-month">АВГУСТ <b>·</b> 2027</p>
+        <p class="script-note">Сохраните эту дату</p>
+      </div>
+      <div class="welcome-stamp">SAVE<br>THE<br>DATE</div>
     </section>
 
-    <section class="program section-pad" id="program">
-      <p class="eyebrow">15 АВГУСТА 2027</p>
-      <h2>Программа дня</h2>
-      <p class="section-intro">Каждый момент этого дня мы хотим прожить вместе с вами.</p>
-      <div class="timeline fine-art-timeline"></div>
-      <!-- ФОТО 02: атмосферный кадр места проведения или деталей декора. -->
-      <div class="photo-placeholder wide-photo" role="img" aria-label="Место для фотографии декора или площадки"><span class="photo-index">02 / THE DETAILS</span><span class="photo-hint">МЕСТО ДЛЯ ФОТО ДЕТАЛЕЙ</span></div>
+    <section class="story section-grid">
+      <div class="story-copy">
+        <p class="eyebrow">НАША ИСТОРИЯ</p>
+        <h2>Два сердца.<br><i>Одна история.</i></h2>
+        <p>Когда-то всё началось с простой встречи. А теперь мы хотим собрать самых дорогих людей, чтобы вместе отпраздновать начало нашей семейной истории.</p>
+        <span class="signature">Руслан & Вероника</span>
+      </div>
+      <!-- ФОТО 02 · Второй кадр пары, желательно горизонтальный или широкий. -->
+      <figure class="photo-frame story-photo" data-photo="02">
+        <div class="photo-placeholder"><span>02</span><b>ФОТО ИЗ ВАШЕЙ ИСТОРИИ</b><small>Подойдёт живой, не постановочный кадр</small></div>
+      </figure>
+      <span class="vertical-caption">THE BEGINNING OF FOREVER</span>
     </section>
 
-    <section class="dress terracotta section-pad" id="dress">
-      <p class="eyebrow light">ПОЖЕЛАНИЯ К ОБРАЗАМ</p>
-      <h2>Дресс-код</h2>
-      <p class="body-copy light-copy">Будем благодарны, если вы поддержите цветовую атмосферу нашего праздника.</p>
-      <div class="premium-palette-grid"></div>
-      <p class="script-note">Пусть всё будет красиво</p>
-      <!-- ФОТО 03: референсы образов гостей / мудборд. -->
-      <div class="photo-placeholder moodboard-photo" role="img" aria-label="Место для мудборда дресс-кода"><span class="photo-hint">МЕСТО ДЛЯ МУДБОРДА ОБРАЗОВ</span></div>
+    <section class="program full-bleed" id="program">
+      <div class="program-head">
+        <div><p class="eyebrow">15 / 08 / 2027</p><h2>План нашего<br><i>особенного дня</i></h2></div>
+        <p>От первой встречи до последнего танца — впереди много красивых мгновений.</p>
+      </div>
+      <div class="program-body">
+        <div class="timeline fine-art-timeline"></div>
+        <!-- ФОТО 03 · Декор, флористика, детали свадебного дня. -->
+        <figure class="photo-frame program-photo" data-photo="03">
+          <div class="photo-placeholder"><span>03</span><b>ДЕТАЛИ ПРАЗДНИКА</b><small>Флористика, сервировка или декор</small></div>
+        </figure>
+      </div>
     </section>
 
-    <section class="location section-pad" id="location">
-      <p class="eyebrow">МЕСТО ВСТРЕЧИ</p>
-      <h2>Где всё случится</h2>
-      <p class="location-main-title">Загородный клуб</p>
-      <p class="location-sub-address">Санкт-Петербург, Английская набережная</p>
-      <div class="map-wrapper-premium"><iframe class="map-iframe-premium" title="Карта места проведения" loading="lazy" allowfullscreen></iframe></div>
-      <a href="#" target="_blank" rel="noopener" class="text-link" id="route-btn">ПОСТРОИТЬ МАРШРУТ ↗</a>
-      <!-- ФОТО 04: фотография площадки / интерьера. -->
-      <div class="photo-placeholder location-photo" role="img" aria-label="Место для фотографии площадки"><span class="photo-hint">МЕСТО ДЛЯ ФОТО ПЛОЩАДКИ</span></div>
+    <section class="dress section-grid" id="dress">
+      <div class="dress-copy">
+        <p class="eyebrow">ПОЖЕЛАНИЯ К ОБРАЗАМ</p>
+        <h2>Пусть в этот день<br><i>всё будет в гармонии</i></h2>
+        <p>Будем благодарны, если вы поддержите палитру нашего праздника. Необязательно искать точное совпадение — главное, чтобы вам было комфортно и красиво.</p>
+        <div class="premium-palette-grid"></div>
+        <span class="signature">Спасибо за ваше чувство стиля</span>
+      </div>
+      <!-- ФОТО 04 · Мудборд с примерами образов гостей. -->
+      <figure class="photo-frame moodboard-photo" data-photo="04">
+        <div class="photo-placeholder"><span>04</span><b>МУДБОРД ОБРАЗОВ</b><small>Добавьте сюда коллаж с примерами одежды</small></div>
+      </figure>
     </section>
 
-    <section class="wishes terracotta section-pad">
-      <p class="eyebrow light">НЕСКОЛЬКО СЛОВ ОТ ВАС</p>
-      <h2>Пожелания<br>и детали</h2>
-      <p class="body-copy light-copy">Если у вас есть вопросы или тёплые слова, будем рады прочитать их в нашем свадебном чате.</p>
-      <a class="cream-button" href="#rsvp">ПЕРЕЙТИ К АНКЕТЕ</a>
-      <!-- ФОТО 05: небольшой коллаж из 2–3 кадров пары. -->
-      <div class="photo-placeholder collage-photo" role="img" aria-label="Место для коллажа фотографий пары"><span class="photo-hint">МЕСТО ДЛЯ ФОТОКОЛЛАЖА</span></div>
+    <section class="location full-bleed" id="location">
+      <div class="location-copy">
+        <p class="eyebrow">МЕСТО ВСТРЕЧИ</p>
+        <h2>Увидимся<br><i>в красивом месте</i></h2>
+        <p class="location-main-title">Загородный клуб</p>
+        <p class="location-sub-address">Укажите адрес площадки в настройках сайта</p>
+        <a href="#" target="_blank" rel="noopener" class="text-link" id="route-btn">ПОСТРОИТЬ МАРШРУТ <span>↗</span></a>
+      </div>
+      <div class="location-visual">
+        <!-- ФОТО 05 · Площадка или интерьер ресторана. -->
+        <figure class="photo-frame location-photo" data-photo="05">
+          <div class="photo-placeholder"><span>05</span><b>ФОТО ПЛОЩАДКИ</b><small>Покажите гостям место торжества</small></div>
+        </figure>
+        <div class="map-wrapper-premium"><iframe class="map-iframe-premium" title="Карта места проведения" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="map-empty">КАРТА ПОЯВИТСЯ ПОСЛЕ УКАЗАНИЯ АДРЕСА</div></div>
+      </div>
     </section>
 
-    <section class="rsvp section-pad" id="rsvp">
-      <p class="eyebrow">ВАШ ОТВЕТ ОЧЕНЬ ВАЖЕН</p>
-      <h2>Анкета гостя</h2>
-      <p class="section-intro">Пожалуйста, подтвердите своё присутствие до <span id="rsvp-deadline">...</span>.</p>
-      <form class="glass-rsvp-form" id="rsvpForm">
-        <div class="premium-input-group"><label for="guest_name" class="premium-label">Ваше имя и фамилия</label><input type="text" id="guest_name" name="guest_name" class="premium-input" placeholder="Например, Анна Иванова" required></div>
-        <div class="premium-input-group"><label class="premium-label">Сможете ли вы быть с нами?</label><div class="luxury-radio-wrapper">
-          <label class="luxury-radio-label"><input type="radio" name="attend" value="Да, с радостью" checked><span class="custom-radio-button">Да, с радостью</span></label>
-          <label class="luxury-radio-label"><input type="radio" name="attend" value="К сожалению, нет"><span class="custom-radio-button">К сожалению, нет</span></label>
-        </div></div>
-        <div id="additional-questions" class="premium-fade-box">
-          <div class="premium-input-group"><label class="premium-label">Предпочтения по напиткам</label><div class="luxury-checkbox-grid">
-            <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Игристое вино"><span class="custom-check-box">Игристое</span></label>
-            <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Белое вино"><span class="custom-check-box">Белое вино</span></label>
-            <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Красное вино"><span class="custom-check-box">Красное вино</span></label>
-            <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Коктейли"><span class="custom-check-box">Коктейли</span></label>
-            <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Без алкоголя" id="no-alcohol"><span class="custom-check-box">Без алкоголя</span></label>
-          </div></div>
-          <div class="premium-input-group"><label for="wishes" class="premium-label">Пожелания к меню / аллергии</label><input type="text" id="wishes" name="wishes" class="premium-input" placeholder="Напишите, если есть особенности"></div>
+    <section class="rsvp full-bleed" id="rsvp">
+      <div class="rsvp-heading">
+        <p class="eyebrow">БУДЕМ ЖДАТЬ ВАШ ОТВЕТ</p>
+        <h2>Вы с нами?</h2>
+        <p>Пожалуйста, заполните небольшую анкету до <strong id="rsvp-deadline">...</strong>.</p>
+        <div class="countdown" id="countdown-section">
+          <div class="countdown-title">ДО НАШЕЙ ВСТРЕЧИ ОСТАЛОСЬ</div>
+          <div class="countdown-grid">
+            <div id="days-card"><strong class="timer-digits">000</strong><span>ДНЕЙ</span></div>
+            <div id="hours-card"><strong class="timer-digits">00</strong><span>ЧАСОВ</span></div>
+            <div id="minutes-card"><strong class="timer-digits">00</strong><span>МИНУТ</span></div>
+            <div id="seconds-card"><strong class="timer-digits">00</strong><span>СЕКУНД</span></div>
+          </div>
         </div>
-        <button type="submit" class="premium-submit-btn" id="submitBtn">Отправить ответ <span>↗</span></button>
-        <div id="form-status" style="display:none"></div>
-      </form>
-      <div id="form-success-card" class="premium-success-card"><div class="success-heart-wrapper">♥</div><h3 id="success-title" class="luxury-success-title"></h3><p id="success-text" class="luxury-success-text"></p></div>
+      </div>
+      <div class="rsvp-form-wrap">
+        <div class="rsvp-form-intro"><span>RSVP</span><p>Ваш ответ поможет нам подготовить праздник с заботой о каждом госте.</p></div>
+        <form class="glass-rsvp-form" id="rsvpForm">
+          <div class="premium-input-group"><label for="guest_name" class="premium-label">Ваше имя и фамилия</label><input type="text" id="guest_name" name="guest_name" class="premium-input" placeholder="Например, Анна Иванова" required></div>
+          <div class="premium-input-group"><span class="premium-label">Сможете ли вы быть с нами?</span><div class="luxury-radio-wrapper">
+            <label class="luxury-radio-label"><input type="radio" name="attend" value="Да, с радостью" checked><span class="custom-radio-button">Да, с радостью</span></label>
+            <label class="luxury-radio-label"><input type="radio" name="attend" value="К сожалению, нет"><span class="custom-radio-button">К сожалению, нет</span></label>
+          </div></div>
+          <div id="additional-questions" class="premium-fade-box">
+            <div class="premium-input-group"><span class="premium-label">Что предпочитаете из напитков?</span><div class="luxury-checkbox-grid">
+              <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Игристое вино"><span class="custom-check-box">Игристое</span></label>
+              <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Белое вино"><span class="custom-check-box">Белое вино</span></label>
+              <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Красное вино"><span class="custom-check-box">Красное вино</span></label>
+              <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Коктейли"><span class="custom-check-box">Коктейли</span></label>
+              <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Без алкоголя" id="no-alcohol"><span class="custom-check-box">Без алкоголя</span></label>
+            </div></div>
+            <div class="premium-input-group"><label for="wishes" class="premium-label">Пожелания к меню / аллергии</label><input type="text" id="wishes" name="wishes" class="premium-input" placeholder="Если есть особенности, напишите здесь"></div>
+          </div>
+          <button type="submit" class="premium-submit-btn" id="submitBtn">ОТПРАВИТЬ ОТВЕТ <span>↗</span></button>
+          <div id="form-status" role="status" aria-live="polite"></div>
+        </form>
+        <div id="form-success-card" class="premium-success-card"><div class="success-heart-wrapper">♥</div><h3 id="success-title"></h3><p id="success-text"></p></div>
+      </div>
     </section>
-    <footer class="footer terracotta"><p class="script-note">С любовью и нетерпением</p><p class="footer-monogram">R <span>&</span> V</p><p class="footer-copy">БУДЕМ ЖДАТЬ ВАС · 15.08.2027</p><a href="#top" class="back-top">НАВЕРХ ↑</a></footer>
+
+    <footer class="footer">
+      <p class="script-note">С любовью и нетерпением</p>
+      <p class="footer-monogram">R <i>&</i> V</p>
+      <p class="footer-copy">РУСЛАН & ВЕРОНИКА · 15 АВГУСТА 2027</p>
+      <a href="#top" class="back-top">В НАЧАЛО ↑</a>
+    </footer>
   </main>
   <script src="config.js"></script>
   <script src="script.js"></script>
