@@ -333,3 +333,123 @@ body{background:#f5eedc;color:#263c30}
  .timeline-left .timeline-card{margin-right:5px}.timeline-right .timeline-card{margin-left:5px}
  .row-time{font-size:20px}
 }
+
+
+/* ── COMPOSITION PASS 03: clear hero spacing, quiet date marker, animated countdown ── */
+
+/* The display font has tall ascenders/descenders: give the stacked names real line room. */
+.hero-copy{min-width:0;align-self:center}
+.hero h1{
+  display:flex;flex-direction:column;align-items:flex-start;
+  line-height:.94;
+  gap:clamp(1px,.35vw,5px);
+  margin:26px 0 30px;
+  padding:0 0 9px;
+  overflow:visible;
+}
+.hero h1 .name-left,.hero h1 .name-right{display:block;line-height:.98;padding:0 0 .06em}
+.hero h1 em{display:block;line-height:1.02;padding:0 0 0 12%;margin:0}
+.hero-date-lockup{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:flex-start;
+  width:fit-content;max-width:100%;
+  margin:0 0 27px;padding:12px 0 0;
+  border:0;clear:both;
+}
+.hero-date{line-height:1.25;display:block;white-space:normal}
+.date-subtitle{line-height:1.5}
+.hero-intro{position:relative;z-index:1;margin-top:0}
+@media(max-width:900px){
+ .hero{grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);gap:35px;padding-left:clamp(22px,5vw,65px);padding-right:clamp(22px,5vw,65px)}
+ .hero h1{font-size:clamp(66px,9vw,112px);line-height:.98;margin:23px 0 28px}
+}
+@media(max-width:640px){
+ .hero{grid-template-columns:1fr;gap:38px;padding:45px 22px 70px}
+ .hero-copy{width:100%;padding-left:0}
+ .hero h1{font-size:clamp(65px,17vw,108px);line-height:1;margin:20px 0 26px;gap:0;padding-bottom:7px}
+ .hero h1 .name-left,.hero h1 .name-right{line-height:1.02;padding-bottom:.08em}
+ .hero h1 em{line-height:1.08;padding-left:10%}
+ .hero-date-lockup{margin:0 0 24px;padding-top:0;gap:5px}
+ .hero-date{font-size:14px;letter-spacing:1.5px;line-height:1.35}
+ .date-subtitle{font-size:7px;letter-spacing:1px;line-height:1.6}
+ .hero-intro{max-width:340px}
+}
+
+/* The selected calendar day is a simple medallion, not a large heart silhouette. */
+.calendar-day.is-wedding{background:transparent}
+.calendar-day.is-wedding:before{content:none!important;display:none!important}
+.calendar-day.is-wedding>span{
+  width:54px;height:54px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;background:#e9d98e;color:#294c3b;
+  box-shadow:0 0 0 5px #e9d98e38,0 0 0 6px #b5b88e;
+  font-weight:700
+}
+.calendar-day.is-wedding>b{
+  position:absolute;top:calc(50% - 27px);right:calc(50% - 28px);
+  bottom:auto;z-index:2;font:10px/1 var(--sans);color:#fff;
+  text-shadow:0 1px 3px #8e7935;transform:rotate(10deg)
+}
+@media(max-width:640px){
+ .calendar-day.is-wedding>span{width:44px;height:44px;box-shadow:0 0 0 3px #e9d98e38,0 0 0 4px #b5b88e}
+ .calendar-day.is-wedding>b{top:calc(50% - 22px);right:calc(50% - 23px);font-size:8px}
+}
+@media(max-width:380px){
+ .calendar-day.is-wedding>span{width:40px;height:40px}
+ .calendar-day.is-wedding>b{top:calc(50% - 20px);right:calc(50% - 21px)}
+}
+
+/* Countdown becomes a set of botanical glass-like tiles with gentle motion. */
+.countdown{
+  position:relative;isolation:isolate;overflow:hidden;
+  margin-top:34px;padding:25px clamp(16px,2.4vw,30px) 28px;
+  border:1px solid #a8b99a;border-radius:3px;
+  background:linear-gradient(135deg,#f8f4e8 0%,#e9eedf 52%,#f3edcf 100%);
+  box-shadow:0 18px 45px #294c3b12;
+}
+.countdown:before,.countdown:after{
+  content:"";position:absolute;z-index:-1;pointer-events:none;border:1px solid #b9c69b80;border-radius:50%;
+}
+.countdown:before{width:190px;height:190px;right:-80px;top:-120px}
+.countdown:after{width:130px;height:130px;left:-75px;bottom:-90px}
+.countdown-title{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  margin-bottom:19px;font:700 8px var(--sans);letter-spacing:2.2px;color:#728568;text-align:center
+}
+.countdown-title:before,.countdown-title:after{content:"";width:26px;height:1px;background:#c4c99f}
+.countdown-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.countdown-grid>div{
+  position:relative;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:9px;padding:16px 5px 13px;background:#fffdf5b8;
+  border:1px solid #d9dfca;border-radius:2px;
+  box-shadow:0 5px 14px #294c3b0b;
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+}
+.countdown-grid>div:before{content:"";position:absolute;top:6px;left:50%;width:3px;height:3px;border-radius:50%;background:#c2aa52}
+.countdown-grid>div:hover{transform:translateY(-4px);border-color:#b6c39f;box-shadow:0 12px 20px #294c3b12}
+.timer-digits{
+  display:block;font:500 clamp(29px,4.2vw,48px)/.95 var(--serif);
+  font-variant-numeric:tabular-nums;color:#294c3b;letter-spacing:-1px;
+  transform-origin:50% 70%;will-change:transform,opacity
+}
+.countdown-grid>div>span{font:700 7px var(--sans);letter-spacing:1.8px;color:#899477}
+.timer-digits.digit-tick{animation:countDigitFlip .48s cubic-bezier(.2,.8,.25,1) both}
+@keyframes countDigitFlip{
+  0%{opacity:.25;transform:translateY(-9px) rotateX(45deg);filter:blur(2px)}
+  55%{opacity:1;transform:translateY(2px) rotateX(-5deg);filter:blur(0)}
+  100%{opacity:1;transform:translateY(0) rotateX(0)}
+}
+.countdown-title{animation:countdownTitleIn .9s .2s both}
+@keyframes countdownTitleIn{from{opacity:0;letter-spacing:5px}to{opacity:1;letter-spacing:2.2px}}
+@media(max-width:640px){
+ .countdown{margin-top:27px;padding:21px 12px 20px}
+ .countdown-grid{gap:6px}
+ .countdown-grid>div{padding:15px 2px 12px;gap:8px}
+ .timer-digits{font-size:clamp(25px,8vw,36px)}
+ .countdown-grid>div>span{font-size:6px;letter-spacing:1.1px}
+ .countdown-title{font-size:7px;letter-spacing:1.4px;gap:7px}
+ .countdown-title:before,.countdown-title:after{width:15px}
+}
+@media(prefers-reduced-motion:reduce){
+ .timer-digits.digit-tick,.countdown-title{animation:none!important}
+ .countdown-grid>div{transition:none}
+}
