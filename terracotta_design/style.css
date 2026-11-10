@@ -119,3 +119,103 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow-x
 .rsvp{grid-template-columns:1fr;padding:75px 22px;gap:35px}.rsvp h2{font-size:76px}.countdown{margin-top:35px}.timer-digits{font-size:34px}.rsvp-form-wrap{padding:24px 19px}.rsvp-form-intro{gap:14px}.rsvp-form-intro p{font-size:14px}
 .footer{padding:55px 20px 35px}}
 @media(max-width:380px){.location-visual{grid-template-columns:1fr}.location-photo,.map-wrapper-premium{height:300px}.luxury-radio-wrapper,.luxury-checkbox-grid{grid-template-columns:1fr}.hero h1{font-size:70px}.topbar-link{font-size:7px}}
+
+
+/* ── SPRING GARDEN ART DIRECTION ───────────────────────────── */
+:root{--paper:#f5eedc;--paper2:#e9e4cf;--rust:#294c3b;--rust2:#1e3d30;--rust3:#789477;--ink:#263c30;--muted:#6f806d;--line:#b4bd9e}
+body{background:#f5eedc;color:#263c30}
+.topbar{border-color:#a8b59b66;background:#f5eedc}
+.brand-mark{color:#294c3b}.brand-mark i{color:#b9a64f}
+.topbar-caption,.topbar-link{color:#71816e}.topbar-link span{color:#a18d38}
+.hero{background:radial-gradient(ellipse at 5% 10%,#e5e8d5 0,transparent 36%),radial-gradient(ellipse at 95% 90%,#efe6c8 0,transparent 32%),#f5eedc}
+.script-kicker,.script-note,.signature{color:#82966f}
+.hero-overline,.eyebrow{color:#75876b}
+.hero h1{color:#294c3b}
+.hero h1 em{color:#b5a04a}
+.hero-intro{color:#64765f}
+.hero-photo{box-shadow:18px 22px 0 #dce1cc}
+.hero-photo .photo-placeholder,.photo-placeholder{background:linear-gradient(145deg,#b7c7a5,#718b6b 54%,#e2d7a9)}
+.hero-photo figcaption{color:#fff}
+.hero-side-note{color:#839477}
+.hero-date-lockup{display:grid;grid-template-columns:28px auto;align-items:center;column-gap:12px;width:max-content;max-width:100%;margin:0 0 25px;padding:13px 20px 13px 14px;border-top:1px solid #c3c9ad;border-bottom:1px solid #c3c9ad;color:#294c3b}
+.date-flower{grid-row:span 2;color:#b49d3e;font-size:23px}
+.hero-date{font:600 12px var(--sans);letter-spacing:2px;text-transform:uppercase;white-space:nowrap;color:#294c3b}
+.date-subtitle{font-size:7px;letter-spacing:1.4px;color:#82916f;margin-top:5px}
+.round-link{border-color:#91a17d;color:#294c3b}.round-link:hover{background:#294c3b;color:#f5eedc}
+.welcome{background:#294c3b;color:#f5eedc}
+.welcome:before,.welcome:after{border-color:#e6d99c38}
+.welcome .eyebrow,.program .eyebrow,.rsvp .eyebrow{color:#d8ca7c}
+.welcome h2{color:#f5eedc}.welcome h2 i{color:#d9ce91}
+.welcome-text{color:#e2e7d6}
+.welcome-stamp{border-color:#d9ce9177;color:#e5d99b}
+.calendar-card{width:min(100%,490px);margin:40px auto 0;padding:24px clamp(18px,4vw,36px) 28px;background:#f5eedc;color:#294c3b;box-shadow:0 16px 35px #122b1d35;text-align:left}
+.calendar-card-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:17px;border-bottom:1px solid #d9ddc9}
+.calendar-card-head>span{font-size:8px;letter-spacing:2px;color:#82916f}
+.calendar-card-head strong{font:600 22px var(--serif);color:#294c3b}
+.calendar-card-head strong i{font-style:normal;color:#b49d3e;padding:0 5px}
+.calendar-weekdays,.calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center}
+.calendar-weekdays{padding:17px 0 9px;color:#8a967a;font-size:8px;letter-spacing:1px}
+.calendar-days{row-gap:4px}
+.calendar-days>span,.calendar-days>strong{aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;font:16px var(--serif);color:#50634e}
+.calendar-days>.empty{visibility:hidden}
+.calendar-days>strong{background:#d8ce83;color:#294c3b;border-radius:50%;font-weight:700}
+.calendar-days>strong span{position:absolute;top:2px;right:7px;font:8px var(--sans);color:#8d7130}
+.welcome .script-note{color:#e1d59a}
+.section-grid{background:#f5eedc}
+.story-copy h2,.dress-copy h2{color:#294c3b}
+.story-copy h2 i,.dress-copy h2 i{color:#879b72}
+.story-copy>p:not(.eyebrow),.dress-copy>p:not(.eyebrow){color:#6d806b}
+.story-photo{box-shadow:-20px 20px 0 #e0e4d2}
+.vertical-caption{color:#879879}
+.program{background:#e8e9d8;color:#263c30}
+.program h2{color:#294c3b}.program h2 i{color:#9a9c58}
+.program-head>p{color:#6e806b}
+.timeline-row:not(:last-child):before{background:#a7b391}
+.timeline-row:after{background:#b4a044;box-shadow:0 0 0 4px #e8e9d8,0 0 0 5px #a7b391}
+.row-time,.row-title{color:#315743}.row-text{color:#71816d}
+.program-photo{box-shadow:18px 18px 0 #d4dcc5}
+.dress{background:#f5eedc}
+.color-swatch{border:1px solid #536c4822;box-shadow:0 5px 15px #294c3b15}
+.swatch-name{color:#687d64}
+.moodboard-photo{box-shadow:20px 20px 0 #e3e3d0}
+.location{background:#294c3b;color:#f5eedc}
+.location .eyebrow{color:#d8ca7c}.location h2{color:#f5eedc}.location h2 i{color:#d8ce91}
+.location-main-title{color:#fff}.location-sub-address{color:#e0e7d8}
+.text-link{color:#f5eedc;border-color:#d8ce91}
+.map-wrapper-premium{background:#e7e8d5;border-color:#f0eddc}
+.map-empty{color:#75846d}
+.rsvp{background:#dfe5d2;color:#263c30}
+.rsvp .eyebrow{color:#6d805f}
+.rsvp h2{color:#294c3b}.rsvp h2 i{font-weight:400;color:#9b9a53}
+.rsvp-heading>p:not(.eyebrow){color:#647861}.rsvp-heading>p strong{color:#294c3b}
+.countdown{border-color:#aab99b}
+.countdown-title{color:#6c8068}
+.timer-digits{color:#294c3b}.countdown-grid span{color:#71816d}
+.rsvp-form-wrap{background:#f7f2e5;box-shadow:0 20px 50px #294c3b16}
+.rsvp-form-intro{border-color:#d9dfcc}
+.rsvp-form-intro span{color:#9b9a53}.rsvp-form-intro b{font-size:9px;letter-spacing:1.8px;color:#294c3b}
+.rsvp-form-intro p{color:#71816d}
+.premium-label{color:#496a4e}
+.premium-input{border-color:#c7d0ba;color:#263c30}.premium-input:focus{border-color:#789477}
+.custom-radio-button,.custom-check-box{background:#fffdf6;border-color:#d9dfcc;color:#71816d}
+.luxury-radio-label input:checked+.custom-radio-button,.luxury-check-label input:checked+.custom-check-box{background:#45694e;border-color:#45694e;color:#fff}
+.premium-submit-btn{background:#294c3b;color:#f8f2e4}.premium-submit-btn:hover{background:#1e3d30}
+#form-status{color:#45694e}
+.premium-success-card{background:#fffdf6;border-color:#d4dfc9}
+.success-heart-wrapper{color:#9b9a53}
+.luxury-success-title{color:#294c3b}.luxury-success-text{color:#71816d}
+.footer{background:#203f31;color:#f5eedc}.footer .script-note{color:#d9ce91}
+.footer-monogram{color:#f5eedc}.footer-monogram i{color:#d9ce91}
+.footer-copy,.back-top{color:#dce3d2}
+#preloader{background:#f5eedc}.loader-monogram{color:#294c3b}.loader-monogram i{color:#a39a55}.loader-monogram+span{color:#75876b}
+@media(max-width:640px){
+ .hero-date-lockup{margin-bottom:23px;padding:11px 14px 11px 10px}
+ .hero-photo{box-shadow:10px 12px 0 #dce1cc}
+ .welcome-stamp{border-color:#d9ce9177}
+ .calendar-card{margin-top:32px;padding:20px 15px 22px}
+ .calendar-days>span,.calendar-days>strong{font-size:15px}
+ .program-photo{box-shadow:10px 12px 0 #d4dcc5}
+ .story-photo{box-shadow:-10px 12px 0 #e0e4d2}
+ .moodboard-photo{box-shadow:10px 12px 0 #e3e3d0}
+ .rsvp{background:#dfe5d2}
+}
