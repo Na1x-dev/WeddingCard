@@ -37,7 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     Object.entries(values).forEach(([selector, value]) => {
       const el = $(selector);
-      if (el) el.textContent = String(value).padStart(selector.includes("days") ? 3 : 2, "0");
+      if (!el) return;
+      const next = String(value).padStart(selector.includes("days") ? 3 : 2, "0");
+      if (el.textContent !== next) {
+        el.textContent = next;
+        el.classList.remove("digit-tick");
+        // Restart the subtle digit-change animation only when the value changes.
+        void el.offsetWidth;
+        el.classList.add("digit-tick");
+      }
     });
   }
   updateCountdown();
