@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const noAlcohol = $("#no-alcohol");
 
   $$('input[name="attend"]').forEach(radio => radio.addEventListener("change", event => {
-    extra?.classList.toggle("hidden", event.target.value !== "Да, с радостью");
+    extra?.classList.toggle("hidden", event.target.value !== "Да, обязательно");
   }));
   noAlcohol?.addEventListener("change", () => {
     if (noAlcohol.checked) alcohol.filter(input => input !== noAlcohol).forEach(input => input.checked = false);
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (status) status.textContent = "Отправляем ваш ответ…";
     const guestName = $("#guest_name").value.trim();
     const attend = $('input[name="attend"]:checked')?.value || "";
-    const selectedDrinks = attend === "Да, с радостью" ? alcohol.filter(input => input.checked).map(input => input.value) : [];
+    const selectedDrinks = attend === "Да, обязательно" ? alcohol.filter(input => input.checked).map(input => input.value) : [];
     const payload = new URLSearchParams({
       guest_name: guestName,
       attend,
@@ -129,8 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (status) status.textContent = "";
       form.classList.add("collapsed");
       const firstName = guestName.split(/\s+/)[0];
-      $("#success-title").textContent = attend === "Да, с радостью" ? firstName + ", до встречи!" : firstName + ", спасибо!";
-      $("#success-text").textContent = attend === "Да, с радостью"
+      $("#success-title").textContent = attend === "Да, обязательно" ? firstName + ", до встречи!" : firstName + ", спасибо!";
+      $("#success-text").textContent = attend === "Да, обязательно"
         ? "Ваш ответ сохранён. Мы счастливы, что вы разделите с нами этот особенный день!"
         : "Нам очень жаль, что вы не сможете приехать. Спасибо, что предупредили нас.";
       success.style.display = "block";
