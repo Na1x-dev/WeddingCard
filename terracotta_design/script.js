@@ -43,40 +43,51 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   window.setInterval(updateCountdown, 1000);
 
-  // Палитра дресс-кода
+  // Палитра дресс-кода: крупные образцы с названием и HEX-кодом
   const paletteGrid = $(".premium-palette-grid");
-  (CONFIG.PALETTE || []).forEach(color => {
+  (CONFIG.PALETTE || []).forEach((color, index) => {
     const node = document.createElement("div");
     node.className = "palette-node";
     const swatch = document.createElement("div");
     swatch.className = "color-swatch";
+    swatch.style.setProperty("--swatch-color", color.hex);
     swatch.style.backgroundColor = color.hex;
-    swatch.title = color.name;
+    swatch.setAttribute("aria-label", color.name);
+    const number = document.createElement("span");
+    number.className = "swatch-number";
+    number.textContent = String(index + 1).padStart(2, "0");
+    swatch.appendChild(number);
     const label = document.createElement("span");
     label.className = "swatch-name";
     label.textContent = color.name;
-    node.append(swatch, label);
+    const hex = document.createElement("small");
+    hex.className = "swatch-hex";
+    hex.textContent = color.hex.toUpperCase();
+    node.append(swatch, label, hex);
     paletteGrid?.appendChild(node);
   });
 
-  // Программа дня
+  // Программа дня: чередующиеся карточки по обе стороны центральной оси
   const timeline = $(".fine-art-timeline");
-  (CONFIG.TIMELINE || []).forEach(item => {
+  (CONFIG.TIMELINE || []).forEach((item, index) => {
     const row = document.createElement("div");
-    row.className = "timeline-row";
+    row.className = "timeline-row " + (index % 2 === 0 ? "timeline-left" : "timeline-right");
+    const card = document.createElement("div");
+    card.className = "timeline-card";
     const time = document.createElement("div");
     time.className = "row-time";
     time.textContent = item.time;
-    const content = document.createElement("div");
-    content.className = "row-content";
     const title = document.createElement("div");
     title.className = "row-title";
     title.textContent = item.title;
     const description = document.createElement("div");
     description.className = "row-text";
     description.textContent = item.text;
-    content.append(title, description);
-    row.append(time, content);
+    const dot = document.createElement("span");
+    dot.className = "timeline-dot";
+    dot.setAttribute("aria-hidden", "true");
+    card.append(time, title, description);
+    row.append(card, dot);
     timeline?.appendChild(row);
   });
 
