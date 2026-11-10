@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f6e9d9">
+  <meta name="theme-color" content="#f5eedc">
   <meta name="description" content="Руслан и Вероника приглашают вас разделить день своей свадьбы — 15 августа 2027 года.">
   <title>Руслан & Вероника — свадебное приглашение</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
         <p class="script-kicker">День, который станет историей</p>
         <p class="hero-overline">ЭЛЕКТРОННОЕ ПРИГЛАШЕНИЕ</p>
         <h1><span class="name-left">Руслан</span><em>&</em><span class="name-right">Вероника</span></h1>
-        <div class="hero-rule"><span></span><span class="hero-date" id="hero-date">15 августа 2027</span><span></span></div>
+        <div class="hero-date-lockup"><span class="date-flower">✳</span><span class="hero-date" id="hero-date">15 августа 2027</span><span class="date-subtitle">ВОСКРЕСЕНЬЕ · НАШ ОСОБЕННЫЙ ДЕНЬ</span></div>
         <p class="hero-intro">С огромной радостью приглашаем вас стать частью самого важного дня в нашей истории.</p>
         <a class="round-link" href="#welcome" aria-label="Листать к приглашению">ЛИСТАТЬ <span>↓</span></a>
       </div>
@@ -45,9 +45,7 @@
         <p class="eyebrow">ДОРОГИЕ РОДНЫЕ И ДРУЗЬЯ</p>
         <h2>Этот день<br><i>мы хотим разделить с вами</i></h2>
         <p class="welcome-text">В нашей жизни начинается новая глава. И мы не представляем этот день без близких людей рядом. Будем счастливы видеть вас на нашей свадьбе!</p>
-        <div class="calendar-line"><span>12</span><span>13</span><span>14</span><strong>15</strong><span>16</span><span>17</span><span>18</span></div>
-        <p class="calendar-month">АВГУСТ <b>·</b> 2027</p>
-        <p class="script-note">Сохраните эту дату</p>
+        <div class="calendar-card"><div class="calendar-card-head"><span>НАША ДАТА</span><strong>08 <i>/</i> 2027</strong></div><div class="calendar-weekdays"><span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>ВС</span></div><div class="calendar-days"><span class="empty"></span><span class="empty"></span><span class="empty"></span><span class="empty"></span><span class="empty"></span><span class="empty"></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><strong aria-label="День свадьбы, 15 августа">15<span>♥</span></strong><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span></div></div><p class="script-note">Отметьте этот день в календаре</p>
       </div>
       <div class="welcome-stamp">SAVE<br>THE<br>DATE</div>
     </section>
@@ -113,9 +111,9 @@
 
     <section class="rsvp full-bleed" id="rsvp">
       <div class="rsvp-heading">
-        <p class="eyebrow">БУДЕМ ЖДАТЬ ВАШ ОТВЕТ</p>
-        <h2>Вы с нами?</h2>
-        <p>Пожалуйста, заполните небольшую анкету до <strong id="rsvp-deadline">...</strong>.</p>
+        <p class="eyebrow">ПОЖАЛУЙСТА, ОТВЕТЬТЕ ДО <strong id="rsvp-deadline">...</strong></p>
+        <h2>Будете<br><i>с нами?</i></h2>
+        <p>Нам важно знать, сможете ли вы разделить этот день с нами. Заполните анкету — это займёт всего пару минут.</p>
         <div class="countdown" id="countdown-section">
           <div class="countdown-title">ДО НАШЕЙ ВСТРЕЧИ ОСТАЛОСЬ</div>
           <div class="countdown-grid">
@@ -127,24 +125,24 @@
         </div>
       </div>
       <div class="rsvp-form-wrap">
-        <div class="rsvp-form-intro"><span>RSVP</span><p>Ваш ответ поможет нам подготовить праздник с заботой о каждом госте.</p></div>
+        <div class="rsvp-form-intro"><span>♥</span><div><b>ПОЖЕЛАНИЯ И ДЕТАЛИ</b><p>Расскажите немного о себе — мы учтём ваши ответы при подготовке праздника.</p></div></div>
         <form class="glass-rsvp-form" id="rsvpForm">
           <div class="premium-input-group"><label for="guest_name" class="premium-label">Ваше имя и фамилия</label><input type="text" id="guest_name" name="guest_name" class="premium-input" placeholder="Например, Анна Иванова" required></div>
-          <div class="premium-input-group"><span class="premium-label">Сможете ли вы быть с нами?</span><div class="luxury-radio-wrapper">
-            <label class="luxury-radio-label"><input type="radio" name="attend" value="Да, с радостью" checked><span class="custom-radio-button">Да, с радостью</span></label>
-            <label class="luxury-radio-label"><input type="radio" name="attend" value="К сожалению, нет"><span class="custom-radio-button">К сожалению, нет</span></label>
+          <div class="premium-input-group"><span class="premium-label">Вы сможете присутствовать на свадьбе?</span><div class="luxury-radio-wrapper">
+            <label class="luxury-radio-label"><input type="radio" name="attend" value="Да, обязательно" checked><span class="custom-radio-button">Да, с радостью</span></label>
+            <label class="luxury-radio-label"><input type="radio" name="attend" value="К сожалению, не получится"><span class="custom-radio-button">К сожалению, нет</span></label>
           </div></div>
           <div id="additional-questions" class="premium-fade-box">
-            <div class="premium-input-group"><span class="premium-label">Что предпочитаете из напитков?</span><div class="luxury-checkbox-grid">
+            <div class="premium-input-group"><span class="premium-label">Какие напитки вам нравятся?</span><div class="luxury-checkbox-grid">
               <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Игристое вино"><span class="custom-check-box">Игристое</span></label>
               <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Белое вино"><span class="custom-check-box">Белое вино</span></label>
               <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Красное вино"><span class="custom-check-box">Красное вино</span></label>
               <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Коктейли"><span class="custom-check-box">Коктейли</span></label>
               <label class="luxury-check-label"><input type="checkbox" name="alcohol" value="Без алкоголя" id="no-alcohol"><span class="custom-check-box">Без алкоголя</span></label>
             </div></div>
-            <div class="premium-input-group"><label for="wishes" class="premium-label">Пожелания к меню / аллергии</label><input type="text" id="wishes" name="wishes" class="premium-input" placeholder="Если есть особенности, напишите здесь"></div>
+            <div class="premium-input-group"><label for="wishes" class="premium-label">Пожелания, особенности питания или аллергии</label><input type="text" id="wishes" name="wishes" class="premium-input" placeholder="Если есть особенности, напишите здесь"></div>
           </div>
-          <button type="submit" class="premium-submit-btn" id="submitBtn">ОТПРАВИТЬ ОТВЕТ <span>↗</span></button>
+          <button type="submit" class="premium-submit-btn" id="submitBtn">ОТПРАВИТЬ АНКЕТУ <span>↗</span></button>
           <div id="form-status" role="status" aria-live="polite"></div>
         </form>
         <div id="form-success-card" class="premium-success-card"><div class="success-heart-wrapper">♥</div><h3 id="success-title"></h3><p id="success-text"></p></div>
