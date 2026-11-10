@@ -219,3 +219,117 @@ body{background:#f5eedc;color:#263c30}
  .moodboard-photo{box-shadow:10px 12px 0 #e3e3d0}
  .rsvp{background:#dfe5d2}
 }
+
+
+/* ── COMPOSITION PASS 02: date, full-bleed calendar, zig-zag timeline, palette ── */
+.hero-date-lockup{
+  display:flex;flex-direction:column;align-items:flex-start;gap:7px;
+  width:max-content;max-width:100%;margin:0 0 28px;padding:0;
+  border:0;background:transparent;box-shadow:none
+}
+.hero-date{display:block;font:600 clamp(15px,1.5vw,19px)/1.1 var(--sans);letter-spacing:2.4px;color:#294c3b;white-space:normal}
+.date-subtitle{display:block;margin:0;font-size:8px;letter-spacing:2px;color:#819271}
+.date-subtitle i{font-style:normal;color:#c3a94e;padding:0 5px}
+.hero h1{margin-bottom:25px}
+.hero-intro{max-width:400px}
+
+/* Calendar: one uninterrupted strip across the viewport */
+.welcome{display:flex;flex-direction:column;align-items:stretch;justify-content:center;padding:clamp(75px,8vw,110px) 0 0}
+.welcome-inner{width:min(760px,calc(100% - 44px));margin:0 auto;padding-bottom:55px}
+.calendar-ribbon{
+  position:relative;width:100%;margin:0;padding:24px clamp(20px,7vw,110px) 28px;
+  background:#f5eedc;color:#294c3b;text-align:left
+}
+.calendar-ribbon-top{display:flex;justify-content:space-between;align-items:center;max-width:1500px;margin:0 auto 17px}
+.calendar-ribbon-top>span{font:700 8px var(--sans);letter-spacing:2.5px;color:#7f9275}
+.calendar-ribbon-top strong{font:600 19px var(--serif);letter-spacing:1.5px;color:#294c3b}
+.calendar-ribbon-top strong i{font-style:normal;color:#a5a04f;margin-left:7px}
+.calendar-strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));max-width:1500px;margin:auto;border-top:1px solid #b9c4a9;border-bottom:1px solid #b9c4a9}
+.calendar-day{position:relative;min-height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border-right:1px solid #dce1d1}
+.calendar-day:last-child{border-right:0}
+.calendar-day small{font:700 8px var(--sans);letter-spacing:1.8px;color:#89977e}
+.calendar-day>span{position:relative;z-index:1;font:400 clamp(27px,3vw,39px)/1 var(--serif);color:#526b50}
+.calendar-day.is-wedding{background:#e9e5ca}
+.calendar-day.is-wedding:before{content:"";position:absolute;width:59px;height:54px;left:50%;top:50%;transform:translate(-50%,-42%);background:#d9c86e;clip-path:path("M29.5 52 C24 46 0 29 0 15 C0 -2 22 -5 29.5 10 C37 -5 59 -2 59 15 C59 29 35 46 29.5 52 Z");}
+.calendar-day.is-wedding small{color:#65784e}
+.calendar-day.is-wedding>span{font-weight:700;color:#294c3b}
+.calendar-day.is-wedding>b{position:absolute;bottom:5px;font-size:9px;color:#8c7c34}
+.welcome .script-note{margin:22px 0 0}
+
+/* Timeline: each event alternates across the central line */
+.program{padding:clamp(75px,9vw,125px) clamp(22px,8vw,130px)}
+.program-head{max-width:1500px;margin:0 auto 60px}
+.program-body{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.7fr);gap:clamp(35px,6vw,90px);align-items:center;max-width:1500px;margin:auto}
+.timeline{position:relative;display:flex;flex-direction:column;width:100%;max-width:none;padding:10px 0;text-align:initial}
+.timeline:before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:#a9b79b;transform:translateX(-50%)}
+.timeline-row{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 42px minmax(0,1fr);gap:0;min-height:132px;padding:0 0 25px;align-items:center}
+.timeline-row:last-child{padding-bottom:0}
+.timeline-row:before{display:none!important}
+.timeline-row:after{display:none!important}
+.timeline-dot{grid-column:2;grid-row:1;justify-self:center;align-self:center;width:12px;height:12px;border-radius:50%;background:#d7c76e;border:3px solid #e8e9d8;box-shadow:0 0 0 1px #8da17e;z-index:1}
+.timeline-card{grid-row:1;max-width:390px;padding:20px 24px;background:#f5eedc;border:1px solid #d6ddc9;box-shadow:0 9px 25px #294c3b0b}
+.timeline-left .timeline-card{grid-column:1;justify-self:end;text-align:right;margin-right:24px}
+.timeline-right .timeline-card{grid-column:3;justify-self:start;text-align:left;margin-left:24px}
+.row-time{font:500 28px/1 var(--serif);color:#9b9850;text-align:inherit;margin-bottom:9px}
+.row-content{padding:0}
+.row-title{font:700 10px var(--sans);letter-spacing:1.8px;color:#315743}
+.row-text{font:12px/1.75 var(--sans);color:#71816d;margin-top:8px}
+.program-photo{height:clamp(360px,42vw,570px);box-shadow:15px 15px 0 #d4dcc5}
+
+/* Dress-code palette is an editorial row of real swatches, not tiny dots */
+.premium-palette-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:32px 0 28px;max-width:600px}
+.palette-node{min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:7px}
+.color-swatch{position:relative;width:100%;height:clamp(72px,9vw,116px);border:0;border-radius:48px 48px 5px 5px;box-shadow:inset 0 0 0 1px #294c3b12,0 5px 14px #294c3b12;overflow:hidden}
+.swatch-number{position:absolute;left:0;right:0;bottom:10px;text-align:center;font:500 9px var(--sans);letter-spacing:1px;color:#fff;text-shadow:0 1px 4px #0005}
+.swatch-name{font:600 9px/1.35 var(--sans);color:#526b50;text-align:center;overflow-wrap:anywhere}
+.swatch-hex{font:8px var(--sans);letter-spacing:1px;color:#929b82;text-align:center}
+.dress-copy h2{max-width:620px}
+.moodboard-photo{box-shadow:16px 16px 0 #e3e3d0}
+
+@media(max-width:900px){
+ .program-body{grid-template-columns:minmax(0,1fr) minmax(220px,.65fr);gap:28px}
+ .timeline-row{grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr);min-height:145px}
+ .timeline-left .timeline-card{margin-right:15px}.timeline-right .timeline-card{margin-left:15px}
+ .timeline-card{padding:17px 14px}
+ .premium-palette-grid{gap:8px}
+}
+@media(max-width:640px){
+ .hero-date-lockup{margin:0 0 24px;gap:6px}
+ .hero-date{font-size:14px;letter-spacing:1.6px}
+ .date-subtitle{font-size:7px;letter-spacing:1px}
+ .welcome{padding-top:70px}
+ .welcome-inner{padding-bottom:38px}
+ .calendar-ribbon{padding:19px 12px 21px}
+ .calendar-ribbon-top{padding:0 5px}
+ .calendar-ribbon-top>span{font-size:7px;letter-spacing:1.5px}
+ .calendar-ribbon-top strong{font-size:16px}
+ .calendar-day{min-height:76px;gap:6px}
+ .calendar-day small{font-size:7px;letter-spacing:1px}
+ .calendar-day>span{font-size:clamp(22px,6vw,30px)}
+ .calendar-day.is-wedding:before{width:47px;height:44px;clip-path:path("M23.5 43 C19 38 0 24 0 13 C0 -1 17 -4 23.5 8 C30 -4 47 -1 47 13 C47 24 28 38 23.5 43 Z")}
+ .program{padding:70px 20px}
+ .program-head{margin-bottom:40px}
+ .program-body{grid-template-columns:1fr;gap:35px}
+ .timeline{padding:0}
+ .timeline:before{left:50%;opacity:.9}
+ .timeline-row{grid-template-columns:minmax(0,1fr) 25px minmax(0,1fr);min-height:128px;padding-bottom:18px}
+ .timeline-card{padding:13px 9px;max-width:none}
+ .timeline-left .timeline-card{margin-right:8px}.timeline-right .timeline-card{margin-left:8px}
+ .row-time{font-size:23px;margin-bottom:7px}
+ .row-title{font-size:8px;letter-spacing:1px}
+ .row-text{font-size:10px;line-height:1.55;margin-top:6px}
+ .timeline-dot{width:10px;height:10px}
+ .program-photo{height:85vw;max-height:430px;width:90%;margin:5px auto 0}
+ .premium-palette-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:25px 0}
+ .color-swatch{height:68px;border-radius:34px 34px 4px 4px}
+ .swatch-name{font-size:8px;line-height:1.25}
+ .swatch-hex{font-size:7px;letter-spacing:.4px}
+}
+@media(max-width:380px){
+ .calendar-ribbon{padding-left:7px;padding-right:7px}
+ .calendar-day{min-height:68px}
+ .calendar-day.is-wedding:before{width:40px;height:38px;clip-path:path("M20 37 C16 32 0 21 0 11 C0 -1 14 -3 20 7 C26 -3 40 -1 40 11 C40 21 24 32 20 37 Z")}
+ .timeline-row{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr)}
+ .timeline-left .timeline-card{margin-right:5px}.timeline-right .timeline-card{margin-left:5px}
+ .row-time{font-size:20px}
+}
